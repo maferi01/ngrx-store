@@ -1,0 +1,43 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortDisableClear [matSortActive]="'position'" multiTemplateDataRows>
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+
+  <ng-container *ngFor="let colInfo of tableInfo.colsInfo" [matColumnDef]="nameCol(colInfo)">
+    <ng-container *ngIf="colInfo.sort; else notsort"
+      ><th mat-header-cell *matHeaderCellDef mat-sort-header>{{ colInfo.header }}</th>
+    </ng-container>
+
+    <ng-template #notsort>
+      <th mat-header-cell *matHeaderCellDef>{{ colInfo.header }}</th>
+    </ng-template>
+    <td mat-cell *matCellDef="let element" [ngSwitch]="colInfo.typeCell">
+      <ng-container *ngSwitchCase="'tpl'" [ngTemplateOutlet]="colInfo.cellRender" [ngTemplateOutletContext]="{ $implicit: element }"></ng-container>
+      <div *ngSwitchCase="'normal'">{{ element[colInfo.name] }}</div>
+      <div *ngSwitchCase="'extended'">Extended:{{ element[colInfo.name] }}</div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    class="example-element-row"
+    [class.example-expanded-row]="expandedElement === row"
+    (click)="expand(row)"
+  ></tr>
+  <ng-container *ngIf="tableInfo.rowDetailTpl">
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="tableInfo.colsInfo.length">
+        <!-- <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"> -->
+          <div class="example-element-detail" *ngIf="element === expandedElement">
+          <ng-container [ngTemplateOutlet]="tableInfo.rowDetailTpl" [ngTemplateOutletContext]="{ $implicit: element }"></ng-container>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </ng-container>
+</table>

@@ -1,0 +1,14 @@
+<p>form works!</p>
+<form [formGroup]="group">
+  <div class="flex">
+    <ng-container *ngTemplateOutlet="templateFields || empty; context: { $implicit: group }"></ng-container>
+  </div>
+  <div *ngIf="group?.errors && (group.dirty || group.touched)" class="error">
+    Form Errors;   
+    <div *ngFor="let err of errors">{{ err }}</div>
+  </div>
+  <button (click)="accept()" [disabled]="!isValid">Aceptar</button>
+  <button (click)="validShow()">Show validations</button>
+
+  <ng-template #empty> Fields empty </ng-template>
+</form>

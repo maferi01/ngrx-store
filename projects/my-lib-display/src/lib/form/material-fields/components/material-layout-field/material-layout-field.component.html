@@ -1,0 +1,5 @@
+<mat-form-field appearance="fill">
+  <mat-label><ng-content select="label"></ng-content></mat-label>
+  <ng-content></ng-content>
+  <mat-error><app-mat-errors [control]="control"></app-mat-errors></mat-error>
+</mat-form-field>

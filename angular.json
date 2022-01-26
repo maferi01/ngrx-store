@@ -105,6 +105,37 @@
           }
         }
       }
+    },
+    "my-lib-display": {
+      "projectType": "library",
+      "root": "projects/my-lib-display",
+      "sourceRoot": "projects/my-lib-display/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/my-lib-display/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/my-lib-display/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/my-lib-display/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/my-lib-display/src/test.ts",
+            "tsConfig": "projects/my-lib-display/tsconfig.spec.json",
+            "karmaConfig": "projects/my-lib-display/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngrx-store"

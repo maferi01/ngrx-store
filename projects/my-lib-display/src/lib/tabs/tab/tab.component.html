@@ -1,0 +1,17 @@
+<p>tab works!</p>
+
+
+<ng-template #refTab let-tpl>
+    <div class="tab">
+     <h3>Tab marcoa {{value}}:</h3>   
+    <ng-container [ngTemplateOutlet]="tpl"></ng-container>
+   </div>
+</ng-template>
+
+
+<ng-template #refTab2 let-tpl>
+    <div class="tab">
+     <h3>Tab marcob {{value}}:</h3>   
+    <ng-container [ngTemplateOutlet]="tpl"></ng-container>
+   </div>
+</ng-template>

@@ -1,0 +1,6 @@
+<ng-container [formGroup]="parentFormGroup" *ngIf="parentFormGroup">
+    <app-layout-field [parentFormGroup]="parentFormGroup"  [labelTop]="labelTop">
+      <label>{{ label }}</label>
+      <input type="number" [formControlName]="name" placeholder="'Insert number...'"  />
+    </app-layout-field>
+  </ng-container>

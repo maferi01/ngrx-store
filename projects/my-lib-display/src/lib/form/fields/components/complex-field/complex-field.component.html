@@ -1,0 +1,20 @@
+<ng-container [formGroup]="parentFormGroup" *ngIf="parentFormGroup">
+  <app-group-field [name]="name">
+    <ng-container [formGroup]="group" *formg="let group">
+      <app-layout-field>
+        <label>{{ label }}</label>
+        <app-text-field [name]="'search'" (onChange)="updateData($event)" [label]="'Search *'" [validations]="validations"></app-text-field>
+        <app-select-field
+          [name]="'listsearch'"
+          [listItems]="dataSelect$ | async"
+          [label]="'Items'"
+          (onChange)="onChange.emit($event)"
+        ></app-select-field>
+      </app-layout-field>
+      <app-layout-field>
+        <label>Aux field:</label>
+        <input type="text" [formControl]="controlAux" placeholder="'Insert ...'"  /> 
+      </app-layout-field>
+    </ng-container>
+  </app-group-field>
+</ng-container>

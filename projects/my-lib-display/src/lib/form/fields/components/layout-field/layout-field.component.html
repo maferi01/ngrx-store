@@ -1,0 +1,7 @@
+<div class="flex" [class.flex-column]="labelTop">
+    <ng-content select="label,mat-label"></ng-content>
+    <ng-content></ng-content>     
+    <div *ngIf="control?.errors && (control.dirty || control.touched)" class="error">
+        <div *ngFor="let err of errors">{{err}}</div>   
+   </div>
+</div>    
