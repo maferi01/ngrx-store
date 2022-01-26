@@ -1,0 +1,128 @@
+<h1>Examples Dialog with components</h1>
+
+<h2>Filter list</h2>
+<app-form (onAccept)="filterList($event)" >
+  <ng-container [formGroup]="group" *formg="let group">
+    <div class="flex flex-row">
+      <app-text-field [name]="'name'" [label]="'Filte by name'" [validations]="validations" MatField></app-text-field>
+      <app-number-field [name]="'position'" [label]="'Filte by position'" ></app-number-field>
+    </div>
+  </ng-container>
+</app-form>
+
+
+<app-table [dataSource]="dataList$ | async" (onSort)="sortData($event)">
+  <table-info>
+    <col-info [name]="'name'" [header]="'Name Tpl'" [typeCell]="'tpl'" [sort]="true">
+      <ng-template CellRender let-row>Tpl:{{ row.name }}</ng-template>
+    </col-info>
+    <col-info [name]="'name'" [header]="'Name Normal'" [sort]="true"> </col-info>
+    <col-info [name]="'name'" [header]="'Name Extend'" [typeCell]="'extended'" [sort]="true"> </col-info>
+    <col-info [name]="'position'" [header]="'Position'" [typeCell]="'tpl'" [sort]="true">
+      <ng-template CellRender let-row>Tpl:{{ row.position }}</ng-template>
+    </col-info>
+    <col-info [name]="'positionkey'" [header]="'Position'" [typeCell]="'tpl'" [sort]="true">
+      <ng-template CellRender let-row>Tpl-key:{{ row.position }}</ng-template>
+    </col-info>
+    <col-info [name]="'position'" [header]="'Position'" [sort]="true"> </col-info>
+    <col-info [name]="'symbol'" [header]="'Symbol'"> </col-info>
+    <col-info [name]="'weight'" [header]="'Weight'" [typeCell]="'extended'" [sort]="true"> </col-info>
+    <ng-template RowDetail let-row>
+      <p>
+        {{row |json}}
+      </p>
+    </ng-template>
+  </table-info>
+</app-table>
+
+<app-tabs>
+  <app-tab [name]="'TAb1'" [value]="val">
+    <ng-template> This is Tab1 ******* </ng-template>
+  </app-tab>
+  <app-tab [name]="'TAb2'" [value]="val">
+    <ng-template> This is Tab2 ******* </ng-template>
+  </app-tab>
+</app-tabs>
+<button (click)="val = 'new val'">chnge val</button>
+
+<app-form (onAccept)="valueForm = $event" [validations]="validationsInOtherGroup('texttest-other', 'text-group-other', null, 'mygroup')">
+  <ng-container [formGroup]="group" *formg="let group">
+    <div class="flex flex-column">
+      <app-text-field [name]="'texttest'" [label]="'text test'"></app-text-field>
+      <app-text-field [name]="'texttest-other'" [label]="'text test other *'" [validations]="validations" MatField></app-text-field>
+      <app-text-field [name]="'text-mat'" [label]="'text material'" [validations]="validations" MatField></app-text-field>
+      <app-group-field [name]="'mygroup'" [columnFields]="true" [validations]="validationsGroup('text-group', 'text-group-other')">
+        <ng-container [formGroup]="group2" *formg="let group2">
+          <app-text-field [name]="'text-group'" [label]="'text group'" [validations]="validations"></app-text-field>
+          <app-text-field [name]="'text-group-other'" [label]="'text group other'" MatField></app-text-field>
+          <app-complex-field
+            [name]="'complexfield'"
+            [label]="'complex field'"
+            (onChange)="valueSelectComplex = $event"
+            class="m-1"
+          ></app-complex-field>
+          <app-complex2-field
+            [name]="'complexfield2'"
+            [label]="'complex field 2'"
+            (onChange)="valueSelectComplex = $event"
+            class="m-1"
+          ></app-complex2-field>
+          <app-text-field [name]="'text-mat'" [label]="'text material'" [validations]="validations" MatField></app-text-field>
+          <app-email-field [name]="'email'" [label]="'Email *'"></app-email-field>
+          <app-group-field
+            [name]="'mygroup2'"
+            class="flex flex-wrap"
+            [validations]="validationsInGroup('text-group-other', 'text-group-other-2', 'text-group-other-3')"
+          >
+            <ng-container [formGroup]="group3" *formg="let group3">
+              <app-text-field [name]="'text-group-other'" [label]="'text test other'" class="w-6"></app-text-field>
+              <app-text-field [name]="'text-group-other-2'" [label]="'text test other 2'" class="w-6"></app-text-field>
+              <app-text-field [name]="'text-group-other-3'" [label]="'text test other 3'" class="w-6"></app-text-field>
+              <app-select-field
+                [name]="'myselect'"
+                [label]="'My select *'"
+                [listItems]="[
+                  { value: '1', desc: 'desc 1' },
+                  { value: '2', desc: 'desc 2' },
+                  { value: '3', desc: 'desc 3' }
+                ]"
+                (onChange)="updateData($event)"
+                [validations]="validations"
+                MatField
+                class="w-6"
+              ></app-select-field>
+              <app-select-field
+                [name]="'myselect2'"
+                [label]="'My select 2 *'"
+                [listItems]="dataSelect$ | async"
+                [value]="'22'"
+                (onChange)="valueSelect = $event"
+                MatField
+                class="w-6"
+              ></app-select-field>
+            </ng-container>
+          </app-group-field>
+        </ng-container>
+      </app-group-field>
+      <app-group-field [name]="'lastgroup'" class="flex flex-wrap">
+        <ng-container [formGroup]="group4" *formg="let group4">
+          <app-text-field [name]="'text-group-last'" [label]="'last '" [value]="'Value last'" class="w-6" [labelTop]="true" MatField></app-text-field>
+          <app-text-field [name]="'text-group-last-2'" [label]="'last 2'" class="w-6" [labelTop]="true" MatField></app-text-field>
+          <div class="w-12 flex justify-content-center">
+            <app-number-field [name]="'number field'" [label]="'Number field'" [value]="10" class="w-6"></app-number-field>
+            <app-text-field [name]="'text-group-last-cent'" [label]="'last 3'" class="w-6" [value]="'center field'"></app-text-field>
+          </div>
+        </ng-container>
+      </app-group-field>
+    </div>
+  </ng-container>
+</app-form>
+
+<h3>Change list:</h3>
+{{ valueSelect | json }}
+
+<h3>Change complex list:</h3>
+{{ valueSelectComplex | json }}
+
+<h3>Value Form</h3>
+{{ valueForm | json }}

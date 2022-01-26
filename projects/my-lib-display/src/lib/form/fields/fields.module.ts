@@ -9,13 +9,13 @@ import { GroupFieldComponent } from './components/group-field/group-field.compon
 import { FieldInsideDirective } from './components/layout-field/field-inside.directive';
 import { LayoutFieldComponent } from './components/layout-field/layout-field.component';
 import { NumberFieldComponent } from './components/number-field/number-field.component';
-import { SelectFieldComponent } from './components/select-field/select-field.component';
+import { Item, SelectFieldComponent } from './components/select-field/select-field.component';
 import { TextFieldComponent } from './components/text-field/text-field.component';
 
 
 export {TextFieldComponent,
   GroupFieldComponent,
-  SelectFieldComponent,
+  SelectFieldComponent,Item,
   ComplexFieldComponent,
   Complex2FieldComponent,
   EmailFieldComponent,

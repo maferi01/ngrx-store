@@ -13,7 +13,7 @@ export {FormgDirective};
     FormComponent, FormgDirective,
 
   ],
-  imports: [CommonModule,BrowserAnimationsModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   exports: [
     ReactiveFormsModule,
     FormComponent,
