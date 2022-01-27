@@ -7,8 +7,8 @@ export * from './lib/my-lib-display.component';
 export * from './lib/my-lib-display.module';
 export * from './lib/form/form.module';
 export * from './lib/form/fields/fields.module';
-export * from './lib/form/material-fields/material-fields.module';
-export * from './lib/table/table.module';
+export * from './lib/material/material-fields/material-fields.module';
+export * from './lib/material/table/table.module';
 export * from './lib/tabs/tabs.module';
 
 

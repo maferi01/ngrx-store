@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { SelectFieldComponent } from 'projects/my-lib-display/src/lib/form/fields/fields.module';
 
-import { SelectFieldComponent } from '../../../fields/components/select-field/select-field.component';
 
 @Component({
   selector: 'app-select-field[MatField]',
