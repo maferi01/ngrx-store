@@ -18,7 +18,7 @@ export class LayoutFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('ngcontrol',this.contrlx);
+    //console.log('ngcontrol',this.contrlx);
     this.control=this.contrlx as any;
   }
   get errors(){

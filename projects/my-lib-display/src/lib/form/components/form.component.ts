@@ -30,7 +30,7 @@ export class FormComponent implements OnInit,AfterContentInit {
   
    ngAfterContentInit(): void {
      this.fields.changes.pipe(
-       tap(() => console.log('fields change ',this.fields)),
+      // tap(() => console.log('fields change ',this.fields)),
        tap(() => this.updateFields())
      ).subscribe();
   }
@@ -38,7 +38,7 @@ export class FormComponent implements OnInit,AfterContentInit {
 
   updateFields(){
     this.fields.forEach(field=>{
-      console.log('field',field.name,field.control);
+     // console.log('field',field.name,field.control);
      //  field.updateField(this.formGroup);
     })
   }  

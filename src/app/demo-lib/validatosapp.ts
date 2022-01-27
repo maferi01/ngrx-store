@@ -35,7 +35,7 @@ export class ValidatorsApp extends Validators {
   static compareFieldsGroup(field1: string, field2: string): ValidatorFn {
     let myFun = (cc: FormGroup): ValidationErrors | null => {
       if(!cc.controls[field1] || !cc.controls[field2]) return null;  
-      console.log('enter compareFieldsGroup')
+    //  console.log('enter compareFieldsGroup')
       if (cc.controls[field1].value === cc.controls[field2].value) {
         return {
             Equal : true 
@@ -52,7 +52,7 @@ export class ValidatorsApp extends Validators {
   static compareFieldsGroupb(field1: string, field2: string): ValidatorFn {
     let myFun = (cc: FormGroup): ValidationErrors | null => {
       if(!cc.controls[field1] || !cc.controls[field2]) return null;  
-      console.log('enter compareFieldsGroup')
+      //console.log('enter compareFieldsGroup')
       if (cc.controls[field1].value === cc.controls[field2].value) {
         return {
             EqualBB : true 

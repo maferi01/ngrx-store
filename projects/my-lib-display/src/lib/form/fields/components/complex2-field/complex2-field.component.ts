@@ -36,7 +36,7 @@ export class Complex2FieldComponent implements OnInit {
     constructor(@Optional() private parentControl: ControlContainer, protected changeDet: ChangeDetectorRef, private formBuilder: FormBuilder) {
       this.group =this.formBuilder.group({}) ;
       this.dataSelect$= this.subject.pipe(
-        tap(values=> console.log('values',values)),
+       // tap(values=> console.log('values',values)),
         map(data=> data.map( d => d as Item)),
         delay(1000)
       ) as Observable<Item[]>;

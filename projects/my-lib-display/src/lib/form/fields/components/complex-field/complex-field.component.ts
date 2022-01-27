@@ -39,7 +39,7 @@ export class ComplexFieldComponent implements OnInit,AfterContentInit,AfterViewI
    
     constructor(@Optional() private parentControl: ControlContainer, protected changeDet: ChangeDetectorRef) {
       this.dataSelect$= this.subject.pipe(
-        tap(values=> console.log('values',values)),
+      //  tap(values=> console.log('values',values)),
         map(data=> data.map( d => d as Item)),
         delay(1000)
       ) as Observable<Item[]>;
