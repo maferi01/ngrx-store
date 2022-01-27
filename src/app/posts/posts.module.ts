@@ -6,6 +6,10 @@ import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { CommentsService } from './services/comments.service';
 import { PostsService } from './services/posts.service';
 import { TableModule } from 'my-lib-display';
+import { StoreModule } from '@ngrx/store';
+import * as fromPosts from './store/reducers/posts.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { PostsEffects } from './store/effects/posts.effects';
 
 
 @NgModule({
@@ -15,7 +19,9 @@ import { TableModule } from 'my-lib-display';
   imports: [
     CommonModule,
     PostsRoutingModule,
-    TableModule
+    TableModule,
+    StoreModule.forFeature(fromPosts.postsFeatureKey, fromPosts.reducer),
+    EffectsModule.forFeature([PostsEffects])
   ],
   providers: [
     PostsService,

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import  * as PostsActions from '../../store/actions/posts.actions';
+import { selectListPosts } from '../../store/selectors/posts.selectors';
 
 @Component({
   selector: 'app-list-posts',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListPostsComponent implements OnInit {
 
-  constructor() { }
+  aux:string;
+  posts$ = this.store.select(selectListPosts);
+
+  constructor( private store: Store) { }
 
   ngOnInit(): void {
+    this.store.dispatch(PostsActions.loadPostss());
+
   }
 
 }

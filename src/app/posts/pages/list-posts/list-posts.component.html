@@ -2,3 +2,18 @@
 
 
 <h2>List Posts</h2>
+
+<app-table [dataSource]="posts$"  >
+    <table-info>
+      <col-info [name]="'author'" [header]="'Author Tpl'" [typeCell]="'tpl'" [sort]="true">
+        <ng-template CellRender let-row>Author:{{ row.author }}</ng-template>
+      </col-info>
+      <col-info [name]="'title'" [header]="'Title'" [sort]="true" [typeCell]="'extended'"> </col-info>
+      <col-info [name]="'id'" [header]="'Id'" > </col-info>
+      <col-info [name]="'title'" [header]="'Title'" [sort]="true"> </col-info>
+      <col-info [name]="'id'" [header]="'Id'" [typeCell]="'extended'"> </col-info>
+     
+      
+    </table-info>
+  </app-table>
+  
