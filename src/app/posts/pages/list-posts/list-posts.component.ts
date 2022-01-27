@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import  * as PostsActions from '../../store/actions/posts.actions';
-import { selectListPosts } from '../../store/selectors/posts.selectors';
+import { selectListPosts, selectLoading } from '../../store/selectors/posts.selectors';
 
 @Component({
   selector: 'app-list-posts',
@@ -12,6 +12,7 @@ export class ListPostsComponent implements OnInit {
 
   aux:string;
   posts$ = this.store.select(selectListPosts);
+  loading$ = this.store.select(selectLoading);
 
   constructor( private store: Store) { }
 

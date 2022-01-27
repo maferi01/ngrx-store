@@ -11,3 +11,9 @@ export const selectListPosts = createSelector(
   selectPostsState,
   (state:fromPosts.State)=> state.posts
 );
+
+
+export const selectLoading = createSelector(
+  selectPostsState,
+  (state:fromPosts.State)=> state.loading
+);

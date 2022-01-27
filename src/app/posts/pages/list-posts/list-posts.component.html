@@ -1,9 +1,10 @@
 <p>list-posts works!</p>
 
 
-<h2>List Posts</h2>
+<h1>List Posts</h1>
 
-<app-table [dataSource]="posts$"  >
+<ng-container *ngIf="!(loading$ | async); else loading">
+<app-table  [dataSource]="posts$ |async"  >
     <table-info>
       <col-info [name]="'author'" [header]="'Author Tpl'" [typeCell]="'tpl'" [sort]="true">
         <ng-template CellRender let-row>Author:{{ row.author }}</ng-template>
@@ -11,9 +12,13 @@
       <col-info [name]="'title'" [header]="'Title'" [sort]="true" [typeCell]="'extended'"> </col-info>
       <col-info [name]="'id'" [header]="'Id'" > </col-info>
       <col-info [name]="'title'" [header]="'Title'" [sort]="true"> </col-info>
-      <col-info [name]="'id'" [header]="'Id'" [typeCell]="'extended'"> </col-info>
-     
-      
+      <col-info [name]="'id'" [header]="'Id'" [typeCell]="'extended'"> </col-info>          
     </table-info>
   </app-table>
+</ng-container>
+
+<ng-template #loading>
+  <lib-spinner></lib-spinner>
+</ng-template>
+
   
