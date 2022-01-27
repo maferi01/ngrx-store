@@ -17,7 +17,7 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(PostsActions.loadPostss, state => ({...state,loading:true})),
+  on(PostsActions.loadPosts, state => ({...state,loading:true})),
   on(PostsActions.loadPostssSuccess, (state, action) => ({...state,posts:[... action.data],loading:false})),
   on(PostsActions.loadPostssFailure, (state, action) => state),
 

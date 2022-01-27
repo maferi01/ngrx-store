@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { FilterPost } from '../../models/models';
 import  * as PostsActions from '../../store/actions/posts.actions';
 import { selectListPosts, selectLoading } from '../../store/selectors/posts.selectors';
 
@@ -17,8 +18,12 @@ export class ListPostsComponent implements OnInit {
   constructor( private store: Store) { }
 
   ngOnInit(): void {
-    this.store.dispatch(PostsActions.loadPostss());
+    this.store.dispatch(PostsActions.loadPosts({}));
 
+  }
+
+  filterList(filter:FilterPost){
+    this.store.dispatch(PostsActions.filterPosts({filter}));    
   }
 
 }

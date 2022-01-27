@@ -13,14 +13,27 @@ export class PostsEffects {
 
   loadPostss$ = createEffect(() => {
     return this.actions$.pipe( 
-
-      ofType(PostsActions.loadPostss),
-      concatMap(() =>
+      ofType(PostsActions.loadPosts),
+      concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        this.postsService.getPosts().pipe(
+        this.postsService.getPosts(action.filterList).pipe(
           map(data => PostsActions.loadPostssSuccess({ data: data.posts })),
           catchError(error => of(PostsActions.loadPostssFailure({ error }))))
       )
+    );
+  });
+
+
+  filterPosts$ = createEffect(() => {
+    return this.actions$.pipe( 
+      ofType(PostsActions.filterPosts),
+      concatMap((action) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        of(null).pipe(
+          map(data => PostsActions.loadPosts({filterList:{
+            filter:action.filter
+          }})),
+          ))      
     );
   });
 
