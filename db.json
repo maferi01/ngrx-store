@@ -1,0 +1,214 @@
+{
+  "tasks": [
+    {
+      "description": "Servicio de prueba",
+      "type": "service",
+      "key": "SERVICE-01",
+      "id": 1
+    },
+    {
+      "description": "Servicio de prueba dos",
+      "type": "service",
+      "key": "SERVICE-02",
+      "id": 2
+    },
+    {
+      "description": "Vacaciones",
+      "type": "service",
+      "key": "VACACIONES",
+      "id": 5
+    },
+    {
+      "description": "Preventa de prueba ",
+      "type": "presale",
+      "key": "PRESALE-01",
+      "id": 3
+    },
+    {
+      "description": "Preventa de prueba dos ",
+      "type": "presale",
+      "key": "PRESALE-02",
+      "id": 4
+    }
+  ],
+  "works": [
+    {
+      "timeSpent": 4,
+      "timeSpentSeconds": 14400,
+      "comment": null,
+      "dateWork": "2020-12-14T12:16:00.000+0000",
+      "taskId": "1",
+      "id": 1
+    },
+    {
+      "timeSpent": 8.5,
+      "timeSpentSeconds": 30600,
+      "comment": null,
+      "dateWork": "2021-01-04T12:16:00.000+0000",
+      "taskId": "5",
+      "id": 2
+    },
+    {
+      "timeSpent": 8.5,
+      "timeSpentSeconds": 30600,
+      "comment": null,
+      "dateWork": "2021-01-05T12:16:00.000+0000",
+      "taskId": "5",
+      "id": 3
+    },
+    {
+      "timeSpent": 8.5,
+      "timeSpentSeconds": 30600,
+      "comment": null,
+      "dateWork": "2021-01-06T12:16:00.000+0000",
+      "taskId": "5",
+      "id": 4
+    },
+    {
+      "timeSpent": 8.5,
+      "timeSpentSeconds": 30600,
+      "comment": null,
+      "dateWork": "2021-01-07T12:16:00.000+0000",
+      "taskId": "5",
+      "id": 5
+    },
+    {
+      "timeSpent": 7,
+      "timeSpentSeconds": 25200,
+      "comment": null,
+      "dateWork": "2021-01-08T12:16:00.000+0000",
+      "taskId": "5",
+      "id": 6
+    },
+    {
+      "timeSpent": 4,
+      "timeSpentSeconds": 14400,
+      "comment": null,
+      "dateWork": "2021-01-26T12:16:00.000+0000",
+      "taskId": "1",
+      "id": 7
+    },
+    {
+      "timeSpent": 1,
+      "timeSpentSeconds": 3600,
+      "comment": null,
+      "dateWork": "2021-01-27T12:16:00.000+0000",
+      "taskId": "1",
+      "id": 8
+    }
+  ],
+  "posts": [
+    {
+      "author": "bb",
+      "title": "bbb",
+      "id": 13
+    },
+    {
+      "author": "777",
+      "title": "777",
+      "id": 26
+    },
+    {
+      "author": "ddd",
+      "title": "dddd",
+      "id": 32
+    },
+    {
+      "author": "aa",
+      "title": "aaa",
+      "id": 49
+    },
+    {
+      "author": "impar",
+      "title": "aa",
+      "id": 50
+    },
+    {
+      "author": "bbb",
+      "title": "bbb",
+      "id": 51
+    },
+    {
+      "author": "bbb",
+      "title": "bbb",
+      "id": 52
+    },
+    {
+      "author": "bbb",
+      "title": "bb",
+      "id": 53
+    },
+    {
+      "author": "bbbb",
+      "title": "bbb",
+      "id": 54
+    },
+    {
+      "author": "ssss",
+      "title": "ss",
+      "id": 56
+    },
+    {
+      "author": "ff",
+      "title": "ffffffchang",
+      "id": 57
+    },
+    {
+      "author": "Miriam",
+      "title": "new***sii",
+      "id": 59
+    }
+  ],
+  "comments": [
+    {
+      "author": "Hector",
+      "comment": "comment de Hector ",
+      "id": 3
+    },
+    {
+      "author": "Miriam",
+      "comment": "cccc",
+      "id": 4
+    },
+    {
+      "author": "111",
+      "comment": "111111",
+      "id": 5
+    },
+    {
+      "author": "222",
+      "comment": "222222",
+      "id": 6
+    },
+    {
+      "author": "33",
+      "comment": "333333-----",
+      "id": 7
+    },
+    {
+      "author": "444",
+      "comment": "4444",
+      "id": 8
+    },
+    {
+      "author": "555555",
+      "comment": "555",
+      "id": 9
+    },
+    {
+      "author": "6666",
+      "comment": "66",
+      "id": 10
+    },
+    {
+      "author": "77***",
+      "comment": "7777",
+      "id": 11
+    },
+    {
+      "author": "88",
+      "comment": "888",
+      "id": 12
+    }
+  ]
+}

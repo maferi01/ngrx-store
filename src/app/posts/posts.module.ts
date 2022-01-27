@@ -5,6 +5,7 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { CommentsService } from './services/comments.service';
 import { PostsService } from './services/posts.service';
+import { TableModule } from 'my-lib-display';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { PostsService } from './services/posts.service';
   ],
   imports: [
     CommonModule,
-    PostsRoutingModule
+    PostsRoutingModule,
+    TableModule
   ],
   providers: [
     PostsService,

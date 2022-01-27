@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lib-display:build": "ng build my-lib-display",
-    "lib-display:build:watch": "ng build my-lib-display --watch"
+    "lib-display:build:watch": "ng build my-lib-display --watch",
+    "server:mock": "mock-server --path ./mocks --proxy http://localhost:5000",
+    "client:mock": "mock-client 3000 localhost 8083",
+    "server:json": "json-server --watch db.json --port 5000  --delay 600"
   },
   "private": true,
   "dependencies": {
