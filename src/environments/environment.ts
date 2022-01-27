@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlHostApi: 'http://localhost:3000',
+  urlHostCalendarApi: 'http://localhost:8000',
+  pathMonthDays:'month/formatbydays',
+  pathIssues:'issue',
+  pathWork:'month/work',
+  pathWorkTask:'month/work/task',
+  pathHollidays:'hollidays',
+  pathContents: '/confluence/content/search',
+  pathContent: '/confluence/content',
+  urlApiLogin: '/login',
 };
 
 /*
