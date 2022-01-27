@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, concatMap, combineLatestWith } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 
 import * as PostsActions from '../actions/posts.actions';
 import { PostsService } from '../../services/posts.service';
+import { Store } from '@ngrx/store';
+import { selectFilterList } from '../selectors/posts.selectors';
 
 
 
@@ -17,9 +19,23 @@ export class PostsEffects {
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         this.postsService.getPosts(action.filterList).pipe(
-          map(data => PostsActions.loadPostssSuccess({ data: data.posts })),
+          map(data => PostsActions.loadPostssSuccess({ data: data.posts, filterList: action.filterList })),
           catchError(error => of(PostsActions.loadPostssFailure({ error }))))
       )
+    );
+  });
+
+  loadInitPosts$ = createEffect(() => {
+    return this.actions$.pipe( 
+      ofType(PostsActions.loadInitPosts),
+      concatMap((action) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        of(action).pipe(
+          concatLatestFrom(action=>this.store.select(selectFilterList)),
+          map(([action,filterList]) => PostsActions.loadPosts({filterList:{
+            ...filterList
+          }})),
+          ))      
     );
   });
 
@@ -29,8 +45,10 @@ export class PostsEffects {
       ofType(PostsActions.filterPosts),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        of(null).pipe(
-          map(data => PostsActions.loadPosts({filterList:{
+        of(action).pipe(
+          concatLatestFrom(action=>this.store.select(selectFilterList)),
+          map(([action,filterList]) => PostsActions.loadPosts({filterList:{
+            ...filterList,
             filter:action.filter
           }})),
           ))      
@@ -39,6 +57,10 @@ export class PostsEffects {
 
 
 
-  constructor(private actions$: Actions, private postsService:PostsService ) {}
+  constructor(private actions$: Actions,private store:Store, private postsService:PostsService ) {}
 
 }
+function combineLatestFrom(arg0: (action: any) => Observable<import("../../../services/models/filter.model").FilterList<import("../../models/models").FilterPost>>): import("rxjs").OperatorFunction<{ filter: import("../../models/models").FilterPost; } & import("@ngrx/store/src/models").TypedAction<"[Posts] Filter Posts">, unknown> {
+  throw new Error('Function not implemented.');
+}
+

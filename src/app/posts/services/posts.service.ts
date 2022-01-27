@@ -20,10 +20,10 @@ export class PostsService extends AbstractEntityService<Post> {
   getPosts(filterList?: FilterList<FilterPost>): Observable<IResponsePosts> {
     
     return this.getEntities(filterList, (params) => {
-      if (filterList.filter && filterList.filter.author) {
+      if (filterList?.filter?.author) {
         params = params.append('author_like', filterList.filter.author);
       }
-      if (filterList.filter && filterList.filter.title) {
+      if (filterList?.filter?.title) {
         params = params.append('title_like', filterList.filter.title);
       }
       return params;

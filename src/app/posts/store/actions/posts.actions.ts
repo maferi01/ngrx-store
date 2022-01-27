@@ -8,7 +8,7 @@ export const loadInitPosts = createAction(
 
 export const loadPostssSuccess = createAction(
   '[Posts] Load Postss Success',
-  props<{ data: Post[] }>()
+  props<{ data: Post[], filterList?: FilterList<FilterPost> }>()
 );
 
 export const loadPostssFailure = createAction(

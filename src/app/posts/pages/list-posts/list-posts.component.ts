@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FilterPost } from '../../models/models';
 import  * as PostsActions from '../../store/actions/posts.actions';
-import { selectListPosts, selectLoading } from '../../store/selectors/posts.selectors';
+import { selectFilter, selectListPosts, selectLoading } from '../../store/selectors/posts.selectors';
 
 @Component({
   selector: 'app-list-posts',
@@ -14,11 +14,12 @@ export class ListPostsComponent implements OnInit {
   aux:string;
   posts$ = this.store.select(selectListPosts);
   loading$ = this.store.select(selectLoading);
+  filter$ = this.store.select(selectFilter);
 
   constructor( private store: Store) { }
 
   ngOnInit(): void {
-    this.store.dispatch(PostsActions.loadPosts({}));
+    this.store.dispatch(PostsActions.loadInitPosts());
 
   }
 
