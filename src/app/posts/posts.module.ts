@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { PostsRoutingModule } from './posts-routing.module';
-import { ListPostsComponent } from './pages/list-posts/list-posts.component';
-import { CommentsService } from './services/comments.service';
-import { PostsService } from './services/posts.service';
-import { FieldsModule, FormModule, MaterialFieldsModule, SpinnerModule, TableModule } from 'my-lib-display';
-import { StoreModule } from '@ngrx/store';
-import * as fromPosts from './store/reducers/posts.reducer';
+import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
+import { ListPostsComponent } from './pages/list-posts/list-posts.component';
+import { PostsRoutingModule } from './posts-routing.module';
+import { PostsService } from './services/posts.service';
 import { PostsEffects } from './store/effects/posts.effects';
+import * as fromPosts from './store/reducers/posts.reducer';
+
 
 
 @NgModule({
@@ -24,12 +23,13 @@ import { PostsEffects } from './store/effects/posts.effects';
     MaterialFieldsModule,
     TableModule,
     SpinnerModule,
+    PaginatorModule,
     StoreModule.forFeature(fromPosts.postsFeatureKey, fromPosts.reducer),
     EffectsModule.forFeature([PostsEffects])
   ],
   providers: [
     PostsService,
-    CommentsService    
+
   ],
 })
 export class PostsModule { }

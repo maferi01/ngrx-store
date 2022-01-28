@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { TypeEventPagination } from 'my-lib-display';
 import { FilterPost } from '../../models/models';
 import  * as PostsActions from '../../store/actions/posts.actions';
 import { selectFilter, selectListPosts, selectLoading } from '../../store/selectors/posts.selectors';
@@ -25,6 +26,10 @@ export class ListPostsComponent implements OnInit {
 
   filterList(filter:FilterPost){
     this.store.dispatch(PostsActions.filterPosts({filter}));    
+  }
+
+  paginate(typeEventPagination:TypeEventPagination){
+    this.store.dispatch(PostsActions.paginationPosts({typeEventPagination}));    
   }
 
 }

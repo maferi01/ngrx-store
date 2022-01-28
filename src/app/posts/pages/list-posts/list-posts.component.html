@@ -11,7 +11,8 @@
     </div>
   </ng-container>
 </app-form>
-
+<app-paginator (typeEvent)="paginate($event)"></app-paginator> 
+ 
 <ng-container *ngIf="!(loading$ | async); else loading">
 <app-table  [dataSource]="posts$ |async"  >
     <table-info>
@@ -23,7 +24,7 @@
       <col-info [name]="'title'" [header]="'Title'" [sort]="true"> </col-info>
       <col-info [name]="'id'" [header]="'Id'" [typeCell]="'extended'"> </col-info>          
     </table-info>
-  </app-table>
+  </app-table>  
 </ng-container>
 
 <ng-template #loading>

@@ -61,12 +61,21 @@ export interface SortInfo {
   direction: 'asc' | 'desc' | '';
 }
 
+export interface PageRequest {
+  requestLink:string;
+  pageIndex?: number;
+  /** The current page size */
+  pageSize?: number;     
+}
+
+
+
 export interface ResultList<E> {
   rows: E[];
   pageInfo: PageInfo;
 }
 
-export interface FilterList<F = any> {
+export interface FilterListInfo<F = any> {
   filter?: F;
   order?: SortInfo;
   page?: PageInfo;
@@ -78,7 +87,7 @@ export interface StateListFilter<D,E=any> {
   ui: {
     expandFilter?: boolean;
   };
-  filterList: FilterList;
+  filterList: FilterListInfo;
   selectionRows?:E[];
   extraData: D;
 }
