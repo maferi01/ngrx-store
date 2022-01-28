@@ -41,6 +41,21 @@ export class PostsEffects {
     );
   });
 
+  sortPosts$ = createEffect(() => {
+    return this.actions$.pipe( 
+      ofType(PostsActions.sortPosts),
+      concatMap((action) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        of(action).pipe(
+          concatLatestFrom(action=>this.store.select(selectFilterListRequest)),
+          map(([action,filterList]) => PostsActions.loadPosts({
+            ...filterList,
+            sortInfo:action.sortInfo
+          })),
+          ))      
+    );
+  });
+
 
   filterPosts$ = createEffect(() => {
     return this.actions$.pipe( 
@@ -100,8 +115,5 @@ export class PostsEffects {
 
   constructor(private actions$: Actions,private store:Store, private postsService:PostsService ) {}
 
-}
-function combineLatestFrom(arg0: (action: any) => Observable<import("../../../services/models/filter.model").FilterListInfo<import("../../models/models").FilterPost>>): import("rxjs").OperatorFunction<{ filter: import("../../models/models").FilterPost; } & import("@ngrx/store/src/models").TypedAction<"[Posts] Filter Posts">, unknown> {
-  throw new Error('Function not implemented.');
 }
 

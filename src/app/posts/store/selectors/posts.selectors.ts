@@ -28,7 +28,7 @@ export const selectFilterListRequest = createSelector(
   (state:FilterListInfo)=> (
     {
       pageRequest: {
-        requestLink: state?.page?.requestLink,
+        requestLink: undefined as any,
         pageIndex: state?.page?.pageIndex,
         pageSize: state?.page?.pageSize
       },
@@ -56,4 +56,9 @@ export const selectLinksStatus = createSelector(
 export const selectFilter = createSelector(
   selectFilterListInfo,
   (filterList:FilterListInfo)=> filterList?.filter
+);
+
+export const selectSort = createSelector(
+  selectFilterListInfo,
+  (filterList:FilterListInfo)=> ({...filterList.order})
 );

@@ -17,15 +17,15 @@
   (typeEvent)="paginate($event)" *ngIf="linksStatus$ | async as linksStatus"></app-paginator>
 
 <ng-container *ngIf="!(loading$ | async); else loading">
-  <app-table [dataSource]="posts$ |async">
+  <app-table [dataSource]="posts$ |async" (onSort)="sortData($event)" [sortCurrent]="sort$ | async">
     <table-info>
       <col-info [name]="'author'" [header]="'Author Tpl'" [typeCell]="'tpl'" [sort]="true">
         <ng-template CellRender let-row>Author:{{ row.author }}</ng-template>
       </col-info>
       <col-info [name]="'title'" [header]="'Title'" [sort]="true" [typeCell]="'extended'"> </col-info>
-      <col-info [name]="'id'" [header]="'Id'"> </col-info>
+      <col-info [name]="'id'" [header]="'Id'" [sort]="true"> </col-info>
       <col-info [name]="'title'" [header]="'Title'" [sort]="true"> </col-info>
-      <col-info [name]="'id'" [header]="'Id'" [typeCell]="'extended'"> </col-info>
+      <!-- <col-info [name]="'id'" [header]="'Id'" [typeCell]="'extended'"> </col-info> -->
     </table-info>
   </app-table>
 </ng-container>

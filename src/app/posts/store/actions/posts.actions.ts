@@ -31,3 +31,8 @@ export const paginationPosts = createAction(
   '[Posts] Pagination Posts',
   props<{typeEventPagination :TypeEventPagination}>()
 );
+
+export const sortPosts = createAction(
+  '[Posts] Sort Posts',
+  props<{sortInfo: SortInfo}>()
+);

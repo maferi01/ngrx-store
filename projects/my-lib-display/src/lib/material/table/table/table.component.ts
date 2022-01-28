@@ -25,6 +25,8 @@ export class TableComponent implements OnInit {
   msort!: MatSort;
   @Output()
   onSort = new EventEmitter<Sort>();
+  @Input()
+  sortCurrent:Sort;
   @ViewChild(MatSort)
   set matSort(matSort: MatSort) {
     this.msort = matSort;
@@ -33,7 +35,8 @@ export class TableComponent implements OnInit {
     this.onSort.emit({
      direction:s.direction,
      active: this.tableInfo.colsInfo.find(c=> this.nameCol(c)===s.active)?.name as string
-    })});    
+    })
+  });    
   }
   expandedElement:any;
   constructor(private detect:ChangeDetectorRef) {}
@@ -48,6 +51,11 @@ export class TableComponent implements OnInit {
     return `${inf.name}-${inf.typeCell}`;
   }
 
+  nameColFromInfo(name:string):string{
+    if(!name) return ''
+    return this.nameCol(this.tableInfo.colsInfo.find(c=> c.name===name))
+    
+  }
   expand(row:any){
     this.expandedElement=row;
   
