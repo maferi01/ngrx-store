@@ -34,6 +34,7 @@ export const reducer = createReducer(
     page : {
       pageIndex: action.pageRequest.pageIndex,
       pageSize: action.pageRequest.pageSize,
+      requestLink: action.pageRequest.requestLink,
       linkInfo: {
         linkFisrt: getUrlLink(action.link, 'first'),
         linkNext: getUrlLink(action.link, 'next'),

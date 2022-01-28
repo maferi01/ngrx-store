@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
 import { FilterPost } from '../../models/models';
 import  * as PostsActions from '../../store/actions/posts.actions';
-import { selectFilter, selectListPosts, selectLoading } from '../../store/selectors/posts.selectors';
+import { selectFilter, selectLinksStatus, selectListPosts, selectLoading } from '../../store/selectors/posts.selectors';
 
 @Component({
   selector: 'app-list-posts',
@@ -16,6 +16,7 @@ export class ListPostsComponent implements OnInit {
   posts$ = this.store.select(selectListPosts);
   loading$ = this.store.select(selectLoading);
   filter$ = this.store.select(selectFilter);
+  linksStatus$ = this.store.select(selectLinksStatus);
 
   constructor( private store: Store) { }
 

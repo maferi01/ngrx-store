@@ -45,7 +45,7 @@ export interface PageInfo {
 }
 
 export interface PageInfo {
-  requestLink?: 'first' | 'last' | 'prev' | 'next';
+  requestLink?: string;
   linkInfo?: {
     linkNext: string;
     linkPrev: string;
