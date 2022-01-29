@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
@@ -40,4 +41,7 @@ export class ListPostsComponent implements OnInit {
     
   }
 
+  get validations(){
+    return [Validators.required]
+  }
 }

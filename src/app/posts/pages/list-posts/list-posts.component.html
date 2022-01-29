@@ -6,7 +6,7 @@
 <app-form (onAccept)="filterList($event)">
   <ng-container [formGroup]="group" *formg="let group">
     <div class="flex flex-row">
-      <app-text-field [name]="'title'" [label]="'Filter by title'" [value]="(filter$ | async)?.title" MatField>
+      <app-text-field [name]="'title'" [label]="'Filter by title'" [value]="(filter$ | async)?.title" MatField [validations]="validations">
       </app-text-field>
       <app-text-field [name]="'author'" [label]="'Filter by author'" [value]="(filter$ | async)?.author" MatField>
       </app-text-field>
