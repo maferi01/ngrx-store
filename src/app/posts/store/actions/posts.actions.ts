@@ -1,6 +1,6 @@
 import { Action, createAction, props } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
-import { FilterListInfo, PageRequest, SortInfo } from 'src/app/services/models/filter.model';
+import { FilterListInfo, LoadInfo, PageRequest, SortInfo } from 'src/app/services/models/filter.model';
 import { FilterPost, Post } from '../../models/models';
 
 
@@ -22,7 +22,7 @@ export const loadPostssFailure = createAction(
 
 export const loadPosts = createAction(
   '[Posts] Load Postss', 
-  (data:{filter:FilterPost,sortInfo:SortInfo,pageRequest:PageRequest})=>({...data,SHOW_LOADING: 'SHOW_LOADING'})  
+  (data:LoadInfo<FilterPost>)=>({...data,SHOW_LOADING: 'SHOW_LOADING'})  
 )
 
 

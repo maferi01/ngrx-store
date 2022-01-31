@@ -91,3 +91,10 @@ export interface StateListFilter<D,E=any> {
   selectionRows?:E[];
   extraData: D;
 }
+
+export type IResponseData<T=any> = { link: string; data: T[] };
+
+export interface LoadInfo<T=any>{
+  filter:T,
+  sortInfo:SortInfo,
+  pageRequest:PageRequest}

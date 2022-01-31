@@ -5,7 +5,7 @@ import { NameLog } from 'src/app/services/utils/logger';
 import { NamesLog } from 'src/app/services/utils/names-classes';
 import { environment } from 'src/environments/environment';
 import { AbstractEntityService } from '../../services/base/abstract.entity.service';
-import { PageRequest, SortInfo } from '../../services/models/filter.model';
+import { IResponseData, PageRequest, SortInfo } from '../../services/models/filter.model';
 import { Comment, FilterComment, IResponseComments } from '../models/comment';
 
 
@@ -16,7 +16,7 @@ export class CommentsService extends AbstractEntityService<Comment> {
     super(injector, environment.urlHostApi, '/comments');
   }
 
-  getComments(filterComment:FilterComment,sortInfo:SortInfo,pageRequest:PageRequest): Observable<IResponseComments> {
+  getComments(filterComment:FilterComment,sortInfo:SortInfo,pageRequest:PageRequest): Observable<IResponseData<Comment>> {
     
     return this.getEntities(sortInfo,pageRequest, (params) => {
       if (filterComment?.author) {
@@ -26,6 +26,6 @@ export class CommentsService extends AbstractEntityService<Comment> {
         params = params.append('comment_like', filterComment.comment);
       }
       return params;
-    }).pipe(map((resp) => ({ link: resp.headers.get('link'), data: resp.body } as IResponseComments)));
+    }).pipe(map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
   }
 }

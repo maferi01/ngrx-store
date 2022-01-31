@@ -4,22 +4,22 @@ import { createEffect, ofType, concatLatestFrom, Actions } from "@ngrx/effects";
 import { concatMap, of, map, catchError, Observable } from "rxjs";
 import { Action, Store } from "@ngrx/store";
 import { TypeEventPagination } from "my-lib-display";
-import { PageInfo, PageRequest, SortInfo } from "../models/filter.model";
+import { IResponseData, LoadInfo, PageInfo, PageRequest, SortInfo } from "../models/filter.model";
 
 @Injectable()
 export abstract class AbstractNgRxService extends AbstractApp implements OnDestroy{
   protected store:Store;
   protected actions$: Actions;
 
-  createEffectLoad=(actionLoad:any,actionLoadSuccess:any,actionLoadFailiure:any,fn:(filter:any,sortInfo:SortInfo,pageRequest:PageRequest)=>Observable<any>)=>createEffect(() => {
+  createEffectLoad=(actionLoad:any,actionLoadSuccess:any,actionLoadFailiure:any,fn:(loadInfo:LoadInfo)=>Observable<IResponseData>)=>createEffect(() => {
     return this.actions$.pipe( 
       ofType(actionLoad),
-      concatMap((action) =>
+      concatMap((action:LoadInfo<any>) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         //this.postsService.getPosts(action.filterPost,action.sortInfo,action.pageRequest)
-        fn(action.filter,action.sortInfo,action.pageRequest)
+        fn(action)
         .pipe(
-          map(data => actionLoadSuccess({data: data.data,link:data.link,filter: action.filter,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
+          map((data:IResponseData) => actionLoadSuccess({data: data.data,link:data.link,filter: action.filter,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
           catchError(error => of(actionLoadFailiure({ error }))))
       )
     );
