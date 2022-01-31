@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
-import { setDelay } from '../../../components/utils';
+import { setDelay } from '../../../form/components/utils';
 
 @Component({
   selector: 'app-group-field',

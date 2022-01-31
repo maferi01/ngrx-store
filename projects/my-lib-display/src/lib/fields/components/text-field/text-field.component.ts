@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormField } from '../../../components/form-field.directive';
+import { FormField } from '../../../form/components/form-field.directive';
 
 @Component({
   //selector: 'app-text-field:not([MatField]):not([formg])', // for more exceptions 

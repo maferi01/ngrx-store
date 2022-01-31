@@ -2,9 +2,8 @@ import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetecto
 import { ControlContainer, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
-import { DataSelect, createData } from '../../form/fields/components/data';
-import { GroupFieldComponent } from '../../form/fields/components/group-field/group-field.component';
-import { Item } from '../../form/fields/components/select-field/select-field.component';
+import { DataSelect, createData } from '../../fields/components/data';
+import { GroupFieldComponent, Item } from '../../fields/fields.module';
 
 
 
