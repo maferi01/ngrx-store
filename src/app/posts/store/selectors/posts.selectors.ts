@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { FilterListInfo } from 'src/app/services/models/filter.model';
 import * as fromPosts from '../reducers/posts.reducer';
 import * as fromIndex from '../reducers';
+import { StateList } from 'src/app/services/base/reducer.list';
 
 
 export const selectPostsStateAll = createFeatureSelector<fromIndex.AppState>(
@@ -16,18 +17,18 @@ export const selectPostsState = createSelector(
 
 export const selectListPosts = createSelector(
   selectPostsState,
-  (state:fromPosts.State)=> state.posts
+  (state:StateList)=> state.data
 );
 
 
 export const selectLoading = createSelector(
   selectPostsState,
-  (state:fromPosts.State)=> state.loading
+  (state:StateList)=> state.loading
 );
 
 export const selectFilterListInfo = createSelector(
   selectPostsState,
-  (state:fromPosts.State)=> state.filterListInfo
+  (state:StateList)=> state.filterListInfo
 );
 
 export const selectFilterListRequest = createSelector(

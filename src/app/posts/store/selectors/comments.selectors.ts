@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { StateList } from 'src/app/services/base/reducer.list';
 import { FilterListInfo } from 'src/app/services/models/filter.model';
-import * as fromComments from '../reducers/comments.reducer';
 import * as fromIndex from '../reducers';
 
 
@@ -16,18 +16,18 @@ export const selectCommentsState = createSelector(
 
 export const selectListComments = createSelector(
   selectCommentsState,
-  (state:fromComments.State)=> state.comments
+  (state:StateList)=> state.data
 );
 
 
 export const selectLoading = createSelector(
   selectCommentsState,
-  (state:fromComments.State)=> state.loading
+  (state:StateList)=> state.loading
 );
 
 export const selectFilterListInfo = createSelector(
   selectCommentsState,
-  (state:fromComments.State)=> state.filterListInfo
+  (state:StateList)=> state.filterListInfo
 );
 
 export const selectFilterListRequest = createSelector(
