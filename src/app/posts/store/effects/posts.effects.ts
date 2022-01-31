@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, combineLatestWith } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
-
-import * as PostsActions from '../actions/posts.actions';
-import { PostsService } from '../../services/posts.service';
-import { ActionCreator, Store } from '@ngrx/store';
-import { selectFilterListInfo, selectFilterListRequest } from '../selectors/posts.selectors';
-import { FilterListInfo, PageInfo, PageRequest, SortInfo } from '../../../services/models/filter.model';
-import { TypeEventPagination } from 'my-lib-display';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { AbstractNgRxService } from 'src/app/services/base/abstractNgRx.service';
+import { PageRequest, SortInfo } from '../../../services/models/filter.model';
+import { PostsService } from '../../services/posts.service';
+import * as PostsActions from '../actions/posts.actions';
+import { selectFilterListInfo, selectFilterListRequest } from '../selectors/posts.selectors';
+
 
 
 

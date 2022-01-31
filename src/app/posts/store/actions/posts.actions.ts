@@ -12,7 +12,7 @@ export const loadInitPosts = createAction(
 
 export const loadPostssSuccess = createAction(
   '[Posts] Load Postss Success',
-  props<{ data: Post[],link:string,filterPost:FilterPost,sortInfo:SortInfo,pageRequest:PageRequest }>()
+  props<{ data: Post[],link:string,filter:FilterPost,sortInfo:SortInfo,pageRequest:PageRequest }>()
 );
 
 export const loadPostssFailure = createAction(
@@ -22,16 +22,8 @@ export const loadPostssFailure = createAction(
 
 export const loadPosts = createAction(
   '[Posts] Load Postss', 
-  (data:{filterPost:FilterPost,sortInfo:SortInfo,pageRequest:PageRequest})=>({...data,SHOW_LOADING: 'SHOW_LOADING'})  
+  (data:{filter:FilterPost,sortInfo:SortInfo,pageRequest:PageRequest})=>({...data,SHOW_LOADING: 'SHOW_LOADING'})  
 )
-
-// export const LOAD_POST='[Posts] Load Posts'
-
-//   export class loadPostsx implements Action {
-//     readonly type = LOAD_POST;
-  
-//     constructor(public pfilterPost:FilterPost,public sortInfo:SortInfo, public pageRequest:PageRequest) {}
-//   }
 
 
 

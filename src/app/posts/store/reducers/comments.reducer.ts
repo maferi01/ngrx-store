@@ -1,19 +1,19 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { FilterListInfo } from 'src/app/services/models/filter.model';
-import { FilterPost, Post } from '../../models/models';
-import * as PostsActions from '../actions/posts.actions';
+import { Comment, FilterComment } from '../../models/comment';
+import * as CommentsActions from '../actions/comments.actions';
 
 export const postsFeatureKey = 'posts';
 
 export interface State {
-  posts: Post[];
+  comments: Comment[];
   loading:boolean;
-  filterListInfo:FilterListInfo<FilterPost>;
+  filterListInfo:FilterListInfo<FilterComment>;
 }
 
 
 export const initialState: State = {
-  posts: [],
+  comments: [],
   loading:false,
   filterListInfo: {
     page: {
@@ -27,8 +27,8 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(PostsActions.loadPosts, state => ({...state,loading:true})),
-  on(PostsActions.loadPostssSuccess, (state, action) => ({...state,posts:[... action.data],filterListInfo:{
+  on(CommentsActions.loadComments, state => ({...state,loading:true})),
+  on(CommentsActions.loadCommentssSuccess, (state, action) => ({...state,comments:[... action.data],filterListInfo:{
     filter: action.filter,
     order: action.sortInfo,
     page : {
@@ -43,7 +43,7 @@ export const reducer = createReducer(
       }
     }
   },loading:false})),
-  on(PostsActions.loadPostssFailure, (state, action) => state),
+  on(CommentsActions.loadCommentssFailure, (state, action) => state),
 
 );
 

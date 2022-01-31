@@ -1,33 +1,33 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { FilterListInfo } from 'src/app/services/models/filter.model';
-import * as fromPosts from '../reducers/posts.reducer';
+import * as fromComments from '../reducers/comments.reducer';
 import * as fromIndex from '../reducers';
 
 
-export const selectPostsStateAll = createFeatureSelector<fromIndex.AppState>(
+export const selectCommentsStateAll = createFeatureSelector<fromIndex.AppState>(
   fromIndex.postsStateFeatureKey
 );
 
 
-export const selectPostsState = createSelector(
-  selectPostsStateAll,
-  (state)=> state.posts
+export const selectCommentsState = createSelector(
+  selectCommentsStateAll,
+  (state)=> state.comments
 );
 
-export const selectListPosts = createSelector(
-  selectPostsState,
-  (state:fromPosts.State)=> state.posts
+export const selectListComments = createSelector(
+  selectCommentsState,
+  (state:fromComments.State)=> state.comments
 );
 
 
 export const selectLoading = createSelector(
-  selectPostsState,
-  (state:fromPosts.State)=> state.loading
+  selectCommentsState,
+  (state:fromComments.State)=> state.loading
 );
 
 export const selectFilterListInfo = createSelector(
-  selectPostsState,
-  (state:fromPosts.State)=> state.filterListInfo
+  selectCommentsState,
+  (state:fromComments.State)=> state.filterListInfo
 );
 
 export const selectFilterListRequest = createSelector(

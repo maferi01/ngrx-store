@@ -5,15 +5,19 @@ import { StoreModule } from '@ngrx/store';
 import { ComplexFieldsModule, FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
 import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { PostsRoutingModule } from './posts-routing.module';
+import { CommentsService } from './services/comments.service';
 import { PostsService } from './services/posts.service';
 import { PostsEffects } from './store/effects/posts.effects';
-import * as fromPosts from './store/reducers/posts.reducer';
+import * as fromIndex from './store/reducers';
+import { ListCommentsComponent } from './pages/list-comments/list-comments.component';
+import { CommentsEffects } from './store/effects/comments.effects';
 
 
 
 @NgModule({
   declarations: [
-    ListPostsComponent
+    ListPostsComponent,
+    ListCommentsComponent
   ],
   imports: [
     CommonModule,
@@ -23,11 +27,11 @@ import * as fromPosts from './store/reducers/posts.reducer';
     TableModule,
     SpinnerModule,
     PaginatorModule,
-    StoreModule.forFeature(fromPosts.postsFeatureKey, fromPosts.reducer),
-    EffectsModule.forFeature([PostsEffects])
+    StoreModule.forFeature(fromIndex.postsStateFeatureKey, fromIndex.reducers),
+    EffectsModule.forFeature([PostsEffects,CommentsEffects])
   ],
   providers: [
-    PostsService,
+    PostsService,CommentsService
 
   ],
 })

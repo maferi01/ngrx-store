@@ -17,9 +17,9 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         //this.postsService.getPosts(action.filterPost,action.sortInfo,action.pageRequest)
-        fn(action.filterPost,action.sortInfo,action.pageRequest)
+        fn(action.filter,action.sortInfo,action.pageRequest)
         .pipe(
-          map(data => actionLoadSuccess({data: data.posts,link:data.link,filterPost: action.filterPost,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
+          map(data => actionLoadSuccess({data: data.posts,link:data.link,filter: action.filter,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
           catchError(error => of(actionLoadFailiure({ error }))))
       )
     );
@@ -48,7 +48,7 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
           concatLatestFrom(action=>this.store.select(selectFilterListRequest)),
           map(([action,filterList]) => actionLoad({
             ...filterList as any,
-            filterPost:action.filter,
+            filter:action.filter,
           })),
           ))      
     );
@@ -62,7 +62,7 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
         of(action).pipe(
           concatLatestFrom(action=>this.store.select(selectFilterListInfo)),
           map(([action,filterList]:[any,any]) => actionLoad({
-            filterPost: filterList.filter,
+            filter: filterList.filter,
             sortInfo: filterList.order,
             pageRequest: {
               requestLink: this.getLink(action.typeEventPagination,filterList.page),
