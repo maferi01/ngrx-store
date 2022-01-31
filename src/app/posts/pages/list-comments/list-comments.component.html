@@ -8,6 +8,8 @@
       </app-text-field>
       <app-text-field [name]="'author'" [label]="'Filter by author'" [value]="(filter$ | async)?.author" MatField>
       </app-text-field>
+      <app-text-field [name]="'id'" [label]="'Filter by Id'" [value]="(filter$ | async)?.id" MatField>
+      </app-text-field>
     </div>
   </ng-container>
 </app-form>

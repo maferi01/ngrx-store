@@ -42,8 +42,8 @@ export class ListCommentsComponent implements OnInit {
     
   }
 
-  get validations(){
-    return [Validators.required]
+  get validations():[]{
+    return []
   }
 
 }

@@ -9,6 +9,7 @@ export interface Comment {
 export interface FilterComment {
   author: string;
   comment: string;
+  id:string;
 }
 
 export type IResponseComments = { link: string; data: Comment[] };
