@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { FilterListInfo } from 'src/app/services/models/filter.model';
+import { FilterListInfo, LoadInfoSuccces } from 'src/app/services/models/filter.model';
 import { Comment, FilterComment } from '../../models/comment';
 import * as CommentsActions from '../actions/comments.actions';
 
@@ -28,11 +28,18 @@ export const reducer = createReducer(
   initialState,
 
   on(CommentsActions.loadComments, state => ({...state,loading:true})),
-  on(CommentsActions.loadCommentssSuccess, (state, action) => ({...state,comments:[... action.data],filterListInfo:{
+  on(CommentsActions.loadCommentssSuccess, (state, action) => ({...state,comments:[... action.data],filterListInfo:getFilterListInfo(action),loading:false})),
+  on(CommentsActions.loadCommentssFailure, (state, action) => state),
+
+);
+
+
+function getFilterListInfo(action: LoadInfoSuccces<FilterComment,Comment>): FilterListInfo<FilterComment> {
+  return {
     filter: action.filter,
     order: action.sortInfo,
-    page : {
-      pageIndex: action.pageRequest.pageIndex,
+    page: {
+      pageIndex: action.pageRequest.pageIndex, 
       pageSize: action.pageRequest.pageSize,
       requestLink: action.pageRequest.requestLink,
       linkInfo: {
@@ -42,10 +49,8 @@ export const reducer = createReducer(
         linkPrev: getUrlLink(action.link, 'prev'),
       }
     }
-  },loading:false})),
-  on(CommentsActions.loadCommentssFailure, (state, action) => state),
-
-);
+  }
+}
 
 /**
  *

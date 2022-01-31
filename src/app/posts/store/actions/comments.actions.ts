@@ -1,6 +1,6 @@
 import { Action, createAction, props } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
-import { FilterListInfo, LoadInfo, PageRequest, SortInfo } from 'src/app/services/models/filter.model';
+import { FilterListInfo, LoadInfo, LoadInfoSuccces, PageRequest, SortInfo } from 'src/app/services/models/filter.model';
 import { FilterComment,Comment } from '../../models/comment';
 
 
@@ -12,7 +12,7 @@ export const loadInitComments = createAction(
 
 export const loadCommentssSuccess = createAction(
   '[Comments] Load Commentss Success',
-  props<{ data: Comment[],link:string,filter:FilterComment,sortInfo:SortInfo,pageRequest:PageRequest }>()
+  props<LoadInfoSuccces<FilterComment,Comment>>()
 );
 
 export const loadCommentssFailure = createAction(

@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { FilterListInfo } from 'src/app/services/models/filter.model';
+import { FilterListInfo, IResponseData, LoadInfoSuccces } from 'src/app/services/models/filter.model';
 import { FilterPost, Post } from '../../models/models';
 import * as PostsActions from '../actions/posts.actions';
 
@@ -7,14 +7,14 @@ export const postsFeatureKey = 'posts';
 
 export interface State {
   posts: Post[];
-  loading:boolean;
-  filterListInfo:FilterListInfo<FilterPost>;
+  loading: boolean;
+  filterListInfo: FilterListInfo<FilterPost>;
 }
 
 
 export const initialState: State = {
   posts: [],
-  loading:false,
+  loading: false,
   filterListInfo: {
     page: {
       pageSize: 4,
@@ -27,12 +27,18 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(PostsActions.loadPosts, state => ({...state,loading:true})),
-  on(PostsActions.loadPostssSuccess, (state, action) => ({...state,posts:[... action.data],filterListInfo:{
+  on(PostsActions.loadPosts, state => ({ ...state, loading: true })),
+  on(PostsActions.loadPostssSuccess, (state, action) => ({ ...state, posts: [...action.data], filterListInfo: getFilterListInfo(action), loading: false })),
+  on(PostsActions.loadPostssFailure, (state, action) => state),
+
+);
+
+function getFilterListInfo(action: LoadInfoSuccces<FilterPost,Post>): FilterListInfo<FilterPost> {
+  return {
     filter: action.filter,
     order: action.sortInfo,
-    page : {
-      pageIndex: action.pageRequest.pageIndex,
+    page: {
+      pageIndex: action.pageRequest.pageIndex, 
       pageSize: action.pageRequest.pageSize,
       requestLink: action.pageRequest.requestLink,
       linkInfo: {
@@ -42,17 +48,15 @@ export const reducer = createReducer(
         linkPrev: getUrlLink(action.link, 'prev'),
       }
     }
-  },loading:false})),
-  on(PostsActions.loadPostssFailure, (state, action) => state),
-
-);
+  }
+}
 
 /**
  *
  * @param link Helper to get partial url
  * @param arg1
  */
- function getUrlLink(link: string, key: string): string {
+function getUrlLink(link: string, key: string): string {
   let url;
   if (!link) {
     return null;

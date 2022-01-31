@@ -4,95 +4,95 @@ import { createEffect, ofType, concatLatestFrom, Actions } from "@ngrx/effects";
 import { concatMap, of, map, catchError, Observable } from "rxjs";
 import { Action, Store } from "@ngrx/store";
 import { TypeEventPagination } from "my-lib-display";
-import { IResponseData, LoadInfo, PageInfo, PageRequest, SortInfo } from "../models/filter.model";
+import { IResponseData, LoadInfo, LoadInfoSuccces, PageInfo, PageRequest, SortInfo } from "../models/filter.model";
 
 @Injectable()
-export abstract class AbstractNgRxService extends AbstractApp implements OnDestroy{
-  protected store:Store;
+export abstract class AbstractNgRxService extends AbstractApp implements OnDestroy {
+  protected store: Store;
   protected actions$: Actions;
 
-  createEffectLoad=(actionLoad:any,actionLoadSuccess:any,actionLoadFailiure:any,fn:(loadInfo:LoadInfo)=>Observable<IResponseData>)=>createEffect(() => {
-    return this.actions$.pipe( 
+  createEffectLoad = (actionLoad: any, actionLoadSuccess: any, actionLoadFailiure: any, fn: (loadInfo: LoadInfo) => Observable<IResponseData>) => createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLoad),
-      concatMap((action:LoadInfo<any>) =>
+      concatMap((action: LoadInfo) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         //this.postsService.getPosts(action.filterPost,action.sortInfo,action.pageRequest)
         fn(action)
-        .pipe(
-          map((data:IResponseData) => actionLoadSuccess({data: data.data,link:data.link,filter: action.filter,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
-          catchError(error => of(actionLoadFailiure({ error }))))
+          .pipe(
+            map((data: IResponseData) => actionLoadSuccess({ data: data.data, link: data.link, filter: action.filter, sortInfo: action.sortInfo, pageRequest: action.pageRequest } as LoadInfoSuccces)),
+            catchError(error => of(actionLoadFailiure({ error }))))
       )
     );
   });
-  
-  createEffectLoadInit=(actionLoadInit:any,actionLoad:any,selectFilterListRequest:any)=>createEffect(() => {
-    return this.actions$.pipe( 
+
+  createEffectLoadInit = (actionLoadInit: any, actionLoad: any, selectFilterListRequest: any) => createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLoadInit),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action=>this.store.select(selectFilterListRequest)),
-          map(([action,filterList]:[any,any]) => actionLoad({
+          concatLatestFrom(action => this.store.select(selectFilterListRequest)),
+          map(([action, filterList]: [any, any]) => actionLoad({
             ...filterList
-          })),
-          ))      
+          } as LoadInfo)),
+        ))
     );
   });
 
-  createEffectFilter=(actionFilter:any,actionLoad:any,selectFilterListRequest:any)=>createEffect(() => {
-    return this.actions$.pipe( 
+  createEffectFilter = (actionFilter: any, actionLoad: any, selectFilterListRequest: any) => createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionFilter),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action=>this.store.select(selectFilterListRequest)),
-          map(([action,filterList]) => actionLoad({
+          concatLatestFrom(action => this.store.select(selectFilterListRequest)),
+          map(([action, filterList]) => actionLoad({
             ...filterList as any,
-            filter:action.filter,
-          })),
-          ))      
+            filter: action.filter,
+          } as LoadInfo)),
+        ))
     );
   });
- 
-  createEffectPagination=(actionPagination:any,actionLoad:any,selectFilterListInfo:any)=> createEffect(() => {
-    return this.actions$.pipe( 
+
+  createEffectPagination = (actionPagination: any, actionLoad: any, selectFilterListInfo: any) => createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionPagination),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action=>this.store.select(selectFilterListInfo)),
-          map(([action,filterList]:[any,any]) => actionLoad({
+          concatLatestFrom(action => this.store.select(selectFilterListInfo)),
+          map(([action, filterList]: [any, any]) => actionLoad({
             filter: filterList.filter,
             sortInfo: filterList.order,
             pageRequest: {
-              requestLink: this.getLink(action.typeEventPagination,filterList.page),
-              pageSize:filterList.page.pageSize,
-              pageIndex: filterList.page.pageIndex 
-            }  
-          })),
-          ))      
+              requestLink: this.getLink(action.typeEventPagination, filterList.page),
+              pageSize: filterList.page.pageSize,
+              pageIndex: filterList.page.pageIndex
+            }
+          } as LoadInfo)),
+        ))
     );
   });
 
-  createEffectSort=(actionSort:any,actionLoad:any,selectFilterListRequest:any)=>  createEffect(() => {
-    return this.actions$.pipe( 
+  createEffectSort = (actionSort: any, actionLoad: any, selectFilterListRequest: any) => createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSort),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action=>this.store.select(selectFilterListRequest)),
-          map(([action,filterList]:[any,any]) => actionLoad({
+          concatLatestFrom(action => this.store.select(selectFilterListRequest)),
+          map(([action, filterList]: [any, any]) => actionLoad({
             ...filterList,
-            sortInfo:action.sortInfo
-          })),
-          ))      
+            sortInfo: action.sortInfo
+          } as LoadInfo)),
+        ))
     );
   });
 
-  
 
 
-  protected getLink(event:TypeEventPagination, pageInfo: PageInfo): string {
+
+  protected getLink(event: TypeEventPagination, pageInfo: PageInfo): string {
     switch (event) {
       case 'first':
         return pageInfo.linkInfo.linkFisrt;

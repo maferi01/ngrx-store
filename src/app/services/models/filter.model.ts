@@ -98,3 +98,8 @@ export interface LoadInfo<T=any>{
   filter:T,
   sortInfo:SortInfo,
   pageRequest:PageRequest}
+
+  
+ export interface LoadInfoSuccces<F=any,T=any> extends LoadInfo<F>,IResponseData<T>{
+    }
+  
