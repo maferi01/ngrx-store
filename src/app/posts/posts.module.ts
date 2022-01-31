@@ -19,8 +19,6 @@ import * as fromPosts from './store/reducers/posts.reducer';
     CommonModule,
     PostsRoutingModule,
     FormModule,
-    FieldsModule,
-    ComplexFieldsModule,
     MaterialFieldsModule,
     TableModule,
     SpinnerModule,

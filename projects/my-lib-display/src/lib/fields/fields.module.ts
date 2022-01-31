@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { EmailFieldComponent } from './components/email-field/email-field.component';
 import { GroupFieldComponent } from './components/group-field/group-field.component';
-import { FieldInsideDirective } from './components/layout-field/field-inside.directive';
 import { LayoutFieldComponent } from './components/layout-field/layout-field.component';
 import { NumberFieldComponent } from './components/number-field/number-field.component';
 import { Item, SelectFieldComponent } from './components/select-field/select-field.component';
@@ -24,7 +23,6 @@ LayoutFieldComponent};
     GroupFieldComponent,
     LayoutFieldComponent,
     SelectFieldComponent,
-    FieldInsideDirective,
     EmailFieldComponent,
     NumberFieldComponent,
   ],
