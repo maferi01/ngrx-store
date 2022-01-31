@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormField } from '../../../form/components/form-field.directive';
+import { FormField } from '../../form-field.directive';
 
 export type Item= {value: string, desc:string};
 

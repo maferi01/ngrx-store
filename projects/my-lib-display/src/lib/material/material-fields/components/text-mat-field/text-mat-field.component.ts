@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormField } from 'projects/my-lib-display/src/lib/form/components/form-field.directive';
+import { FormField } from 'projects/my-lib-display/src/lib/fields/form-field.directive';
 
 @Component({
   //selector: 'app-text-field[MatField][formg]', //for  more ibludes

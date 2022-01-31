@@ -1,8 +1,8 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
-import { FormField } from './form-field.directive';
+import { FormField } from '../../../fields/form-field.directive';
 import {tap} from 'rxjs/operators'
-import { setDelay } from './utils';
+import { setDelay } from '../../../fields/utils';
 
 @Component({
   selector: 'app-form',

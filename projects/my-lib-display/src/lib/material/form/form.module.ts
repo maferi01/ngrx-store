@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from '../material/button/button.module';
+import { ButtonModule } from '../button/button.module';
 import { FormComponent } from './components/form.component';
 import { FormgDirective } from './components/formg.directive';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormField } from '../../../form/components/form-field.directive';
+import { FormField } from '../../form-field.directive';
 
 @Component({
   selector: 'app-number-field',

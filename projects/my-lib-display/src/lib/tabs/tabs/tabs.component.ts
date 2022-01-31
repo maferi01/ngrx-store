@@ -1,5 +1,5 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, OnInit, QueryList } from '@angular/core';
-import { setDelay } from '../../form/components/utils';
+import { setDelay } from '../../fields/utils';
 import { TabComponent } from '../tab/tab.component';
 
 @Component({
