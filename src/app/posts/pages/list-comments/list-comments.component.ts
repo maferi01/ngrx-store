@@ -30,6 +30,7 @@ export class ListCommentsComponent implements OnInit {
   }
 
   filterList(filter:FilterComment){
+    console.log('filter enter***********',filter);
     this.store.dispatch(CommentsActions.filterComments({filter}));    
   }
 

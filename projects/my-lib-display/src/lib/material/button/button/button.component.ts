@@ -9,7 +9,7 @@ export class ButtonComponent implements OnInit {
 
   @Input() label:string;
   @Input() disabled=false;
-  @Output() click= new EventEmitter();
+  @Output() onClick= new EventEmitter();
 
   constructor() { }
 
