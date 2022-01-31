@@ -4,7 +4,7 @@ import { createEffect, ofType, concatLatestFrom, Actions } from "@ngrx/effects";
 import { concatMap, of, map, catchError, Observable } from "rxjs";
 import { Action, Store } from "@ngrx/store";
 import { TypeEventPagination } from "my-lib-display";
-import { IResponseData, LoadInfo, LoadInfoSuccces, PageInfo, PageRequest, SortInfo } from "../models/filter.model";
+import { IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, PageRequest, SortInfo } from "../models/filter.model";
 
 @Injectable()
 export abstract class AbstractNgRxService extends AbstractApp implements OnDestroy {
@@ -25,13 +25,13 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
     );
   });
 
-  createEffectLoadInit = (actionLoadInit: any, actionLoad: any, selectFilterListRequest: any) => createEffect(() => {
+  createEffectLoadInit = (actionLoadInit: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
       ofType(actionLoadInit),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action => this.store.select(selectFilterListRequest)),
+          concatLatestFrom(action => this.store.select(selectorsList.selectFilterListRequest)),
           map(([action, filterList]: [any, any]) => actionLoad({
             ...filterList
           } as LoadInfo)),
@@ -39,13 +39,13 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
     );
   });
 
-  createEffectFilter = (actionFilter: any, actionLoad: any, selectFilterListRequest: any) => createEffect(() => {
+  createEffectFilter = (actionFilter: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
       ofType(actionFilter),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action => this.store.select(selectFilterListRequest)),
+          concatLatestFrom(action => this.store.select(selectorsList.selectFilterListRequest)),
           map(([action, filterList]) => actionLoad({
             ...filterList as any,
             filter: action.filter,
@@ -54,13 +54,13 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
     );
   });
 
-  createEffectPagination = (actionPagination: any, actionLoad: any, selectFilterListInfo: any) => createEffect(() => {
+  createEffectPagination = (actionPagination: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
       ofType(actionPagination),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action => this.store.select(selectFilterListInfo)),
+          concatLatestFrom(action => this.store.select(selectorsList.selectFilterListInfo)),
           map(([action, filterList]: [any, any]) => actionLoad({
             filter: filterList.filter,
             sortInfo: filterList.order,
@@ -74,13 +74,13 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
     );
   });
 
-  createEffectSort = (actionSort: any, actionLoad: any, selectFilterListRequest: any) => createEffect(() => {
+  createEffectSort = (actionSort: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
       ofType(actionSort),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action => this.store.select(selectFilterListRequest)),
+          concatLatestFrom(action => this.store.select(selectorsList.selectFilterListRequest)),
           map(([action, filterList]: [any, any]) => actionLoad({
             ...filterList,
             sortInfo: action.sortInfo

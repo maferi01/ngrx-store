@@ -6,7 +6,7 @@ import { LoadInfo } from 'src/app/services/models/filter.model';
 import { FilterComment } from '../../models/comment';
 import { CommentsService } from '../../services/comments.service';
 import * as CommentsActions from '../actions/comments.actions';
-import { selectFilterListInfo, selectFilterListRequest } from '../selectors/comments.selectors';
+import { selectorsList } from '../selectors/comments.selectors';
 
 
 @Injectable()
@@ -17,10 +17,10 @@ export class CommentsEffects extends AbstractNgRxService{
    loadComments$ = this.createEffectLoad(CommentsActions.loadComments,CommentsActions.loadCommentssSuccess,CommentsActions.loadCommentssFailure,
      ({filter,sortInfo,pageRequest}:LoadInfo<FilterComment>)=>this.commentsService.getComments(filter,sortInfo,pageRequest)  )  ;
   
-  loadInitComments$ = this.createEffectLoadInit(CommentsActions.loadInitComments,CommentsActions.loadComments,selectFilterListRequest);
-  filterComments$ = this.createEffectFilter(CommentsActions.filterComments,CommentsActions.loadComments,selectFilterListRequest);
-  paginationComments$ = this.createEffectPagination(CommentsActions.paginationComments,CommentsActions.loadComments,selectFilterListInfo);
-  sortComments$ = this.createEffectSort(CommentsActions.sortComments,CommentsActions.loadComments,selectFilterListRequest);  
+  loadInitComments$ = this.createEffectLoadInit(CommentsActions.loadInitComments,CommentsActions.loadComments,selectorsList);
+  filterComments$ = this.createEffectFilter(CommentsActions.filterComments,CommentsActions.loadComments,selectorsList);
+  paginationComments$ = this.createEffectPagination(CommentsActions.paginationComments,CommentsActions.loadComments,selectorsList);
+  sortComments$ = this.createEffectSort(CommentsActions.sortComments,CommentsActions.loadComments,selectorsList);  
 
 
 

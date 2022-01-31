@@ -103,3 +103,9 @@ export interface LoadInfo<T=any>{
  export interface LoadInfoSuccces<F=any,T=any> extends LoadInfo<F>,IResponseData<T>{
     }
   
+
+    export interface ISelectorsList
+      {
+        selectListData:any,selectLoading:any,selectFilterListInfo:any,selectFilterListRequest:any,selectLinksStatus:any, selectFilter:any,selectSort:any
+    }
+    

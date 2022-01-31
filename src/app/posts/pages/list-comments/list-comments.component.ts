@@ -4,8 +4,7 @@ import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
 import { FilterComment } from '../../models/comment';
-import { selectListComments } from '../../store/selectors/comments.selectors';
-import { selectLoading, selectFilter, selectLinksStatus, selectSort } from '../../store/selectors/comments.selectors';
+import { selectorsList } from '../../store/selectors/comments.selectors';
 import * as CommentsActions from '../../store/actions/comments.actions';
 
 @Component({
@@ -16,11 +15,11 @@ import * as CommentsActions from '../../store/actions/comments.actions';
 export class ListCommentsComponent implements OnInit {
 
   aux:string;
-  comments$ = this.store.select(selectListComments);
-  loading$ = this.store.select(selectLoading);
-  filter$ = this.store.select(selectFilter);
-  linksStatus$ = this.store.select(selectLinksStatus);
-  sort$ = this.store.select(selectSort);
+  comments$ = this.store.select(selectorsList.selectListData);
+  loading$ = this.store.select(selectorsList.selectLoading);
+  filter$ = this.store.select(selectorsList.selectFilter);
+  linksStatus$ = this.store.select(selectorsList.selectLinksStatus);
+  sort$ = this.store.select(selectorsList.selectSort);
 
   constructor( private store: Store) { }
 
