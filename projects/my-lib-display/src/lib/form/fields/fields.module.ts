@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { ComplexFieldComponent } from './components/complex-field/complex-field.component';
-import { Complex2FieldComponent } from './components/complex2-field/complex2-field.component';
 import { EmailFieldComponent } from './components/email-field/email-field.component';
 import { GroupFieldComponent } from './components/group-field/group-field.component';
 import { FieldInsideDirective } from './components/layout-field/field-inside.directive';
@@ -16,21 +14,18 @@ import { TextFieldComponent } from './components/text-field/text-field.component
 export {TextFieldComponent,
   GroupFieldComponent,
   SelectFieldComponent,Item,
-  ComplexFieldComponent,
-  Complex2FieldComponent,
   EmailFieldComponent,
-  NumberFieldComponent};
+  NumberFieldComponent,
+LayoutFieldComponent};
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     TextFieldComponent,
     GroupFieldComponent,
     LayoutFieldComponent,
     SelectFieldComponent,
-    ComplexFieldComponent,
     FieldInsideDirective,
     EmailFieldComponent,
-    Complex2FieldComponent,
     NumberFieldComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
@@ -38,10 +33,9 @@ export {TextFieldComponent,
     TextFieldComponent,
     GroupFieldComponent,
     SelectFieldComponent,
-    ComplexFieldComponent,
-    Complex2FieldComponent,
     EmailFieldComponent,
     NumberFieldComponent,
+    LayoutFieldComponent
   ],
 })
 export class FieldsModule {}

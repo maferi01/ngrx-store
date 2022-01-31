@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
+import { ComplexFieldsModule, FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
 import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { PostsRoutingModule } from './posts-routing.module';
 import { PostsService } from './services/posts.service';
@@ -20,6 +20,7 @@ import * as fromPosts from './store/reducers/posts.reducer';
     PostsRoutingModule,
     FormModule,
     FieldsModule,
+    ComplexFieldsModule,
     MaterialFieldsModule,
     TableModule,
     SpinnerModule,

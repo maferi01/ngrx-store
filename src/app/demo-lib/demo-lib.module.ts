@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FieldsModule, FormModule, MaterialFieldsModule, TableModule, TabsModule } from 'my-lib-display';
+import { ComplexFieldsModule, FieldsModule, FormModule, MaterialFieldsModule, TableModule, TabsModule } from 'my-lib-display';
 import { AppComponentDemo } from './app.component';
 import { DemoLibRoutingModule } from './demo-lib-routing.module';
 
@@ -16,6 +16,7 @@ import { DemoLibRoutingModule } from './demo-lib-routing.module';
      TableModule,
      TabsModule,
      MaterialFieldsModule,
+     ComplexFieldsModule
    // BrowserAnimationsModule
   ]
 })

@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Optional, Ou
 import { FormGroup, FormControl, ControlContainer, Validators, FormBuilder } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, map, delay } from 'rxjs/operators';
-import { DataSelect, createData } from '../data';
-import { Item } from '../select-field/select-field.component';
+import { createData, DataSelect } from '../../form/fields/components/data';
+import { Item } from '../../form/fields/fields.module';
 
 @Component({
   selector: 'app-complex2-field',
