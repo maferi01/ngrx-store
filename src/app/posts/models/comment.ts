@@ -11,7 +11,7 @@ export interface FilterComment {
   comment: string;
 }
 
-export type IResponseComments = { link: string; comments: Comment[] };
+export type IResponseComments = { link: string; data: Comment[] };
 
 
 export interface StateUiComments{

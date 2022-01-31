@@ -19,7 +19,7 @@ export abstract class AbstractNgRxService extends AbstractApp implements OnDestr
         //this.postsService.getPosts(action.filterPost,action.sortInfo,action.pageRequest)
         fn(action.filter,action.sortInfo,action.pageRequest)
         .pipe(
-          map(data => actionLoadSuccess({data: data.posts,link:data.link,filter: action.filter,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
+          map(data => actionLoadSuccess({data: data.data,link:data.link,filter: action.filter,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
           catchError(error => of(actionLoadFailiure({ error }))))
       )
     );

@@ -13,19 +13,9 @@ import { selectFilterListInfo, selectFilterListRequest } from '../selectors/comm
 export class CommentsEffects extends AbstractNgRxService{
 
 
-  loadComments$ = createEffect(() => {
-    return this.actions$.pipe( 
-      ofType(CommentsActions.loadComments),
-      concatMap((action) =>
-        this.commentsService.getComments(action.filter,action.sortInfo,action.pageRequest).pipe(
-          map(data => CommentsActions.loadCommentssSuccess({data: data.comments,link:data.link,filter: action.filter,sortInfo: action.sortInfo,pageRequest: action.pageRequest})),
-          catchError(error => of(CommentsActions.loadCommentssFailure({ error }))))
-      )
-    );
-  });
-
-  // loadCommentsxx$ = this.createEffectLoad(CommentsActions.loadComments,CommentsActions.loadCommentssSuccess,CommentsActions.loadCommentssFailure,
-  //   (filter:any,sortInfo:SortInfo,pageRequest:PageRequest)=>this.commentsService.getComments(filter,sortInfo,pageRequest)  )  ;
+  
+   loadComments$ = this.createEffectLoad(CommentsActions.loadComments,CommentsActions.loadCommentssSuccess,CommentsActions.loadCommentssFailure,
+     (filter:any,sortInfo:SortInfo,pageRequest:PageRequest)=>this.commentsService.getComments(filter,sortInfo,pageRequest)  )  ;
   
   loadInitComments$ = this.createEffectLoadInit(CommentsActions.loadInitComments,CommentsActions.loadComments,selectFilterListRequest);
   filterComments$ = this.createEffectFilter(CommentsActions.filterComments,CommentsActions.loadComments,selectFilterListRequest);

@@ -26,6 +26,6 @@ export class CommentsService extends AbstractEntityService<Comment> {
         params = params.append('comment_like', filterComment.comment);
       }
       return params;
-    }).pipe(map((resp) => ({ link: resp.headers.get('link'), comments: resp.body } as IResponseComments)));
+    }).pipe(map((resp) => ({ link: resp.headers.get('link'), data: resp.body } as IResponseComments)));
   }
 }

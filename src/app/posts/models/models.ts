@@ -11,7 +11,7 @@ export interface FilterPost {
   title: string;
 }
 
-export type IResponsePosts = { link: string; posts: Post[] };
+export type IResponsePosts = { link: string; data: Post[] };
 
 
 export interface StateUiPosts{

@@ -27,6 +27,6 @@ export class PostsService extends AbstractEntityService<Post> {
         params = params.append('title_like', filterPost.title);
       }
       return params;
-    }).pipe(map((resp) => ({ link: resp.headers.get('link'), posts: resp.body } as IResponsePosts)));
+    }).pipe(map((resp) => ({ link: resp.headers.get('link'), data: resp.body } as IResponsePosts)));
   }
 }
