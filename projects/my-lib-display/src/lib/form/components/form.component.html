@@ -7,8 +7,8 @@
     Form Errors;   
     <div *ngFor="let err of errors">{{ err }}</div>
   </div>
-  <button (click)="accept()" [disabled]="!isValid">Aceptar</button>
-  <button (click)="validShow()">Show validations</button>
-
+  <lib-button (click)="accept()" [disabled]="!isValid" [label]="'Aceptar'"></lib-button>
+  <lib-button (click)="validShow()" [label]="'Show validations'"></lib-button>
+  *****************************************
   <ng-template #empty> Fields empty </ng-template>
 </form>

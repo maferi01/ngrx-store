@@ -1,19 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ButtonModule } from '../material/button/button.module';
 import { FormComponent } from './components/form.component';
 import { FormgDirective } from './components/formg.directive';
 
-export {FormComponent};
-export {FormgDirective};
+
+export { FormComponent };
+export { FormgDirective };
 @NgModule({
   declarations: [
     FormComponent, FormgDirective,
 
   ],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule],
   exports: [
     ReactiveFormsModule,
     FormComponent,
