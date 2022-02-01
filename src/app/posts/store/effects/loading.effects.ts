@@ -1,0 +1,73 @@
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, map, concatMap, filter } from 'rxjs/operators';
+import { Observable, EMPTY, of } from 'rxjs';
+
+import * as LoadingActions from '../../../store/actions/loading.actions';
+import * as PostsActions from '../actions/posts.actions';
+import * as CommentsActions from '../actions/comments.actions';
+import { Action } from '@ngrx/store';
+import { LoadInfo, LoadInfoSuccces } from 'src/app/services/models/filter.model';
+
+type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
+
+type ActionLoadingInfo={
+  type: 'show' | 'hide';
+  idGroupLoading?: string;
+  idLoading?: string; 
+} 
+
+function getActions(actionsLoading:ActionsLoading){
+   return actionsLoading.map(ac=> ac.actionType);
+}
+
+function getLoadingInfo(action:Action,actionsLoading:ActionsLoading):ActionLoadingInfo{
+  return actionsLoading.find(ac=> ac.actionType===action.type).fnLoadingInfo(action);
+}
+
+@Injectable()
+export class LoadingEffects {
+
+  actionsLoading:ActionsLoading=[
+    {actionType:PostsActions.loadPosts.type, fnLoadingInfo: (action:LoadInfo)=> ({type: 'show', idGroupLoading:'loadPost',idLoading: action.filter?.author})},
+    {actionType:PostsActions.loadPostssSuccess.type, fnLoadingInfo: (action:LoadInfoSuccces)=> ({type: 'hide', idGroupLoading:'loadPost', idLoading:action.filter?.author})},
+    {actionType:PostsActions.loadPostssFailure.type, fnLoadingInfo: (action)=> ({type: 'hide', idGroupLoading:'loadPost'})},
+    // {actionType:CommentsActions.sortComments.type, fnLoadingInfo: (action:LoadInfo)=> ({type: 'show' })},
+    // {actionType:CommentsActions.loadComments.type, fnLoadingInfo: (action:LoadInfo)=> ({type: 'show' })},
+    // {actionType:CommentsActions.loadCommentssSuccess.type, fnLoadingInfo: (action:LoadInfoSuccces)=> ({type: 'hide'})},    
+    {actionType:CommentsActions.loadComments.type, fnLoadingInfo: (action:LoadInfo)=> ({type: 'show', idGroupLoading:'loadComments',idLoading: action.filter?.author})},
+    {actionType:CommentsActions.loadCommentssSuccess.type, fnLoadingInfo: (action:LoadInfoSuccces)=> ({type: 'hide', idGroupLoading:'loadComments', idLoading:action.filter?.author})},    
+  ];
+
+
+
+  showLoadings$ = createEffect(() => {
+    return this.actions$.pipe( 
+      ofType(...getActions(this.actionsLoading)),
+      concatMap((action) =>
+        of(getLoadingInfo(action,this.actionsLoading)).pipe(
+          filter(loadingInfo=>loadingInfo.type==='show'),
+          map(loadingInfo => LoadingActions.showLoading({actionSource:action.type,idGroupLoading:loadingInfo.idGroupLoading,idLoading:loadingInfo.idLoading })),
+          catchError(error => of(LoadingActions.loadLoadingsFailure({ error }))))
+      )
+    );
+  });
+
+
+  hideLoadings$ = createEffect(() => {
+    return this.actions$.pipe( 
+      ofType(...getActions(this.actionsLoading)),
+      concatMap((action) =>
+        of(getLoadingInfo(action,this.actionsLoading)).pipe(
+          filter(loadingInfo=>loadingInfo.type==='hide'),
+          map(loadingInfo => LoadingActions.hideLoading({actionHide:action.type,idGroupLoading:loadingInfo.idGroupLoading,idLoading:loadingInfo.idLoading })),
+          catchError(error => of(LoadingActions.loadLoadingsFailure({ error }))))
+      )
+    );
+  });
+
+  
+
+  constructor(private actions$: Actions) {}
+
+}

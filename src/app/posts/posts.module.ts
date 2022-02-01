@@ -11,6 +11,7 @@ import { PostsEffects } from './store/effects/posts.effects';
 import * as fromIndex from './store/reducers';
 import { ListCommentsComponent } from './pages/list-comments/list-comments.component';
 import { CommentsEffects } from './store/effects/comments.effects';
+import { LoadingEffects } from './store/effects/loading.effects';
 
 
 
@@ -29,7 +30,7 @@ import { CommentsEffects } from './store/effects/comments.effects';
     PaginatorModule,
     ButtonModule,
     StoreModule.forFeature(fromIndex.postsStateFeatureKey, fromIndex.reducers),
-    EffectsModule.forFeature([PostsEffects,CommentsEffects])
+    EffectsModule.forFeature([PostsEffects,CommentsEffects,LoadingEffects])
   ],
   providers: [
     PostsService,CommentsService

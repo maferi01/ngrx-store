@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
 import { FilterPost } from '../../models/models';
 import  * as PostsActions from '../../store/actions/posts.actions';
-import { selectorsList } from '../../store/selectors/posts.selectors';
+import { selectorLoadingPosts, selectorsList } from '../../store/selectors/posts.selectors';
 
 @Component({
   selector: 'app-list-posts',
@@ -16,7 +16,7 @@ export class ListPostsComponent implements OnInit {
 
   aux:string;
   posts$ = this.store.select(selectorsList.selectListData);
-  loading$ = this.store.select(selectorsList.selectLoading);
+  loading$ = this.store.select(selectorLoadingPosts);
   filter$ = this.store.select(selectorsList.selectFilter);
   linksStatus$ = this.store.select(selectorsList.selectLinksStatus);
   sort$ = this.store.select(selectorsList.selectSort);

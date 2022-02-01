@@ -4,7 +4,7 @@ import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
 import { FilterComment } from '../../models/comment';
-import { selectorsList } from '../../store/selectors/comments.selectors';
+import { selectorsList,selectorLoadingComments } from '../../store/selectors/comments.selectors';
 import * as CommentsActions from '../../store/actions/comments.actions';
 import { FormComponent } from 'projects/my-lib-display/src/public-api';
 import { tap } from 'rxjs';
@@ -19,7 +19,7 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
 
   aux:string;
   comments$ = this.store.select(selectorsList.selectListData);
-  loading$ = this.store.select(selectorsList.selectLoading);
+  loading$ = this.store.select(selectorLoadingComments);
   filter$ = this.store.select(selectorsList.selectFilter);
   linksStatus$ = this.store.select(selectorsList.selectLinksStatus);
   sort$ = this.store.select(selectorsList.selectSort);
