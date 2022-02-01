@@ -1,7 +1,7 @@
 
 <h1>List comments</h1>
 <lib-button [label]="'Test extra'" (onClick)="testExtra()"></lib-button>
-<app-form (onAccept)="filterList($event)">
+<app-form (onAccept)="filterList($event)" #formfilter>
   <ng-container [formGroup]="group" *formg="let group">
     <div class="flex flex-row">
       <app-text-field [name]="'comment'" [label]="'Filter by comment'" [value]="(filter$ | async)?.comment" MatField [validations]="validations">

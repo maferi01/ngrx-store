@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { FormField } from '../../../fields/form-field.directive';
 import {tap} from 'rxjs/operators'
@@ -10,7 +10,7 @@ import { setDelay } from '../../../fields/utils';
   styleUrls: ['./form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormComponent implements OnInit,AfterContentInit {
+export class FormComponent implements OnInit,AfterContentInit,AfterViewInit {
 
   @ContentChild(TemplateRef) templateFields!:TemplateRef<any>;
   group!: FormGroup;
@@ -24,22 +24,27 @@ export class FormComponent implements OnInit,AfterContentInit {
   @Input()
   validations!: ValidatorFn | ValidatorFn[] | null;
 
-  constructor(private formBuilder: FormBuilder,private detect:ChangeDetectorRef) {
+  constructor(private formBuilder: FormBuilder,public detect:ChangeDetectorRef) {
     this.createForm();
    }
+   
+  ngAfterViewInit(): void {
+    // the group is all updated after view init
+    //console.log('group parent after view ',this.group, Object.keys(this.group.controls).length );        
+  }
   
    ngAfterContentInit(): void {
-     this.fields.changes.pipe(
-      // tap(() => console.log('fields change ',this.fields)),
-       tap(() => this.updateFields())
-     ).subscribe();
-  }
+     //console.log('group parent ',this.group,Object.keys(this.group.controls).length );
+  //    this.fields.changes.pipe(
+  //      tap((val) => this.updateFields(val))
+  //    ).subscribe();
+   }
 
 
-  updateFields(){
-    this.fields.forEach(field=>{
-     // console.log('field',field.name,field.control);
-     //  field.updateField(this.formGroup);
+
+  updateFields(fields: QueryList<FormField>){
+    fields.forEach(field=>{
+     // console.log('field',field.name,field.control,field);      
     })
   }  
 
