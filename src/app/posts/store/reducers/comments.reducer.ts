@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
 import { createReducerList, StateList } from 'src/app/services/base/reducer.list';
 import { FilterListInfo, LoadInfo, LoadInfoSuccces } from 'src/app/services/models/filter.model';
@@ -7,8 +8,15 @@ import * as CommentsActions from '../actions/comments.actions';
 export const postsFeatureKey = 'posts';
 
 
+export interface StateComments extends StateList<Comment>{
+  extra:object;
+}
 
-export const initialState: StateList<Comment> = {
+
+export const initialState: StateComments = {
+  extra:{
+    data:'Hola'
+  },
   data: [],
   loading:false,
   filterListInfo: {
@@ -22,7 +30,10 @@ export const initialState: StateList<Comment> = {
 
 
 
-export const reducer = createReducerList(initialState,CommentsActions.loadComments,CommentsActions.loadCommentssSuccess,CommentsActions.loadCommentssFailure)
+export const reducer = createReducerList(initialState,CommentsActions.loadComments,CommentsActions.loadCommentssSuccess,CommentsActions.loadCommentssFailure,
+  on(CommentsActions.extraComments, (state:any, action) => ({...state,extra:action.data}))  
+  );
+  
 
 
 // createReducer(

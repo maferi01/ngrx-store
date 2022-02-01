@@ -48,13 +48,13 @@ function getFilterListInfo(action: LoadInfoSuccces): FilterListInfo {
   
 
 
-export function createReducerList<T extends StateList>(initS:T,loadAction:any,loadSuccess:any,loadFailure:any){
+export function createReducerList<T extends StateList>(initS:T,loadAction:any,loadSuccess:any,loadFailure:any,...ons:any[]){
     return createReducer(
       initS,  
       on(loadAction, state => ({...state,loading:true})),
       on(loadSuccess, (state, action:LoadInfoSuccces) => ({...state,data:[... action.data],filterListInfo:getFilterListInfo(action),loading:false})),
       on(loadFailure, (state, action) => state),
-    
+      ...ons
     );
   }
 

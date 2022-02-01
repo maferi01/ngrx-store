@@ -42,6 +42,10 @@ export class ListCommentsComponent implements OnInit {
     
   }
 
+  testExtra(){
+    this.store.dispatch(CommentsActions.extraComments({data:'OK extra'}));    
+  }
+
   get validations():[]{
     return []
   }

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { ComplexFieldsModule, FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
+import { ButtonModule, ComplexFieldsModule, FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
 import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { PostsRoutingModule } from './posts-routing.module';
 import { CommentsService } from './services/comments.service';
@@ -27,6 +27,7 @@ import { CommentsEffects } from './store/effects/comments.effects';
     TableModule,
     SpinnerModule,
     PaginatorModule,
+    ButtonModule,
     StoreModule.forFeature(fromIndex.postsStateFeatureKey, fromIndex.reducers),
     EffectsModule.forFeature([PostsEffects,CommentsEffects])
   ],

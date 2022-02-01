@@ -35,6 +35,11 @@ export const paginationComments = createAction(
   props<{typeEventPagination :TypeEventPagination}>()
 );
 
+export const extraComments = createAction(
+  '[Comments] Extra Comments',
+  props<{data : string}>()
+);
+
 
 
 

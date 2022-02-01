@@ -7,7 +7,7 @@ export const postsStateFeatureKey = 'postsState';
 
 export interface AppState {
   posts: StateList;
-  comments: StateList;
+  comments: fromComments.StateComments;
 }
 
 export const reducers: ActionReducerMap<AppState> = {

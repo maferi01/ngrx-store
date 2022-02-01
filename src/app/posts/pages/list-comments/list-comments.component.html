@@ -1,6 +1,6 @@
 
 <h1>List comments</h1>
-
+<lib-button [label]="'Test extra'" (onClick)="testExtra()"></lib-button>
 <app-form (onAccept)="filterList($event)">
   <ng-container [formGroup]="group" *formg="let group">
     <div class="flex flex-row">
