@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AbstractNgRxService } from 'src/app/services/base/abstractNgRx.service';
+import { AbstractListNgRxService } from 'src/app/services/base/abstractNgRx.service';
 import { LoadInfo } from 'src/app/services/models/filter.model';
 import { FilterComment } from '../../models/comment';
 import { CommentsService } from '../../services/comments.service';
@@ -10,7 +10,7 @@ import { selectorsList } from '../selectors/comments.selectors';
 
 
 @Injectable()
-export class CommentsEffects extends AbstractNgRxService{
+export class CommentsEffects extends AbstractListNgRxService{
 
 
   

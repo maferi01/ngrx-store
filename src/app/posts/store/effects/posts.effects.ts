@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AbstractNgRxService } from 'src/app/services/base/abstractNgRx.service';
+import { AbstractListNgRxService } from 'src/app/services/base/abstractNgRx.service';
 import { LoadInfo, PageRequest, SortInfo } from '../../../services/models/filter.model';
 import { FilterPost } from '../../models/models';
 import { PostsService } from '../../services/posts.service';
@@ -12,7 +12,7 @@ import { selectorsList } from '../selectors/posts.selectors';
 
 
 @Injectable()
-export class PostsEffects extends AbstractNgRxService{
+export class PostsEffects extends AbstractListNgRxService{
 
   
   loadPosts$ = this.createEffectLoad(PostsActions.loadPosts,PostsActions.loadPostssSuccess,PostsActions.loadPostssFailure,
