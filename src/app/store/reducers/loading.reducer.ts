@@ -17,7 +17,6 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  // on(LoadingActions.loadLoadings, state => state),
   on(LoadingActions.showLoading, (state, action) => {
     const inf= state.stack.find(l=> l.idGroupLoading===action.idGroupLoading && action.idLoading===l.idLoading )
     if(!inf){

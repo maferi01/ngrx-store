@@ -8,6 +8,7 @@ import * as PostsActions from '../actions/posts.actions';
 import * as CommentsActions from '../actions/comments.actions';
 import { Action } from '@ngrx/store';
 import { LoadInfo, LoadInfoSuccces } from 'src/app/services/models/filter.model';
+import { AbstractLoadingEffects } from 'src/app/services/base/abstractNgRx.loading';
 
 type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
 
@@ -26,7 +27,7 @@ function getLoadingInfo(action:Action,actionsLoading:ActionsLoading):ActionLoadi
 }
 
 @Injectable()
-export class LoadingEffects {
+export class LoadingEffects extends AbstractLoadingEffects{
 
   actionsLoading:ActionsLoading=[
     {actionType:PostsActions.loadPosts.type, fnLoadingInfo: (action:LoadInfo)=> ({type: 'show', idGroupLoading:'loadPost',idLoading: action.filter?.author})},
@@ -44,33 +45,10 @@ export class LoadingEffects {
 
 
 
-  showLoadings$ = createEffect(() => {
-    return this.actions$.pipe( 
-      ofType(...getActions(this.actionsLoading)),
-      concatMap((action) =>
-        of(getLoadingInfo(action,this.actionsLoading)).pipe(
-          filter(loadingInfo=>loadingInfo.type==='show'),
-          map(loadingInfo => LoadingActions.showLoading({actionSource:action.type,idGroupLoading:loadingInfo.idGroupLoading,idLoading:loadingInfo.idLoading })),
-          catchError(error => of(LoadingActions.loadLoadingsFailure({ error }))))
-      )
-    );
-  });
+  showLoadings$ = this.createEffectLoadingShow(this.actionsLoading);
+ 
+  hideLoadings$ = this.createEffectLoadingHide(this.actionsLoading);
 
-
-  hideLoadings$ = createEffect(() => {
-    return this.actions$.pipe( 
-      ofType(...getActions(this.actionsLoading)),
-      concatMap((action) =>
-        of(getLoadingInfo(action,this.actionsLoading)).pipe(
-          filter(loadingInfo=>loadingInfo.type==='hide'),
-          map(loadingInfo => LoadingActions.hideLoading({actionHide:action.type,idGroupLoading:loadingInfo.idGroupLoading,idLoading:loadingInfo.idLoading })),
-          catchError(error => of(LoadingActions.loadLoadingsFailure({ error }))))
-      )
-    );
-  });
-
-  
-
-  constructor(private actions$: Actions) {}
+ 
 
 }

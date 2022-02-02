@@ -7,7 +7,7 @@ import { TypeEventPagination } from "my-lib-display";
 import { IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, PageRequest, SortInfo } from "../models/filter.model";
 
 @Injectable()
-export abstract class AbstractNgRxService extends AbstractApp implements OnDestroy {
+export  class AbstractNgRxService extends AbstractApp implements OnDestroy {
   protected store: Store;
   protected actions$: Actions;
 

@@ -10,7 +10,7 @@ export const selectLoadingState = createFeatureSelector<fromLoading.State>(
 export function createSelectorLoading(idGroupLoading?: string,   idLoading?: string){
   return createSelector(
     selectLoadingState,
-    (state)=> state.stack.filter(l=> l.idGroupLoading===idGroupLoading && ( !idLoading || l.idLoading===idLoading)).length>0
+    (state)=> state.stack.filter(l=> l.idGroupLoading===idGroupLoading && ( idLoading===undefined || l.idLoading===idLoading)).length>0
   )
 }
 
