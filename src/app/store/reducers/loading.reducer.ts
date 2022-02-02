@@ -3,7 +3,7 @@ import * as LoadingActions from '../actions/loading.actions';
 
 export const loadingFeatureKey = 'loading';
 
-type LoadingInfo={
+export type LoadingInfo={
   actionSource: string, idGroupLoading: string,   idLoading?: string
 } ;
 

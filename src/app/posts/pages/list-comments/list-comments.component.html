@@ -1,7 +1,7 @@
 
 <h1>List comments</h1>
 <lib-button [label]="'Test extra'" (onClick)="testExtra()"></lib-button>
-<app-form (onAccept)="filterList($event)" #formfilter>
+<app-form (onAccept)="filterList($event)" #formfilter >
   <ng-container [formGroup]="group" *formg="let group">
     <div class="flex flex-row">
       <app-text-field [name]="'comment'" [label]="'Filter by comment'" [value]="(filter$ | async)?.comment" MatField [validations]="validations">
@@ -17,7 +17,7 @@
   (typeEvent)="paginate($event)" *ngIf="linksStatus$ | async as linksStatus"></app-paginator>
 
   <ng-container *libLoading="loading$ | async">
-  <app-table [dataSource]="comments$ |async" (onSort)="sortData($event)" [sortCurrent]="sort$ | async">
+  <app-table [dataSource]="comments$ |async" (onSort)="sortData($event)" [sortCurrent]="sort$ | async" (onClickRow)="onClickRow($event)">
     <table-info>
       <col-info [name]="'author'" [header]="'Author Tpl'" [typeCell]="'tpl'" [sort]="true">
         <ng-template CellRender let-row>Author:{{ row.author }}</ng-template>
@@ -29,5 +29,12 @@
     </table-info>
   </app-table>
 </ng-container>
+
+<div *ngFor="let query of queryLoadings" class="query">
+  <div *libLoading="selectQueryTest(query.name) | async">
+  name={{query.name}}
+  data={{query.data}}
+ </div>
+</div>
 
 

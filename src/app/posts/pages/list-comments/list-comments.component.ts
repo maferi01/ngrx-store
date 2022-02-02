@@ -4,11 +4,12 @@ import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
 import { FilterComment } from '../../models/comment';
-import { selectorsList,selectorLoadingComments } from '../../store/selectors/comments.selectors';
+import { selectorsList,selectorLoadingComments, selectorLoadingQuery } from '../../store/selectors/comments.selectors';
 import * as CommentsActions from '../../store/actions/comments.actions';
 import { FormComponent } from 'projects/my-lib-display/src/public-api';
-import { tap } from 'rxjs';
+import { delay, of, tap } from 'rxjs';
 import { FormField } from 'projects/my-lib-display/src/lib/fields/form-field.directive';
+import { createSelectorLoading, createSelectorLoadingGroup, filterLoadingId } from 'src/app/store/selectors/loading.selectors';
 
 @Component({
   selector: 'app-list-comments',
@@ -20,9 +21,13 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
   aux:string;
   comments$ = this.store.select(selectorsList.selectListData);
   loading$ = this.store.select(selectorLoadingComments);
+  loadingGroup$ =this.store.select(selectorLoadingQuery);
   filter$ = this.store.select(selectorsList.selectFilter);
   linksStatus$ = this.store.select(selectorsList.selectLinksStatus);
   sort$ = this.store.select(selectorsList.selectSort);
+
+
+  queryLoadings:{name:string,data:string}[]=[];
 
 
   @ViewChild('formfilter') formComponent:FormComponent;
@@ -79,4 +84,30 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
     return []
   }
 
+  onClickRow(row:any){
+    console.log('clicked row', row)
+    this.queryLoadings.push({name:row.author,data:null})
+    this.callQuery(row.author).subscribe(()=>      this.queryLoadings.find(q=> q.name===row.author).data='Finish query '+row.author)
+    
+  }
+  callQuery(author: any) {
+    function getRandomInt(min:number, max:number) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+    const delayTime= 10000* getRandomInt(1,6)
+    return of(author).pipe(
+      tap(d=> this.store.dispatch(CommentsActions.queryBegin({data:author}))),
+      delay(delayTime),
+      tap(d=> this.store.dispatch(CommentsActions.queryEnd({data:author}))),
+    )
+  }
+
+  selectQueryTest(name:string):any{
+    // call selector direct
+   //return this.store.select(createSelectorLoading('querytest',name))
+   // call filter with selector obsevable
+    return filterLoadingId(this.loadingGroup$,name);
+  }
+
 }
+

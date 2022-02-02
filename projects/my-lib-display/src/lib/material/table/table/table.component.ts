@@ -20,6 +20,9 @@ import { TableInfoComponent } from '../table-info/table-info.component';
 export class TableComponent implements OnInit {
   @Input()
   dataSource: any;
+  @Output()
+  onClickRow= new EventEmitter();
+
   @ContentChild(TableInfoComponent)
   tableInfo!: TableInfoComponent;
   msort!: MatSort;
@@ -57,6 +60,7 @@ export class TableComponent implements OnInit {
     
   }
   expand(row:any){
+    this.onClickRow.emit(row);
     this.expandedElement=row;
   
   }

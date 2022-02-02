@@ -40,6 +40,16 @@ export const extraComments = createAction(
   props<{data : string}>()
 );
 
+export const queryBegin = createAction(
+  '[Comments] Query begin',
+  props<{data : string}>()
+);
+
+export const queryEnd = createAction(
+  '[Comments] Query end',
+  props<{data : string}>()
+);
+
 
 
 

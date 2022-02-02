@@ -36,7 +36,10 @@ export class LoadingEffects {
     // {actionType:CommentsActions.loadComments.type, fnLoadingInfo: (action:LoadInfo)=> ({type: 'show' })},
     // {actionType:CommentsActions.loadCommentssSuccess.type, fnLoadingInfo: (action:LoadInfoSuccces)=> ({type: 'hide'})},    
     {actionType:CommentsActions.loadComments.type, fnLoadingInfo: (action:LoadInfo)=> ({type: 'show', idGroupLoading:'loadComments',idLoading: action.filter?.author})},
-    {actionType:CommentsActions.loadCommentssSuccess.type, fnLoadingInfo: (action:LoadInfoSuccces)=> ({type: 'hide', idGroupLoading:'loadComments', idLoading:action.filter?.author})},    
+    {actionType:CommentsActions.loadCommentssSuccess.type, fnLoadingInfo: (action:LoadInfoSuccces)=> ({type: 'hide', idGroupLoading:'loadComments', idLoading:action.filter?.author})},  
+    {actionType:CommentsActions.queryBegin.type, fnLoadingInfo: (action:any)=> ({type: 'show', idGroupLoading:'querytest', idLoading:action.data})},
+    {actionType:CommentsActions.queryEnd.type, fnLoadingInfo: (action:any)=> ({type: 'hide', idGroupLoading:'querytest', idLoading:action.data})}
+    
   ];
 
 
