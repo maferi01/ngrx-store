@@ -23,6 +23,8 @@ export class FormComponent implements OnInit,AfterContentInit,AfterViewInit {
 
   @Input()
   validations!: ValidatorFn | ValidatorFn[] | null;
+  @Input()
+  showButtons=true;
 
   constructor(private formBuilder: FormBuilder,public detect:ChangeDetectorRef) {
     this.createForm();

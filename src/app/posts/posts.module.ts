@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { ButtonModule, ComplexFieldsModule, FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
+import { ButtonModule, ComplexFieldsModule, DialogModule, FieldsModule, FormModule, MaterialFieldsModule, PaginatorModule, SpinnerModule, TableModule } from 'my-lib-display';
 import { ListPostsComponent } from './pages/list-posts/list-posts.component';
 import { PostsRoutingModule } from './posts-routing.module';
 import { CommentsService } from './services/comments.service';
@@ -12,13 +12,15 @@ import * as fromIndex from './store/reducers';
 import { ListCommentsComponent } from './pages/list-comments/list-comments.component';
 import { CommentsEffects } from './store/effects/comments.effects';
 import { LoadingEffects } from './store/effects/loading.effects';
+import { FormCommentComponent } from './components/form-comment/form-comment.component';
 
 
 
 @NgModule({
   declarations: [
     ListPostsComponent,
-    ListCommentsComponent
+    ListCommentsComponent,
+    FormCommentComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { LoadingEffects } from './store/effects/loading.effects';
     SpinnerModule,
     PaginatorModule,
     ButtonModule,
+    DialogModule,
     StoreModule.forFeature(fromIndex.postsStateFeatureKey, fromIndex.reducers),
     EffectsModule.forFeature([PostsEffects,CommentsEffects,LoadingEffects])
   ],

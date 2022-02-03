@@ -6,6 +6,7 @@ export * from './lib/my-lib-display.service';
 export * from './lib/my-lib-display.component';
 export * from './lib/my-lib-display.module';
 export * from './lib/material/form/form.module';
+export * from './lib/material/dialog/dialog.module';
 export * from './lib/fields/fields.module';
 export * from './lib/complex-fields/complex-fields.module';
 export * from './lib/material/material-fields/material-fields.module';

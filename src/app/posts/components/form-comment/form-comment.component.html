@@ -1,0 +1,14 @@
+<p></p>
+<app-form  #formfilter [showButtons]="false">
+    <ng-container [formGroup]="group" *formg="let group" >
+      <div class="flex flex-row">
+        <app-text-field [name]="'comment'" [label]="'Filter by comment'" [validations]="validations"  MatField>
+        </app-text-field>
+        <app-text-field [name]="'author'" [label]="'Filter by author'"  MatField>
+        </app-text-field>
+        <app-text-field [name]="'id'" [label]="'Filter by Id'" MatField>
+        </app-text-field>
+      </div>
+    </ng-container>
+  </app-form>
+  

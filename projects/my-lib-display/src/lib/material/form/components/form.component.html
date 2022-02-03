@@ -1,4 +1,4 @@
-<p>form works!</p>
+<!-- <p>form works!</p> -->
 <form [formGroup]="group">
   <div class="flex">
     <ng-container *ngTemplateOutlet="templateFields || empty; context: { $implicit: group }"></ng-container>
@@ -7,8 +7,8 @@
     Form Errors;   
     <div *ngFor="let err of errors">{{ err }}</div>
   </div>
-  <lib-button (onClick)="accept()" [disabled]="!isValid" [label]="'Aceptar'"></lib-button>
-  <lib-button (onClick)="validShow()" [label]="'Show validations'"></lib-button>
+  <lib-button (onClick)="accept()" [disabled]="!isValid" [label]="'Aceptar'" *ngIf="showButtons"></lib-button>
+  <lib-button (onClick)="validShow()" [label]="'Show validations'"  *ngIf="showButtons"></lib-button>
   *****************************************
   <ng-template #empty> Fields empty </ng-template>
 </form>
