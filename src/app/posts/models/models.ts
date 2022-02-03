@@ -1,4 +1,3 @@
-import { SortInfo } from "../../services/models/filter.model";
 
 export interface Post {
   id: number;
@@ -14,11 +13,11 @@ export interface FilterPost {
 export type IResponsePosts = { link: string; data: Post[] };
 
 
-export interface StateUiPosts{
-  filter?: FilterPost;
-  order?: SortInfo;
-  expandFilter?: boolean;
-}
+// export interface StateUiPosts{
+//   filter?: FilterPost;
+//   order?: SortInfo;
+//   expandFilter?: boolean; 
+// }
 
 
 

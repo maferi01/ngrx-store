@@ -1,4 +1,3 @@
-import { SortInfo } from "../../services/models/filter.model";
 
 export interface Comment {
   id: number;
@@ -15,11 +14,11 @@ export interface FilterComment {
 export type IResponseComments = { link: string; data: Comment[] };
 
 
-export interface StateUiComments{
-  filter?: FilterComment;
-  order?: SortInfo;
-  expandFilter?: boolean;
-}
+// export interface StateUiComments{
+//   filter?: FilterComment;
+//   order?: SortInfo;
+//   expandFilter?: boolean;
+// }
 
 
 

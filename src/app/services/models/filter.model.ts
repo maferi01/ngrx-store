@@ -1,34 +1,32 @@
-import { InjectionToken } from '@angular/core';
-import { StateOptions } from './models';
 
-export enum VISIBILITY_FILTER {
-  SHOW_COMPLETED = 'SHOW_COMPLETED',
-  SHOW_ACTIVE = 'SHOW_ACTIVE',
-  SHOW_ALL = 'SHOW_ALL',
-}
+// export enum VISIBILITY_FILTER {
+//   SHOW_COMPLETED = 'SHOW_COMPLETED',
+//   SHOW_ACTIVE = 'SHOW_ACTIVE',
+//   SHOW_ALL = 'SHOW_ALL',
+// }
 
-export type TodoFilter = {
-  label: string;
-  value: VISIBILITY_FILTER;
-};
+// export type TodoFilter = {
+//   label: string;
+//   value: VISIBILITY_FILTER;
+// };
 
-export const initialFilters: TodoFilter[] = [
-  { label: 'All', value: VISIBILITY_FILTER.SHOW_ALL },
-  { label: 'Completed', value: VISIBILITY_FILTER.SHOW_COMPLETED },
-  { label: 'Active', value: VISIBILITY_FILTER.SHOW_ACTIVE },
-];
+// export const initialFilters: TodoFilter[] = [
+//   { label: 'All', value: VISIBILITY_FILTER.SHOW_ALL },
+//   { label: 'Completed', value: VISIBILITY_FILTER.SHOW_COMPLETED },
+//   { label: 'Active', value: VISIBILITY_FILTER.SHOW_ACTIVE },
+// ];
 
-export enum ActionList {
-  LOAD = 'load',
-  FILTER = 'filter',
-  PAGE = 'pagination',
-  ORDER = 'order',
-  REFRESH = 'REFRESH',
-  DELETE = 'delete',
-  DELETE_ROWS = 'delete_rows',
-  UPDATE = 'update',
-  ADD = 'add',
-}
+// export enum ActionList {
+//   LOAD = 'load',
+//   FILTER = 'filter',
+//   PAGE = 'pagination',
+//   ORDER = 'order',
+//   REFRESH = 'REFRESH',
+//   DELETE = 'delete',
+//   DELETE_ROWS = 'delete_rows',
+//   UPDATE = 'update',
+//   ADD = 'add',
+// }
 
 export interface PageInfo {
   /** The current page index. */
@@ -70,10 +68,10 @@ export interface PageRequest {
 
 
 
-export interface ResultList<E> {
-  rows: E[];
-  pageInfo: PageInfo;
-}
+// export interface ResultList<E> {
+//   rows: E[];
+//   pageInfo: PageInfo;
+// }
 
 export interface FilterListInfo<F = any> {
   filter?: F;
@@ -81,16 +79,16 @@ export interface FilterListInfo<F = any> {
   page?: PageInfo;
 }
 
-export const OPTIONS_STATE_LIST = new InjectionToken<StateOptions>('options_state_list');
+//export const OPTIONS_STATE_LIST = new InjectionToken<StateOptions>('options_state_list');
 
-export interface StateListFilter<D,E=any> {
-  ui: {
-    expandFilter?: boolean;
-  };
-  filterList: FilterListInfo;
-  selectionRows?:E[];
-  extraData: D;
-}
+// export interface StateListFilter<D,E=any> {
+//   ui: {
+//     expandFilter?: boolean;
+//   };
+//   filterList: FilterListInfo;
+//   selectionRows?:E[];
+//   extraData: D;
+// }
 
 export type IResponseData<T=any> = { link: string; data: T[] };
 

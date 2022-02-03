@@ -1,16 +1,19 @@
-import { createAction, props } from '@ngrx/store';
+import { ActionCreator, createAction, props } from '@ngrx/store';
+import { FunctionWithParametersType, TypedAction } from '@ngrx/store/src/models';
 import { TypeEventPagination } from 'my-lib-display';
 import { LoadInfo, LoadInfoSuccces, SortInfo } from 'src/app/services/models/filter.model';
 import { FilterPost, Post } from '../../models/models';
 
 
+ type MyAction=ActionCreator<any,()=>TypedAction<any>>;
+ type MyActionExact=ActionCreator<any,(props:any)=>any & TypedAction<any>>; 
+ type MyActinFn= FunctionWithParametersType<[any],any & TypedAction<any> & TypedAction<any> >
 
-
-export const loadInitPosts = createAction(
+export const loadInitPosts:MyAction = createAction(
   '[Posts] Load Init Posts'
 );
 
-export const loadPostssSuccess = createAction(
+export const loadPostssSuccess:MyActionExact = createAction(
   '[Posts] Load Postss Success',
  // props<{ data: Post[],link:string,filter:FilterPost,sortInfo:SortInfo,pageRequest:PageRequest }>()
  props<LoadInfoSuccces<FilterPost,Post>>()

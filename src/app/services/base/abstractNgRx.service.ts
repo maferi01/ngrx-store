@@ -1,10 +1,10 @@
-import { AbstractApp } from "src/app/shared/base/abstract-app";
 import { Injectable, OnDestroy } from '@angular/core';
-import { createEffect, ofType, concatLatestFrom, Actions } from "@ngrx/effects";
-import { concatMap, of, map, catchError, Observable } from "rxjs";
-import { Action, Store } from "@ngrx/store";
+import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
+import { Store } from "@ngrx/store";
 import { TypeEventPagination } from "my-lib-display";
-import { IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, PageRequest, SortInfo } from "../models/filter.model";
+import { catchError, concatMap, map, Observable, of } from "rxjs";
+import { AbstractApp } from "src/app/shared/base/abstract-app";
+import { FilterListInfo, IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, SortInfo } from "../models/filter.model";
 
 @Injectable()
 export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
@@ -43,7 +43,7 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
   createEffectFilter = (actionFilter: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
       ofType(actionFilter),
-      concatMap((action) =>
+      concatMap((action:{filter:any}) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
           concatLatestFrom(action => this.store.select(selectorsList.selectFilterListRequest)),
@@ -57,12 +57,12 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
 
   createEffectPagination = (actionPagination: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
-      ofType(actionPagination),
-      concatMap((action) =>
+      ofType(actionPagination as any),
+      concatMap((action: {typeEventPagination:TypeEventPagination}) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
           concatLatestFrom(action => this.store.select(selectorsList.selectFilterListInfo)),
-          map(([action, filterList]: [any, any]) => actionLoad({
+          map(([action, filterList]:[action:{typeEventPagination:TypeEventPagination},filterList:FilterListInfo]) => actionLoad({
             filter: filterList.filter,
             sortInfo: filterList.order,
             pageRequest: {
@@ -75,15 +75,15 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
     );
   });
 
-  createEffectSort = (actionSort: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
+  createEffectSort = (actionSort: any , actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
-      ofType(actionSort),
-      concatMap((action) =>
+      ofType(actionSort as any),
+      concatMap((action: {sortInfo:SortInfo}) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
           concatLatestFrom(action => this.store.select(selectorsList.selectFilterListRequest)),
-          map(([action, filterList]: [any, any]) => actionLoad({
-            ...filterList,
+          map(([action, filterList] ) => actionLoad({
+            ...filterList as any,
             sortInfo: action.sortInfo
           } as LoadInfo)),
         ))
