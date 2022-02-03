@@ -20,7 +20,8 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
         fn(action)
           .pipe(
             map((data: IResponseData) => actionLoadSuccess({ data: data.data, link: data.link, filter: action.filter, sortInfo: action.sortInfo, pageRequest: action.pageRequest } as LoadInfoSuccces)),
-            catchError(error => of(actionLoadFailiure({ error }))))
+            catchError(error => of(actionLoadFailiure({ error })))
+            )
       )
     );
   });

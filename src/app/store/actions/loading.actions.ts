@@ -15,3 +15,8 @@ export const hideLoading = createAction(
   '[Loading] Hide Loading',
   props<{ actionHide :string, idGroupLoading: string,   idLoading?: string  }>()
 );
+
+
+//export type TypeShowLoading= typeof showLoading;
+
+//let showLoading2: TypeShowLoading= showLoading;

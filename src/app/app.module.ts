@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MyLibDisplayModule } from 'my-lib-display';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,11 +10,16 @@ import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects/app.effects';
 import { HttpClientModule } from '@angular/common/http';
+import * as fromError from './store/reducers/error.reducer';
+import { ErrorEffects } from './store/effects/error.effects';
+import { GlobalErrorHandler } from './services/errorHandler';
+import { PageErrorComponent } from './page-error/page-error.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -23,10 +28,11 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects,ErrorEffects]),
+    StoreModule.forFeature(fromError.errorFeatureKey, fromError.reducer),    
     
   ],
-  providers: [],
+  providers: [{provide:ErrorHandler, useClass:GlobalErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
