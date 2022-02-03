@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FilterListInfo, PageInfo, PageRequest, SortInfo } from 'src/app/services/models/filter.model';
-
+import { PageRequest, SortInfo } from 'src/app/services/models/filter.model';
 import { Entity } from '../models/models';
 import { AbstractService } from './abstract.service';
+
 
 
 export abstract class AbstractEntityService<E extends Entity> extends AbstractService {

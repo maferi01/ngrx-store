@@ -1,7 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
 import { createReducerList, StateList } from 'src/app/services/base/reducer.list';
-import { FilterListInfo, IResponseData, LoadInfoSuccces } from 'src/app/services/models/filter.model';
-import { FilterPost, Post } from '../../models/models';
 import * as PostsActions from '../actions/posts.actions';
 
 export const postsFeatureKey = 'posts';

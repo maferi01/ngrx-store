@@ -1,6 +1,6 @@
-import { Action, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
-import { FilterListInfo, LoadInfo, LoadInfoSuccces, PageRequest, SortInfo } from 'src/app/services/models/filter.model';
+import { LoadInfo, LoadInfoSuccces, SortInfo } from 'src/app/services/models/filter.model';
 import { FilterPost, Post } from '../../models/models';
 
 

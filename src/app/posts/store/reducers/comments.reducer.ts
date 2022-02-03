@@ -1,8 +1,6 @@
-import { state } from '@angular/animations';
-import { Action, createReducer, on } from '@ngrx/store';
+import { on } from '@ngrx/store';
 import { createReducerList, StateList } from 'src/app/services/base/reducer.list';
-import { FilterListInfo, LoadInfo, LoadInfoSuccces } from 'src/app/services/models/filter.model';
-import { Comment, FilterComment } from '../../models/comment';
+import { Comment } from '../../models/comment';
 import * as CommentsActions from '../actions/comments.actions';
 
 export const postsFeatureKey = 'posts';
