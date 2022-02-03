@@ -60,7 +60,7 @@ export class DialogComponent implements OnInit {
     this.compInside=this.viewContainerInside.createComponent(this.dataDialog.compInsideDialog);
     this.detect.detectChanges();
     console.log('Form comp inside---------',this.compInside.instance.formComponent);
-    this.formInside=this.compInside.instance.formComponent.group;
+    this.formInside=this.compInside.instance?.formComponent?.group;
     this.detect.detectChanges();
 
   }
