@@ -12,7 +12,7 @@ import * as fromIndex from './store/reducers';
 import { ListCommentsComponent } from './pages/list-comments/list-comments.component';
 import { CommentsEffects } from './store/effects/comments.effects';
 import { LoadingEffects } from './store/effects/loading.effects';
-import { FormCommentComponent } from './components/form-comment/form-comment.component';
+import { FormCommentModule } from './components/form-comment/form.comment.module';
 
 
 
@@ -20,7 +20,7 @@ import { FormCommentComponent } from './components/form-comment/form-comment.com
   declarations: [
     ListPostsComponent,
     ListCommentsComponent,
-    FormCommentComponent
+  //  FormCommentComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +32,7 @@ import { FormCommentComponent } from './components/form-comment/form-comment.com
     PaginatorModule,
     ButtonModule,
     DialogModule,
+    FormCommentModule,
     StoreModule.forFeature(fromIndex.postsStateFeatureKey, fromIndex.reducers),
     EffectsModule.forFeature([PostsEffects,CommentsEffects,LoadingEffects])
   ],

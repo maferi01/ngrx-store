@@ -61,6 +61,8 @@ export class DialogComponent implements OnInit {
     this.compInside=this.viewContainerInside.createComponent(this.dataDialog.compInsideDialog);
     // detect changes  to refresh the component inside
     this.detect.detectChanges();
+
+    this.compInside.instance.onAccept.subscribe(data=> this.dialogRef.close(data));
     console.log('Form comp inside---------',this.compInside.instance.formComponent);
     this.formInside=this.compInside.instance?.formComponent?.group;
     this.templateButtons=this.compInside.instance?.templateButtons;

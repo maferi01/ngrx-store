@@ -1,16 +1,12 @@
-import { Component, OnInit, Directive, Input, EventEmitter, Injector, ViewChild, AfterViewInit, TemplateRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AfterViewInit, Directive, EventEmitter, Injector, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormComponent } from '../../form/form.module';
+
 @Directive()
 //@NameLog(NamesLog.AbstractDialogComponent)
 export abstract class AbstractDialogComponent<E = object, T = object> implements OnInit, AfterViewInit {
-  @Input() filters: any;
-  //submitEmit: EventEmitter<T> = new EventEmitter();
-
-  //formParent: FormGroup;
-  dialogRef: MatDialogRef<any, any>;
-  dataDialog: E;
+  @Input() data: any;
+ @Output() onAccept= new EventEmitter();
+  
   @ViewChild(FormComponent)
   formComponent: FormComponent;
 
@@ -18,19 +14,15 @@ export abstract class AbstractDialogComponent<E = object, T = object> implements
   templateButtons: TemplateRef<any>;
 
 
-  //abstract getFormGroup(): FormGroup;
-
   constructor(protected injector: Injector) {
-    this.dialogRef = this.injector.get(MatDialogRef);
-    this.dataDialog = this.injector.get(MAT_DIALOG_DATA);
-    //  console.log('Abstract filter created **')
+ 
   }
 
   ngOnInit(): void {
-    //this.formParent = this.getFormGroup();
+    
   }
   ngAfterViewInit(): void {
-    //this.displayDialog.accept.subscribe(() => this.onSubmit());
+    
   }
 
   // onSubmit(): void {
