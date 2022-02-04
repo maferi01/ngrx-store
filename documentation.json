@@ -11738,21 +11738,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  production: true\r\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\r\n  production: false,\r\n  urlHostApi: 'http://localhost:5000',\r\n  urlHostCalendarApi: 'http://localhost:8000',\r\n  pathMonthDays:'month/formatbydays',\r\n  pathIssues:'issue',\r\n  pathWork:'month/work',\r\n  pathWorkTask:'month/work/task',\r\n  pathHollidays:'hollidays',\r\n  pathContents: '/confluence/content/search',\r\n  pathContent: '/confluence/content',\r\n  urlApiLogin: '/login',\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: true\r\n}"
             },
             {
                 "name": "errorFeatureKey",
@@ -14045,18 +14045,6 @@
                     "defaultValue": "(args: FormCommentComponent) => ({\r\n  component:FormCommentComponent,\r\n  props: args,\r\n})"
                 }
             ],
-            "src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: true\r\n}"
-                }
-            ],
             "src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -14067,6 +14055,18 @@
                     "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\r\n  production: false,\r\n  urlHostApi: 'http://localhost:5000',\r\n  urlHostCalendarApi: 'http://localhost:8000',\r\n  pathMonthDays:'month/formatbydays',\r\n  pathIssues:'issue',\r\n  pathWork:'month/work',\r\n  pathWorkTask:'month/work/task',\r\n  pathHollidays:'hollidays',\r\n  pathContents: '/confluence/content/search',\r\n  pathContent: '/confluence/content',\r\n  urlApiLogin: '/login',\r\n}"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true\r\n}"
                 }
             ],
             "src/app/store/reducers/error.reducer.ts": [

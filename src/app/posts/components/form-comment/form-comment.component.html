@@ -13,7 +13,7 @@
   </app-form>
 
 
-  <ng-template #buttons let-form>
+  <ng-template #buttonsvv let-form>
     <lib-button [label]="'MY CLOSE'" [disabled]="form?.invalid || form?.pristine" (onClick)="onAccept.emit(form.value)"></lib-button>
     
   </ng-template>

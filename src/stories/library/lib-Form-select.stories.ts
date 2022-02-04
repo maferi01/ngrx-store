@@ -2,30 +2,31 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { moduleMetadata } from '@storybook/angular';
 import { Story, Meta } from '@storybook/angular/types-6-0';
+import { FieldsModule } from 'projects/my-lib-display/src/lib/fields/fields.module';
 
 import { FormModule } from 'projects/my-lib-display/src/lib/material/form/form.module';
 import { MaterialFieldsModule } from 'projects/my-lib-display/src/lib/material/material-fields/material-fields.module';
-import FormFieldsComponent from './formfields.component';
 import FormFieldsSelectsComponent from './formfields.selects.component';
 
 
 
 export default {
-  title: 'Example-Library/FormFields',
-  component: FormFieldsComponent,
+  title: 'Example-Library/FormFieldsSelect',
+  component: FormFieldsSelectsComponent,
   argTypes: {
     backgroundColor: { control: 'color' },    
   },
   decorators: [
     moduleMetadata({
-      declarations: [FormFieldsComponent],
-      imports: [BrowserAnimationsModule, FormModule,MaterialFieldsModule ],
+      declarations: [FormFieldsSelectsComponent],
+      imports: [BrowserAnimationsModule, FormModule,MaterialFieldsModule,FieldsModule ],
     }),
   ],
 } as Meta;
 
-const Template: Story<FormFieldsComponent> = (args: FormFieldsComponent) => ({
-  component: FormFieldsComponent,
+
+const Template: Story<FormFieldsSelectsComponent> = (args: FormFieldsSelectsComponent) => ({
+  component: FormFieldsSelectsComponent,
   props: args,
 });
 
@@ -33,16 +34,6 @@ export const FormFieldsAll = Template.bind({});
 FormFieldsAll.args = {
   
 };
-
-// const Template2: Story<FormFieldsSelectsComponent> = (args: FormFieldsSelectsComponent) => ({
-//   component: FormFieldsComponent,
-//   props: args,
-// });
-
-// export const FormFieldsAllSelect = Template2.bind({});
-// FormFieldsAll.args = {
-  
-// };
 
 // export const Disabled = Template.bind({});
 // Disabled.args = {
