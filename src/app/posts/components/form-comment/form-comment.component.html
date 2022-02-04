@@ -11,4 +11,13 @@
       </div>
     </ng-container>
   </app-form>
+
+
+  <ng-template #buttons let-form>
+    <lib-button [label]="'MY CLOSE'" [disabled]="form?.invalid || form?.pristine" (onClick)="dialogRef.close(form.value)"></lib-button>
+    
+  </ng-template>
+  
+
+
   

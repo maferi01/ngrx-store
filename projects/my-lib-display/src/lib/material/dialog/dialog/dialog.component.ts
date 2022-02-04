@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { ChangeDetectorRef, Component, ComponentRef, EventEmitter, Injector, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentRef, EventEmitter, Injector, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AbstractDialogComponent } from '../dialog.module';
@@ -28,7 +28,8 @@ export class DialogComponent implements OnInit {
   detect: ChangeDetectorRef;
   compInside: ComponentRef<AbstractDialogComponent>;
   formInside:FormGroup;
- 
+  templateButtons:TemplateRef<any>;
+
   //abstract getFormGroup(): FormGroup;
 
   constructor(protected injector: Injector) {
@@ -58,9 +59,12 @@ export class DialogComponent implements OnInit {
 
   createInside(){
     this.compInside=this.viewContainerInside.createComponent(this.dataDialog.compInsideDialog);
+    // detect changes  to refresh the component inside
     this.detect.detectChanges();
     console.log('Form comp inside---------',this.compInside.instance.formComponent);
     this.formInside=this.compInside.instance?.formComponent?.group;
+    this.templateButtons=this.compInside.instance?.templateButtons;
+    // detect to refresh these proterties   
     this.detect.detectChanges();
 
   }

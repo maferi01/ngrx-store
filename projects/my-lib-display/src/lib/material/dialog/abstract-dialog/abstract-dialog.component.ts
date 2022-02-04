@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, Input, EventEmitter, Injector, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Directive, Input, EventEmitter, Injector, ViewChild, AfterViewInit, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormComponent } from '../../form/form.module';
@@ -13,6 +13,10 @@ export abstract class AbstractDialogComponent<E = object, T = object> implements
   dataDialog: E;
   @ViewChild(FormComponent)
   formComponent: FormComponent;
+
+  @ViewChild('buttons')
+  templateButtons: TemplateRef<any>;
+
 
   //abstract getFormGroup(): FormGroup;
 
