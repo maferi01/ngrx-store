@@ -52,41 +52,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 @Component({
-  selector: 'storybook-button',
+  selector: 'form-normal',
   template: ` 
   <app-form  #formfilter [showButtons]="true" (onAccept)="accept($event)">
     <ng-container [formGroup]="group" *formg="let group" >
       <div class="flex flex-row">
-     
-              <app-text-field [name]="'text-group-other-3'" [label]="'text test other 3'" class="w-6" MatField></app-text-field>
-               <app-select-field
-                [name]="'myselect'"
-                [label]="'My select *'"
-                [listItems]="[
-                  { value: '1', desc: 'desc 1' },
-                  { value: '2', desc: 'desc 2' },
-                  { value: '3', desc: 'desc 3' }
-                ]"
-                (onChange)="updateData($event)"
-                [validations]="validations"
-                MatField
-                class="w-6"
-              ></app-select-field>
-              <app-select-field
-                [name]="'myselect2'"
-                [label]="'My select 2 *'"
-                [listItems]="dataSelect$ | async"
-                [value]="'22'"
-                (onChange)="valueSelect = $event"
-                MatField
-                class="w-6"
-              ></app-select-field> 
+      <app-number-field [name]="'number field'" [label]="'Number field'" [value]="10" class="w-6"></app-number-field>
+      <app-number-field [name]="'number field_other'" [label]="'Number field'" [value]="50" class="w-6"></app-number-field>
+       <app-text-field [name]="'text-group-other'" [label]="'text test other'" class="w-6"></app-text-field>
+       <app-email-field [name]="'email'" [label]="'Email *'"></app-email-field>
+            
       </div>
     </ng-container>
   </app-form>
   `  
 })
-export default class FormFieldsSelectsComponent {
+export default class FormFieldsNormalComponent {
   title = 'app-dialog';
   valueForm:any;
   valueSelect: any;
@@ -103,11 +84,7 @@ export default class FormFieldsSelectsComponent {
   onAccept = new EventEmitter();
 
     constructor(private detect:ChangeDetectorRef){
-      this.dataSelect$= this.subject.pipe(
-        tap(values=> console.log('values',values)),
-        map(data=> data.map( d => d as Item)),
-        delay(2000)
-      ) as Observable<Item[]>;
+   
          
     }
  
