@@ -11,7 +11,10 @@
     "lib-display:build:watch": "ng build my-lib-display --watch",
     "server:mock": "mock-server --path ./mocks --proxy http://localhost:5000",
     "client:mock": "mock-client 3000 localhost 8083",
-    "server:json": "json-server --watch db.json --port 5000  --delay 600"
+    "server:json": "json-server --watch db.json --port 5000  --delay 600",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "storybook": "npm run docs:json && start-storybook -p 6006",
+    "build-storybook": "npm run docs:json && build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -36,19 +39,41 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "@angular-builders/jest": "^13.0.3",
     "@angular-devkit/build-angular": "~13.1.4",
     "@angular/cli": "~13.1.4",
     "@angular/compiler-cli": "~13.1.0",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "@compodoc/compodoc": "^1.1.11",
     "@ngrx/schematics": "^13.0.2",
+    "@storybook/addon-actions": "^6.5.0-alpha.34",
+    "@storybook/addon-essentials": "^6.5.0-alpha.34",
+    "@storybook/addon-interactions": "^6.5.0-alpha.34",
+    "@storybook/addon-links": "^6.5.0-alpha.34",
+    "@storybook/angular": "^6.5.0-alpha.34",
+    "@storybook/builder-webpack5": "^6.5.0-alpha.34",
+    "@storybook/manager-webpack5": "^6.5.0-alpha.34",
+    "@storybook/testing-library": "0.0.9--canary.13.01cc4fe.0",
+    "@testing-library/angular": "^10.3.0",
     "@types/jasmine": "~3.10.0",
+    "@types/jest": "^26.0.20",
     "@types/node": "^12.11.1",
+    "babel-loader": "^8.2.2",
+    "codelyzer": "^6.0.0",
     "jasmine-core": "~3.10.0",
+    "jest": "^26.6.3",
+    "jest-preset-angular": "^8.3.2",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^13.0.0",
-    "typescript": "~4.5.2"
+    "ts-jest": "^26.4.4",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
+    "typescript": "~4.5.2",
+    "webpack": "^5.68.0"
   }
 }
