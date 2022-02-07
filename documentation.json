@@ -117,7 +117,95 @@
         },
         {
             "name": "DataSelect",
-            "id": "interface-DataSelect-5f49f50d55269731d3370955c012988130999261159fbe47b519902ef0edb4e25d87bb1d141081a34bc15dc67340049726128ba06c1f281d320798f9afdee746-1",
+            "id": "interface-DataSelect-b169efd6843fac17e6d77ff564b416540192816f834e2f153966d16e75b283d61c9f073fa45cd2b1e9779b3bd4a8a3458aec992d354444bfbf6152737a84e928-1",
+            "file": "src/stories/library/formfields.normal.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';\r\nimport { Validators } from '@angular/forms';\r\nimport { Sort } from '@angular/material/sort';\r\nimport { Item } from 'my-lib-display';\r\nimport { BehaviorSubject, Observable, tap, map, delay } from 'rxjs';\r\nimport { ValidatorsApp } from 'src/app/demo-lib/validatosapp';\r\n\r\n\r\nexport interface DataSelect{\r\n  key: string;\r\n  value:string,\r\n  desc: string;\r\n}\r\n\r\n\r\nexport function createData():DataSelect[]{\r\n  return [\r\n    {key: '1', value: '11', desc:'desc data 11' },\r\n    {key: '1', value: '12', desc:'desc data 12' },\r\n    {key: '1', value: '13', desc:'desc data 13' },\r\n    {key: '2', value: '21', desc:'desc data 21' },\r\n    {key: '2', value: '22', desc:'desc data 22' },\r\n    {key: '2', value: '23', desc:'desc data 23' },\r\n    {key: '3', value: '31', desc:'desc data 31' },\r\n    {key: '3', value: '32', desc:'desc data 32' },\r\n    {key: '3', value: '33', desc:'desc data 33' },\r\n    \r\n  ];\r\n}\r\n\r\n\r\nexport interface PeriodicElement {\r\n  name: string;\r\n  position: number;\r\n  weight: number;\r\n  symbol: string;\r\n}\r\n\r\nconst ELEMENT_DATA: PeriodicElement[] = [\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n];\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'form-normal',\r\n  template: ` \r\n  <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n      <app-number-field [name]=\"'number field'\" [label]=\"'Number field'\" [value]=\"10\" class=\"w-6\"></app-number-field>\r\n      <app-number-field [name]=\"'number field_other'\" [label]=\"'Number field'\" [value]=\"50\" class=\"w-6\"></app-number-field>\r\n       <app-text-field [name]=\"'text-group-other'\" [label]=\"'text test other'\" class=\"w-6\"></app-text-field>\r\n       <app-email-field [name]=\"'email'\" [label]=\"'Email *'\"></app-email-field>\r\n            \r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n  `  \r\n})\r\nexport default class FormFieldsNormalComponent {\r\n  title = 'app-dialog';\r\n  valueForm:any;\r\n  valueSelect: any;\r\n  valueSelectComplex: any;\r\n  subject= new BehaviorSubject<DataSelect[]>(createData());\r\n  subjectList= new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);\r\n\r\n\r\n  dataSelect$: Observable<Item[]>;\r\n  dataList$= this.subjectList.asObservable();\r\n  val:string='val1';\r\n\r\n  @Output()\r\n  onAccept = new EventEmitter();\r\n\r\n    constructor(private detect:ChangeDetectorRef){\r\n   \r\n         \r\n    }\r\n \r\n  \r\n    \r\n   accept(data:any){\r\n      console.log('passsssssssssss accept',data)\r\n      this.onAccept.emit(data)\r\n    }\r\n\r\n\r\n  updateData(key:string){\r\n    if(!key) return;\r\n    this.subject.next(createData().filter(d=> d.key===key))\r\n  }\r\n  \r\n  get validations(){\r\n    return [Validators.required]\r\n  }\r\n\r\n  validationsGroup(f1:string,f2:string){\r\n    return [ValidatorsApp.compareFields(f1,f2)]\r\n  }\r\n  validationsInGroup(f1:string,f2:string,f3:string){\r\n    return [ValidatorsApp.compareFieldsGroup(f1,f2),ValidatorsApp.compareFieldsGroupb(f1,f3)]\r\n  }\r\n\r\n  validationsInOtherGroup(f1:string,f2:string,f1g:string|null,f2g:string|null){\r\n    return [ValidatorsApp.compareFieldsOtherGroup(f1,f2,f1g,f2g)]\r\n  }\r\n\r\n  get dataTable(){\r\n    return ELEMENT_DATA;\r\n  }\r\n\r\n  sortData(sort:Sort){\r\n    this.subjectList.next([...sortList(ELEMENT_DATA,sort.active,sort.direction)]) ;\r\n    \r\n  }\r\n\r\n  filterList(filter:{name:string,position:number}){\r\n    this.subjectList.next([...ELEMENT_DATA.filter(e=> e.position===filter.position && e.name.includes(filter.name))]) ;\r\n    \r\n  }\r\n\r\n}\r\n\r\n\r\nfunction sortList(list:any[],key:string,asc:'asc' | 'desc' | ''){\r\n  return list.sort((a,b)=> {\r\n    if(a[key]===b[key]) return 0;\r\n    if(asc==='asc'){\r\n     return (a[key]> b[key])?1:-1;\r\n    }else{\r\n     return (a[key]> b[key])?-1:1;\r\n    }\r\n  });\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "desc",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "key",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "value",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "DataSelect-1"
+        },
+        {
+            "name": "DataSelect",
+            "id": "interface-DataSelect-a38959a01cb1b18eecec604b1f1eafe7db5ceadeb92ff2c2beffb26429fd00a15e7922ab33f6bc3fbe19230230e42c723b3a6a63c0001a8f7162322a57caeb62-2",
+            "file": "src/stories/library/formfields.selects.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';\r\nimport { Validators } from '@angular/forms';\r\nimport { Sort } from '@angular/material/sort';\r\nimport { Item } from 'my-lib-display';\r\nimport { BehaviorSubject, Observable, tap, map, delay } from 'rxjs';\r\nimport { ValidatorsApp } from 'src/app/demo-lib/validatosapp';\r\n\r\n\r\nexport interface DataSelect{\r\n  key: string;\r\n  value:string,\r\n  desc: string;\r\n}\r\n\r\n\r\nexport function createData():DataSelect[]{\r\n  return [\r\n    {key: '1', value: '11', desc:'desc data 11' },\r\n    {key: '1', value: '12', desc:'desc data 12' },\r\n    {key: '1', value: '13', desc:'desc data 13' },\r\n    {key: '2', value: '21', desc:'desc data 21' },\r\n    {key: '2', value: '22', desc:'desc data 22' },\r\n    {key: '2', value: '23', desc:'desc data 23' },\r\n    {key: '3', value: '31', desc:'desc data 31' },\r\n    {key: '3', value: '32', desc:'desc data 32' },\r\n    {key: '3', value: '33', desc:'desc data 33' },\r\n    \r\n  ];\r\n}\r\n\r\n\r\nexport interface PeriodicElement {\r\n  name: string;\r\n  position: number;\r\n  weight: number;\r\n  symbol: string;\r\n}\r\n\r\nconst ELEMENT_DATA: PeriodicElement[] = [\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n];\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'storybook-button',\r\n  template: ` \r\n  <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n     \r\n              <app-text-field [name]=\"'text-group-other-3'\" [label]=\"'text test other 3'\" class=\"w-6\" MatField></app-text-field>\r\n               <app-select-field\r\n                [name]=\"'myselect'\"\r\n                [label]=\"'My select *'\"\r\n                [listItems]=\"[\r\n                  { value: '1', desc: 'desc 1' },\r\n                  { value: '2', desc: 'desc 2' },\r\n                  { value: '3', desc: 'desc 3' }\r\n                ]\"\r\n                (onChange)=\"updateData($event)\"\r\n                [validations]=\"validations\"\r\n                MatField\r\n                class=\"w-6\"\r\n              ></app-select-field>\r\n              <app-select-field\r\n                [name]=\"'myselect2'\"\r\n                [label]=\"'My select 2 *'\"\r\n                [listItems]=\"dataSelect$ | async\"\r\n                [value]=\"'22'\"\r\n                (onChange)=\"valueSelect = $event\"\r\n                MatField\r\n                class=\"w-6\"\r\n              ></app-select-field> \r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n  `  \r\n})\r\nexport default class FormFieldsSelectsComponent {\r\n  title = 'app-dialog';\r\n  valueForm:any;\r\n  valueSelect: any;\r\n  valueSelectComplex: any;\r\n  subject= new BehaviorSubject<DataSelect[]>(createData());\r\n  subjectList= new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);\r\n\r\n\r\n  dataSelect$: Observable<Item[]>;\r\n  dataList$= this.subjectList.asObservable();\r\n  val:string='val1';\r\n\r\n  @Output()\r\n  onAccept = new EventEmitter();\r\n\r\n    constructor(private detect:ChangeDetectorRef){\r\n      this.dataSelect$= this.subject.pipe(\r\n        tap(values=> console.log('values',values)),\r\n        map(data=> data.map( d => d as Item)),\r\n        delay(2000)\r\n      ) as Observable<Item[]>;\r\n         \r\n    }\r\n \r\n  \r\n    \r\n   accept(data:any){\r\n      console.log('passsssssssssss accept',data)\r\n      this.onAccept.emit(data)\r\n    }\r\n\r\n\r\n  updateData(key:string){\r\n    if(!key) return;\r\n    this.subject.next(createData().filter(d=> d.key===key))\r\n  }\r\n  \r\n  get validations(){\r\n    return [Validators.required]\r\n  }\r\n\r\n  validationsGroup(f1:string,f2:string){\r\n    return [ValidatorsApp.compareFields(f1,f2)]\r\n  }\r\n  validationsInGroup(f1:string,f2:string,f3:string){\r\n    return [ValidatorsApp.compareFieldsGroup(f1,f2),ValidatorsApp.compareFieldsGroupb(f1,f3)]\r\n  }\r\n\r\n  validationsInOtherGroup(f1:string,f2:string,f1g:string|null,f2g:string|null){\r\n    return [ValidatorsApp.compareFieldsOtherGroup(f1,f2,f1g,f2g)]\r\n  }\r\n\r\n  get dataTable(){\r\n    return ELEMENT_DATA;\r\n  }\r\n\r\n  sortData(sort:Sort){\r\n    this.subjectList.next([...sortList(ELEMENT_DATA,sort.active,sort.direction)]) ;\r\n    \r\n  }\r\n\r\n  filterList(filter:{name:string,position:number}){\r\n    this.subjectList.next([...ELEMENT_DATA.filter(e=> e.position===filter.position && e.name.includes(filter.name))]) ;\r\n    \r\n  }\r\n\r\n}\r\n\r\n\r\nfunction sortList(list:any[],key:string,asc:'asc' | 'desc' | ''){\r\n  return list.sort((a,b)=> {\r\n    if(a[key]===b[key]) return 0;\r\n    if(asc==='asc'){\r\n     return (a[key]> b[key])?1:-1;\r\n    }else{\r\n     return (a[key]> b[key])?-1:1;\r\n    }\r\n  });\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "desc",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "key",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "value",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 2,
+            "duplicateName": "DataSelect-2"
+        },
+        {
+            "name": "DataSelect",
+            "id": "interface-DataSelect-5f49f50d55269731d3370955c012988130999261159fbe47b519902ef0edb4e25d87bb1d141081a34bc15dc67340049726128ba06c1f281d320798f9afdee746-3",
             "file": "projects/my-lib-display/src/lib/fields/components/data.ts",
             "deprecated": false,
             "deprecationMessage": "",
@@ -156,8 +244,8 @@
             "kind": 165,
             "methods": [],
             "isDuplicate": true,
-            "duplicateId": 1,
-            "duplicateName": "DataSelect-1"
+            "duplicateId": 3,
+            "duplicateName": "DataSelect-3"
         },
         {
             "name": "Entity",
@@ -866,6 +954,112 @@
             "indexSignatures": [],
             "kind": 165,
             "methods": []
+        },
+        {
+            "name": "PeriodicElement",
+            "id": "interface-PeriodicElement-b169efd6843fac17e6d77ff564b416540192816f834e2f153966d16e75b283d61c9f073fa45cd2b1e9779b3bd4a8a3458aec992d354444bfbf6152737a84e928-1",
+            "file": "src/stories/library/formfields.normal.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';\r\nimport { Validators } from '@angular/forms';\r\nimport { Sort } from '@angular/material/sort';\r\nimport { Item } from 'my-lib-display';\r\nimport { BehaviorSubject, Observable, tap, map, delay } from 'rxjs';\r\nimport { ValidatorsApp } from 'src/app/demo-lib/validatosapp';\r\n\r\n\r\nexport interface DataSelect{\r\n  key: string;\r\n  value:string,\r\n  desc: string;\r\n}\r\n\r\n\r\nexport function createData():DataSelect[]{\r\n  return [\r\n    {key: '1', value: '11', desc:'desc data 11' },\r\n    {key: '1', value: '12', desc:'desc data 12' },\r\n    {key: '1', value: '13', desc:'desc data 13' },\r\n    {key: '2', value: '21', desc:'desc data 21' },\r\n    {key: '2', value: '22', desc:'desc data 22' },\r\n    {key: '2', value: '23', desc:'desc data 23' },\r\n    {key: '3', value: '31', desc:'desc data 31' },\r\n    {key: '3', value: '32', desc:'desc data 32' },\r\n    {key: '3', value: '33', desc:'desc data 33' },\r\n    \r\n  ];\r\n}\r\n\r\n\r\nexport interface PeriodicElement {\r\n  name: string;\r\n  position: number;\r\n  weight: number;\r\n  symbol: string;\r\n}\r\n\r\nconst ELEMENT_DATA: PeriodicElement[] = [\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n];\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'form-normal',\r\n  template: ` \r\n  <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n      <app-number-field [name]=\"'number field'\" [label]=\"'Number field'\" [value]=\"10\" class=\"w-6\"></app-number-field>\r\n      <app-number-field [name]=\"'number field_other'\" [label]=\"'Number field'\" [value]=\"50\" class=\"w-6\"></app-number-field>\r\n       <app-text-field [name]=\"'text-group-other'\" [label]=\"'text test other'\" class=\"w-6\"></app-text-field>\r\n       <app-email-field [name]=\"'email'\" [label]=\"'Email *'\"></app-email-field>\r\n            \r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n  `  \r\n})\r\nexport default class FormFieldsNormalComponent {\r\n  title = 'app-dialog';\r\n  valueForm:any;\r\n  valueSelect: any;\r\n  valueSelectComplex: any;\r\n  subject= new BehaviorSubject<DataSelect[]>(createData());\r\n  subjectList= new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);\r\n\r\n\r\n  dataSelect$: Observable<Item[]>;\r\n  dataList$= this.subjectList.asObservable();\r\n  val:string='val1';\r\n\r\n  @Output()\r\n  onAccept = new EventEmitter();\r\n\r\n    constructor(private detect:ChangeDetectorRef){\r\n   \r\n         \r\n    }\r\n \r\n  \r\n    \r\n   accept(data:any){\r\n      console.log('passsssssssssss accept',data)\r\n      this.onAccept.emit(data)\r\n    }\r\n\r\n\r\n  updateData(key:string){\r\n    if(!key) return;\r\n    this.subject.next(createData().filter(d=> d.key===key))\r\n  }\r\n  \r\n  get validations(){\r\n    return [Validators.required]\r\n  }\r\n\r\n  validationsGroup(f1:string,f2:string){\r\n    return [ValidatorsApp.compareFields(f1,f2)]\r\n  }\r\n  validationsInGroup(f1:string,f2:string,f3:string){\r\n    return [ValidatorsApp.compareFieldsGroup(f1,f2),ValidatorsApp.compareFieldsGroupb(f1,f3)]\r\n  }\r\n\r\n  validationsInOtherGroup(f1:string,f2:string,f1g:string|null,f2g:string|null){\r\n    return [ValidatorsApp.compareFieldsOtherGroup(f1,f2,f1g,f2g)]\r\n  }\r\n\r\n  get dataTable(){\r\n    return ELEMENT_DATA;\r\n  }\r\n\r\n  sortData(sort:Sort){\r\n    this.subjectList.next([...sortList(ELEMENT_DATA,sort.active,sort.direction)]) ;\r\n    \r\n  }\r\n\r\n  filterList(filter:{name:string,position:number}){\r\n    this.subjectList.next([...ELEMENT_DATA.filter(e=> e.position===filter.position && e.name.includes(filter.name))]) ;\r\n    \r\n  }\r\n\r\n}\r\n\r\n\r\nfunction sortList(list:any[],key:string,asc:'asc' | 'desc' | ''){\r\n  return list.sort((a,b)=> {\r\n    if(a[key]===b[key]) return 0;\r\n    if(asc==='asc'){\r\n     return (a[key]> b[key])?1:-1;\r\n    }else{\r\n     return (a[key]> b[key])?-1:1;\r\n    }\r\n  });\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 33
+                },
+                {
+                    "name": "position",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 34
+                },
+                {
+                    "name": "symbol",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 36
+                },
+                {
+                    "name": "weight",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 35
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "PeriodicElement-1"
+        },
+        {
+            "name": "PeriodicElement",
+            "id": "interface-PeriodicElement-a38959a01cb1b18eecec604b1f1eafe7db5ceadeb92ff2c2beffb26429fd00a15e7922ab33f6bc3fbe19230230e42c723b3a6a63c0001a8f7162322a57caeb62-2",
+            "file": "src/stories/library/formfields.selects.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';\r\nimport { Validators } from '@angular/forms';\r\nimport { Sort } from '@angular/material/sort';\r\nimport { Item } from 'my-lib-display';\r\nimport { BehaviorSubject, Observable, tap, map, delay } from 'rxjs';\r\nimport { ValidatorsApp } from 'src/app/demo-lib/validatosapp';\r\n\r\n\r\nexport interface DataSelect{\r\n  key: string;\r\n  value:string,\r\n  desc: string;\r\n}\r\n\r\n\r\nexport function createData():DataSelect[]{\r\n  return [\r\n    {key: '1', value: '11', desc:'desc data 11' },\r\n    {key: '1', value: '12', desc:'desc data 12' },\r\n    {key: '1', value: '13', desc:'desc data 13' },\r\n    {key: '2', value: '21', desc:'desc data 21' },\r\n    {key: '2', value: '22', desc:'desc data 22' },\r\n    {key: '2', value: '23', desc:'desc data 23' },\r\n    {key: '3', value: '31', desc:'desc data 31' },\r\n    {key: '3', value: '32', desc:'desc data 32' },\r\n    {key: '3', value: '33', desc:'desc data 33' },\r\n    \r\n  ];\r\n}\r\n\r\n\r\nexport interface PeriodicElement {\r\n  name: string;\r\n  position: number;\r\n  weight: number;\r\n  symbol: string;\r\n}\r\n\r\nconst ELEMENT_DATA: PeriodicElement[] = [\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n];\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'storybook-button',\r\n  template: ` \r\n  <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n     \r\n              <app-text-field [name]=\"'text-group-other-3'\" [label]=\"'text test other 3'\" class=\"w-6\" MatField></app-text-field>\r\n               <app-select-field\r\n                [name]=\"'myselect'\"\r\n                [label]=\"'My select *'\"\r\n                [listItems]=\"[\r\n                  { value: '1', desc: 'desc 1' },\r\n                  { value: '2', desc: 'desc 2' },\r\n                  { value: '3', desc: 'desc 3' }\r\n                ]\"\r\n                (onChange)=\"updateData($event)\"\r\n                [validations]=\"validations\"\r\n                MatField\r\n                class=\"w-6\"\r\n              ></app-select-field>\r\n              <app-select-field\r\n                [name]=\"'myselect2'\"\r\n                [label]=\"'My select 2 *'\"\r\n                [listItems]=\"dataSelect$ | async\"\r\n                [value]=\"'22'\"\r\n                (onChange)=\"valueSelect = $event\"\r\n                MatField\r\n                class=\"w-6\"\r\n              ></app-select-field> \r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n  `  \r\n})\r\nexport default class FormFieldsSelectsComponent {\r\n  title = 'app-dialog';\r\n  valueForm:any;\r\n  valueSelect: any;\r\n  valueSelectComplex: any;\r\n  subject= new BehaviorSubject<DataSelect[]>(createData());\r\n  subjectList= new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);\r\n\r\n\r\n  dataSelect$: Observable<Item[]>;\r\n  dataList$= this.subjectList.asObservable();\r\n  val:string='val1';\r\n\r\n  @Output()\r\n  onAccept = new EventEmitter();\r\n\r\n    constructor(private detect:ChangeDetectorRef){\r\n      this.dataSelect$= this.subject.pipe(\r\n        tap(values=> console.log('values',values)),\r\n        map(data=> data.map( d => d as Item)),\r\n        delay(2000)\r\n      ) as Observable<Item[]>;\r\n         \r\n    }\r\n \r\n  \r\n    \r\n   accept(data:any){\r\n      console.log('passsssssssssss accept',data)\r\n      this.onAccept.emit(data)\r\n    }\r\n\r\n\r\n  updateData(key:string){\r\n    if(!key) return;\r\n    this.subject.next(createData().filter(d=> d.key===key))\r\n  }\r\n  \r\n  get validations(){\r\n    return [Validators.required]\r\n  }\r\n\r\n  validationsGroup(f1:string,f2:string){\r\n    return [ValidatorsApp.compareFields(f1,f2)]\r\n  }\r\n  validationsInGroup(f1:string,f2:string,f3:string){\r\n    return [ValidatorsApp.compareFieldsGroup(f1,f2),ValidatorsApp.compareFieldsGroupb(f1,f3)]\r\n  }\r\n\r\n  validationsInOtherGroup(f1:string,f2:string,f1g:string|null,f2g:string|null){\r\n    return [ValidatorsApp.compareFieldsOtherGroup(f1,f2,f1g,f2g)]\r\n  }\r\n\r\n  get dataTable(){\r\n    return ELEMENT_DATA;\r\n  }\r\n\r\n  sortData(sort:Sort){\r\n    this.subjectList.next([...sortList(ELEMENT_DATA,sort.active,sort.direction)]) ;\r\n    \r\n  }\r\n\r\n  filterList(filter:{name:string,position:number}){\r\n    this.subjectList.next([...ELEMENT_DATA.filter(e=> e.position===filter.position && e.name.includes(filter.name))]) ;\r\n    \r\n  }\r\n\r\n}\r\n\r\n\r\nfunction sortList(list:any[],key:string,asc:'asc' | 'desc' | ''){\r\n  return list.sort((a,b)=> {\r\n    if(a[key]===b[key]) return 0;\r\n    if(asc==='asc'){\r\n     return (a[key]> b[key])?1:-1;\r\n    }else{\r\n     return (a[key]> b[key])?-1:1;\r\n    }\r\n  });\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 33
+                },
+                {
+                    "name": "position",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 34
+                },
+                {
+                    "name": "symbol",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 36
+                },
+                {
+                    "name": "weight",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 35
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 2,
+            "duplicateName": "PeriodicElement-2"
         },
         {
             "name": "Post",
@@ -6847,7 +7041,7 @@
                     }
                 }
             },
-            "templateData": "<p></p>\r\n<app-form  #formfilter [showButtons]=\"false\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n        <app-text-field [name]=\"'comment'\" [label]=\"'Filter by comment'\" [validations]=\"validations\"  MatField>\r\n        </app-text-field>\r\n        <app-text-field [name]=\"'author'\" [label]=\"'Filter by author'\"  MatField>\r\n        </app-text-field>\r\n        <app-text-field [name]=\"'id'\" [label]=\"'Filter by Id'\" MatField>\r\n        </app-text-field>\r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n\r\n\r\n  <ng-template #buttons let-form>\r\n    <lib-button [label]=\"'MY CLOSE'\" [disabled]=\"form?.invalid || form?.pristine\" (onClick)=\"onAccept.emit(form.value)\"></lib-button>\r\n    \r\n  </ng-template>\r\n  \r\n\r\n  \r\n"
+            "templateData": "<p></p>\r\n<app-form  #formfilter [showButtons]=\"false\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n        <app-text-field [name]=\"'comment'\" [label]=\"'Filter by comment'\" [validations]=\"validations\"  MatField>\r\n        </app-text-field>\r\n        <app-text-field [name]=\"'author'\" [label]=\"'Filter by author'\"  MatField>\r\n        </app-text-field>\r\n        <app-text-field [name]=\"'id'\" [label]=\"'Filter by Id'\" MatField>\r\n        </app-text-field>\r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n\r\n\r\n  <ng-template #buttonsvv let-form>\r\n    <lib-button [label]=\"'MY CLOSE'\" [disabled]=\"form?.invalid || form?.pristine\" (onClick)=\"onAccept.emit(form.value)\"></lib-button>\r\n    \r\n  </ng-template>\r\n  \r\n\r\n  \r\n"
         },
         {
             "name": "FormComponent",
@@ -7202,6 +7396,926 @@
                         "type": "[]",
                         "returnType": "any[]",
                         "line": 34
+                    }
+                }
+            }
+        },
+        {
+            "name": "FormFieldsNormalComponent",
+            "id": "component-FormFieldsNormalComponent-b169efd6843fac17e6d77ff564b416540192816f834e2f153966d16e75b283d61c9f073fa45cd2b1e9779b3bd4a8a3458aec992d354444bfbf6152737a84e928",
+            "file": "src/stories/library/formfields.normal.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "form-normal",
+            "styleUrls": [],
+            "styles": [],
+            "template": " <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\n  <ng-container [formGroup]=\"group\" *formg=\"let group\" >\n    <div class=\"flex flex-row\">\n    <app-number-field [name]=\"'number field'\" [label]=\"'Number field'\" [value]=\"10\" class=\"w-6\"></app-number-field>\n    <app-number-field [name]=\"'number field_other'\" [label]=\"'Number field'\" [value]=\"50\" class=\"w-6\"></app-number-field>\n     <app-text-field [name]=\"'text-group-other'\" [label]=\"'text test other'\" class=\"w-6\"></app-text-field>\n     <app-email-field [name]=\"'email'\" [label]=\"'Email *'\"></app-email-field>\n\n    </div>\n  </ng-container>\n</app-form>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "onAccept",
+                    "defaultValue": "new EventEmitter()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 84,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "dataList$",
+                    "defaultValue": "this.subjectList.asObservable()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 80
+                },
+                {
+                    "name": "dataSelect$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<Item[]>",
+                    "optional": false,
+                    "description": "",
+                    "line": 79
+                },
+                {
+                    "name": "subject",
+                    "defaultValue": "new BehaviorSubject<DataSelect[]>(createData())",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 75
+                },
+                {
+                    "name": "subjectList",
+                    "defaultValue": "new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 76
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "'app-dialog'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 71
+                },
+                {
+                    "name": "val",
+                    "defaultValue": "'val1'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 81
+                },
+                {
+                    "name": "valueForm",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 72
+                },
+                {
+                    "name": "valueSelect",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 73
+                },
+                {
+                    "name": "valueSelectComplex",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 74
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "accept",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 93,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "filterList",
+                    "args": [
+                        {
+                            "name": "filter",
+                            "type": "literal type",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 128,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "filter",
+                            "type": "literal type",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "sortData",
+                    "args": [
+                        {
+                            "name": "sort",
+                            "type": "Sort",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 123,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "sort",
+                            "type": "Sort",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateData",
+                    "args": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 99,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "validationsGroup",
+                    "args": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 108,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "validationsInGroup",
+                    "args": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f3",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 111,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f3",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "validationsInOtherGroup",
+                    "args": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f1g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 115,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f1g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';\r\nimport { Validators } from '@angular/forms';\r\nimport { Sort } from '@angular/material/sort';\r\nimport { Item } from 'my-lib-display';\r\nimport { BehaviorSubject, Observable, tap, map, delay } from 'rxjs';\r\nimport { ValidatorsApp } from 'src/app/demo-lib/validatosapp';\r\n\r\n\r\nexport interface DataSelect{\r\n  key: string;\r\n  value:string,\r\n  desc: string;\r\n}\r\n\r\n\r\nexport function createData():DataSelect[]{\r\n  return [\r\n    {key: '1', value: '11', desc:'desc data 11' },\r\n    {key: '1', value: '12', desc:'desc data 12' },\r\n    {key: '1', value: '13', desc:'desc data 13' },\r\n    {key: '2', value: '21', desc:'desc data 21' },\r\n    {key: '2', value: '22', desc:'desc data 22' },\r\n    {key: '2', value: '23', desc:'desc data 23' },\r\n    {key: '3', value: '31', desc:'desc data 31' },\r\n    {key: '3', value: '32', desc:'desc data 32' },\r\n    {key: '3', value: '33', desc:'desc data 33' },\r\n    \r\n  ];\r\n}\r\n\r\n\r\nexport interface PeriodicElement {\r\n  name: string;\r\n  position: number;\r\n  weight: number;\r\n  symbol: string;\r\n}\r\n\r\nconst ELEMENT_DATA: PeriodicElement[] = [\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n];\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'form-normal',\r\n  template: ` \r\n  <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n      <app-number-field [name]=\"'number field'\" [label]=\"'Number field'\" [value]=\"10\" class=\"w-6\"></app-number-field>\r\n      <app-number-field [name]=\"'number field_other'\" [label]=\"'Number field'\" [value]=\"50\" class=\"w-6\"></app-number-field>\r\n       <app-text-field [name]=\"'text-group-other'\" [label]=\"'text test other'\" class=\"w-6\"></app-text-field>\r\n       <app-email-field [name]=\"'email'\" [label]=\"'Email *'\"></app-email-field>\r\n            \r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n  `  \r\n})\r\nexport default class FormFieldsNormalComponent {\r\n  title = 'app-dialog';\r\n  valueForm:any;\r\n  valueSelect: any;\r\n  valueSelectComplex: any;\r\n  subject= new BehaviorSubject<DataSelect[]>(createData());\r\n  subjectList= new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);\r\n\r\n\r\n  dataSelect$: Observable<Item[]>;\r\n  dataList$= this.subjectList.asObservable();\r\n  val:string='val1';\r\n\r\n  @Output()\r\n  onAccept = new EventEmitter();\r\n\r\n    constructor(private detect:ChangeDetectorRef){\r\n   \r\n         \r\n    }\r\n \r\n  \r\n    \r\n   accept(data:any){\r\n      console.log('passsssssssssss accept',data)\r\n      this.onAccept.emit(data)\r\n    }\r\n\r\n\r\n  updateData(key:string){\r\n    if(!key) return;\r\n    this.subject.next(createData().filter(d=> d.key===key))\r\n  }\r\n  \r\n  get validations(){\r\n    return [Validators.required]\r\n  }\r\n\r\n  validationsGroup(f1:string,f2:string){\r\n    return [ValidatorsApp.compareFields(f1,f2)]\r\n  }\r\n  validationsInGroup(f1:string,f2:string,f3:string){\r\n    return [ValidatorsApp.compareFieldsGroup(f1,f2),ValidatorsApp.compareFieldsGroupb(f1,f3)]\r\n  }\r\n\r\n  validationsInOtherGroup(f1:string,f2:string,f1g:string|null,f2g:string|null){\r\n    return [ValidatorsApp.compareFieldsOtherGroup(f1,f2,f1g,f2g)]\r\n  }\r\n\r\n  get dataTable(){\r\n    return ELEMENT_DATA;\r\n  }\r\n\r\n  sortData(sort:Sort){\r\n    this.subjectList.next([...sortList(ELEMENT_DATA,sort.active,sort.direction)]) ;\r\n    \r\n  }\r\n\r\n  filterList(filter:{name:string,position:number}){\r\n    this.subjectList.next([...ELEMENT_DATA.filter(e=> e.position===filter.position && e.name.includes(filter.name))]) ;\r\n    \r\n  }\r\n\r\n}\r\n\r\n\r\nfunction sortList(list:any[],key:string,asc:'asc' | 'desc' | ''){\r\n  return list.sort((a,b)=> {\r\n    if(a[key]===b[key]) return 0;\r\n    if(asc==='asc'){\r\n     return (a[key]> b[key])?1:-1;\r\n    }else{\r\n     return (a[key]> b[key])?-1:1;\r\n    }\r\n  });\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "detect",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 84,
+                "jsdoctags": [
+                    {
+                        "name": "detect",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "accessors": {
+                "validations": {
+                    "name": "validations",
+                    "getSignature": {
+                        "name": "validations",
+                        "type": "",
+                        "returnType": "",
+                        "line": 104
+                    }
+                },
+                "dataTable": {
+                    "name": "dataTable",
+                    "getSignature": {
+                        "name": "dataTable",
+                        "type": "",
+                        "returnType": "",
+                        "line": 119
+                    }
+                }
+            }
+        },
+        {
+            "name": "FormFieldsSelectsComponent",
+            "id": "component-FormFieldsSelectsComponent-a38959a01cb1b18eecec604b1f1eafe7db5ceadeb92ff2c2beffb26429fd00a15e7922ab33f6bc3fbe19230230e42c723b3a6a63c0001a8f7162322a57caeb62",
+            "file": "src/stories/library/formfields.selects.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-button",
+            "styleUrls": [],
+            "styles": [],
+            "template": " <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\n  <ng-container [formGroup]=\"group\" *formg=\"let group\" >\n    <div class=\"flex flex-row\">\n\n            <app-text-field [name]=\"'text-group-other-3'\" [label]=\"'text test other 3'\" class=\"w-6\" MatField></app-text-field>\n             <app-select-field\n              [name]=\"'myselect'\"\n              [label]=\"'My select *'\"\n              [listItems]=\"[\n                { value: '1', desc: 'desc 1' },\n                { value: '2', desc: 'desc 2' },\n                { value: '3', desc: 'desc 3' }\n              ]\"\n              (onChange)=\"updateData($event)\"\n              [validations]=\"validations\"\n              MatField\n              class=\"w-6\"\n            ></app-select-field>\n            <app-select-field\n              [name]=\"'myselect2'\"\n              [label]=\"'My select 2 *'\"\n              [listItems]=\"dataSelect$ | async\"\n              [value]=\"'22'\"\n              (onChange)=\"valueSelect = $event\"\n              MatField\n              class=\"w-6\"\n            ></app-select-field>\n    </div>\n  </ng-container>\n</app-form>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "onAccept",
+                    "defaultValue": "new EventEmitter()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 103,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "dataList$",
+                    "defaultValue": "this.subjectList.asObservable()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 99
+                },
+                {
+                    "name": "dataSelect$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<Item[]>",
+                    "optional": false,
+                    "description": "",
+                    "line": 98
+                },
+                {
+                    "name": "subject",
+                    "defaultValue": "new BehaviorSubject<DataSelect[]>(createData())",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 94
+                },
+                {
+                    "name": "subjectList",
+                    "defaultValue": "new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 95
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "'app-dialog'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 90
+                },
+                {
+                    "name": "val",
+                    "defaultValue": "'val1'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 100
+                },
+                {
+                    "name": "valueForm",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 91
+                },
+                {
+                    "name": "valueSelect",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 92
+                },
+                {
+                    "name": "valueSelectComplex",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 93
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "accept",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 116,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "filterList",
+                    "args": [
+                        {
+                            "name": "filter",
+                            "type": "literal type",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 151,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "filter",
+                            "type": "literal type",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "sortData",
+                    "args": [
+                        {
+                            "name": "sort",
+                            "type": "Sort",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 146,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "sort",
+                            "type": "Sort",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateData",
+                    "args": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 122,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "validationsGroup",
+                    "args": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 131,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "validationsInGroup",
+                    "args": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f3",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 134,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f3",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "validationsInOtherGroup",
+                    "args": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f1g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "f2g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "{}",
+                    "typeParameters": [],
+                    "line": 138,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "f1",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f1g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "f2g",
+                            "type": "string | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';\r\nimport { Validators } from '@angular/forms';\r\nimport { Sort } from '@angular/material/sort';\r\nimport { Item } from 'my-lib-display';\r\nimport { BehaviorSubject, Observable, tap, map, delay } from 'rxjs';\r\nimport { ValidatorsApp } from 'src/app/demo-lib/validatosapp';\r\n\r\n\r\nexport interface DataSelect{\r\n  key: string;\r\n  value:string,\r\n  desc: string;\r\n}\r\n\r\n\r\nexport function createData():DataSelect[]{\r\n  return [\r\n    {key: '1', value: '11', desc:'desc data 11' },\r\n    {key: '1', value: '12', desc:'desc data 12' },\r\n    {key: '1', value: '13', desc:'desc data 13' },\r\n    {key: '2', value: '21', desc:'desc data 21' },\r\n    {key: '2', value: '22', desc:'desc data 22' },\r\n    {key: '2', value: '23', desc:'desc data 23' },\r\n    {key: '3', value: '31', desc:'desc data 31' },\r\n    {key: '3', value: '32', desc:'desc data 32' },\r\n    {key: '3', value: '33', desc:'desc data 33' },\r\n    \r\n  ];\r\n}\r\n\r\n\r\nexport interface PeriodicElement {\r\n  name: string;\r\n  position: number;\r\n  weight: number;\r\n  symbol: string;\r\n}\r\n\r\nconst ELEMENT_DATA: PeriodicElement[] = [\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n];\r\n\r\n\r\n\r\n@Component({\r\n  selector: 'storybook-button',\r\n  template: ` \r\n  <app-form  #formfilter [showButtons]=\"true\" (onAccept)=\"accept($event)\">\r\n    <ng-container [formGroup]=\"group\" *formg=\"let group\" >\r\n      <div class=\"flex flex-row\">\r\n     \r\n              <app-text-field [name]=\"'text-group-other-3'\" [label]=\"'text test other 3'\" class=\"w-6\" MatField></app-text-field>\r\n               <app-select-field\r\n                [name]=\"'myselect'\"\r\n                [label]=\"'My select *'\"\r\n                [listItems]=\"[\r\n                  { value: '1', desc: 'desc 1' },\r\n                  { value: '2', desc: 'desc 2' },\r\n                  { value: '3', desc: 'desc 3' }\r\n                ]\"\r\n                (onChange)=\"updateData($event)\"\r\n                [validations]=\"validations\"\r\n                MatField\r\n                class=\"w-6\"\r\n              ></app-select-field>\r\n              <app-select-field\r\n                [name]=\"'myselect2'\"\r\n                [label]=\"'My select 2 *'\"\r\n                [listItems]=\"dataSelect$ | async\"\r\n                [value]=\"'22'\"\r\n                (onChange)=\"valueSelect = $event\"\r\n                MatField\r\n                class=\"w-6\"\r\n              ></app-select-field> \r\n      </div>\r\n    </ng-container>\r\n  </app-form>\r\n  `  \r\n})\r\nexport default class FormFieldsSelectsComponent {\r\n  title = 'app-dialog';\r\n  valueForm:any;\r\n  valueSelect: any;\r\n  valueSelectComplex: any;\r\n  subject= new BehaviorSubject<DataSelect[]>(createData());\r\n  subjectList= new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);\r\n\r\n\r\n  dataSelect$: Observable<Item[]>;\r\n  dataList$= this.subjectList.asObservable();\r\n  val:string='val1';\r\n\r\n  @Output()\r\n  onAccept = new EventEmitter();\r\n\r\n    constructor(private detect:ChangeDetectorRef){\r\n      this.dataSelect$= this.subject.pipe(\r\n        tap(values=> console.log('values',values)),\r\n        map(data=> data.map( d => d as Item)),\r\n        delay(2000)\r\n      ) as Observable<Item[]>;\r\n         \r\n    }\r\n \r\n  \r\n    \r\n   accept(data:any){\r\n      console.log('passsssssssssss accept',data)\r\n      this.onAccept.emit(data)\r\n    }\r\n\r\n\r\n  updateData(key:string){\r\n    if(!key) return;\r\n    this.subject.next(createData().filter(d=> d.key===key))\r\n  }\r\n  \r\n  get validations(){\r\n    return [Validators.required]\r\n  }\r\n\r\n  validationsGroup(f1:string,f2:string){\r\n    return [ValidatorsApp.compareFields(f1,f2)]\r\n  }\r\n  validationsInGroup(f1:string,f2:string,f3:string){\r\n    return [ValidatorsApp.compareFieldsGroup(f1,f2),ValidatorsApp.compareFieldsGroupb(f1,f3)]\r\n  }\r\n\r\n  validationsInOtherGroup(f1:string,f2:string,f1g:string|null,f2g:string|null){\r\n    return [ValidatorsApp.compareFieldsOtherGroup(f1,f2,f1g,f2g)]\r\n  }\r\n\r\n  get dataTable(){\r\n    return ELEMENT_DATA;\r\n  }\r\n\r\n  sortData(sort:Sort){\r\n    this.subjectList.next([...sortList(ELEMENT_DATA,sort.active,sort.direction)]) ;\r\n    \r\n  }\r\n\r\n  filterList(filter:{name:string,position:number}){\r\n    this.subjectList.next([...ELEMENT_DATA.filter(e=> e.position===filter.position && e.name.includes(filter.name))]) ;\r\n    \r\n  }\r\n\r\n}\r\n\r\n\r\nfunction sortList(list:any[],key:string,asc:'asc' | 'desc' | ''){\r\n  return list.sort((a,b)=> {\r\n    if(a[key]===b[key]) return 0;\r\n    if(asc==='asc'){\r\n     return (a[key]> b[key])?1:-1;\r\n    }else{\r\n     return (a[key]> b[key])?-1:1;\r\n    }\r\n  });\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "detect",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 103,
+                "jsdoctags": [
+                    {
+                        "name": "detect",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "accessors": {
+                "validations": {
+                    "name": "validations",
+                    "getSignature": {
+                        "name": "validations",
+                        "type": "",
+                        "returnType": "",
+                        "line": 127
+                    }
+                },
+                "dataTable": {
+                    "name": "dataTable",
+                    "getSignature": {
+                        "name": "dataTable",
+                        "type": "",
+                        "returnType": "",
+                        "line": 142
                     }
                 }
             }
@@ -8495,13 +9609,18 @@
         },
         {
             "name": "NumberFieldComponent",
-            "id": "component-NumberFieldComponent-270c59dd734a854bcce8928489a84705a25134b1b5717a5d7a5199e315f97258968118bad9318af59ff743f3b74c31f8865f8cc1efc349c70ec2ce5ea278e09b",
+            "id": "component-NumberFieldComponent-1d8451912a49a3ea4494e542568f10f0ead0fc1da55b1697a39dd6b7d535e63169ad5ed4e3dabe948d4ca07a299c0d1056c6a6794fabb1c797b1bce9551f5b67",
             "file": "projects/my-lib-display/src/lib/fields/components/number-field/number-field.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
-            "providers": [],
+            "providers": [
+                {
+                    "name": "{ provide: FormField, useExisting: NumberFieldComponent }",
+                    "type": "component"
+                }
+            ],
             "selector": "app-number-field",
             "styleUrls": [
                 "./number-field.component.scss"
@@ -8672,7 +9791,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { FormField } from '../../form-field.directive';\r\n\r\n@Component({\r\n  selector: 'app-number-field',\r\n  templateUrl: './number-field.component.html',\r\n  styleUrls: ['./number-field.component.scss']\r\n})\r\nexport class NumberFieldComponent extends FormField  implements OnInit {\r\n\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { FormField } from '../../form-field.directive';\r\n\r\n@Component({\r\n  selector: 'app-number-field',\r\n  templateUrl: './number-field.component.html',\r\n  styleUrls: ['./number-field.component.scss'],\r\n  providers:[{provide:FormField, useExisting: NumberFieldComponent}],\r\n})\r\nexport class NumberFieldComponent extends FormField  implements OnInit {\r\n\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -10183,7 +11302,7 @@
         },
         {
             "name": "TextFieldComponent",
-            "id": "component-TextFieldComponent-8af3dc3de2d7b0a8646222021bc49554879642bf9dc585c87a2dd1fa55dba3cb1082872f1a85b5672354a6a5c3d211290e230cb4fe9cf950b4fda5661f4d4242",
+            "id": "component-TextFieldComponent-50cb78d089d85144fc54eb8dd508780b9a19443ee5661800d7248a3267193d297118cfbc4671a0e572600445a180d9a33c7a2674c6f21de2ae10c49741f20a52",
             "file": "projects/my-lib-display/src/lib/fields/components/text-field/text-field.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -10302,28 +11421,25 @@
             ],
             "methodsClass": [
                 {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 16,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "modifierKind": [
-                        158
-                    ],
-                    "inheritance": {
-                        "file": "FormField"
-                    }
-                },
-                {
                     "name": "addControl",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
                     "line": 52,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "inheritance": {
+                        "file": "FormField"
+                    }
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "inheritance": {
@@ -10369,7 +11485,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';\r\nimport { FormField } from '../../form-field.directive';\r\n\r\n@Component({\r\n  //selector: 'app-text-field:not([MatField]):not([formg])', // for more exceptions \r\n  selector: 'app-text-field:not([MatField])',\r\n  templateUrl: './text-field.component.html',\r\n  styleUrls: ['./text-field.component.scss'],\r\n  providers:[{provide:FormField, useExisting: TextFieldComponent}],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TextFieldComponent  extends FormField implements OnInit {\r\n\r\n // constructor() {super() }\r\n\r\n  override ngOnInit(): void {\r\n    super.ngOnInit();\r\n  }\r\n\r\n\r\n\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';\r\nimport { FormField } from '../../form-field.directive';\r\n\r\n@Component({\r\n  //selector: 'app-text-field:not([MatField]):not([formg])', // for more exceptions \r\n  selector: 'app-text-field:not([MatField])',\r\n  templateUrl: './text-field.component.html',\r\n  styleUrls: ['./text-field.component.scss'],\r\n  providers:[{provide:FormField, useExisting: TextFieldComponent}], \r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TextFieldComponent  extends FormField implements OnInit {\r\n\r\n\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -11715,14 +12831,24 @@
                 "defaultValue": "[\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n]"
             },
             {
-                "name": "Enabled",
+                "name": "ELEMENT_DATA",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/main/app-form-comment.stories.ts",
+                "file": "src/stories/library/formfields.normal.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
+                "type": "PeriodicElement[]",
+                "defaultValue": "[\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n]"
+            },
+            {
+                "name": "ELEMENT_DATA",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/library/formfields.selects.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "PeriodicElement[]",
+                "defaultValue": "[\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n]"
             },
             {
                 "name": "Enabled",
@@ -11735,14 +12861,14 @@
                 "defaultValue": "Template.bind({})"
             },
             {
-                "name": "environment",
+                "name": "Enabled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.ts",
+                "file": "src/stories/main/app-form-comment.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  production: false,\r\n  urlHostApi: 'http://localhost:5000',\r\n  urlHostCalendarApi: 'http://localhost:8000',\r\n  pathMonthDays:'month/formatbydays',\r\n  pathIssues:'issue',\r\n  pathWork:'month/work',\r\n  pathWorkTask:'month/work/task',\r\n  pathHollidays:'hollidays',\r\n  pathContents: '/confluence/content/search',\r\n  pathContent: '/confluence/content',\r\n  urlApiLogin: '/login',\r\n}"
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "environment",
@@ -11753,6 +12879,16 @@
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\r\n  production: true\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: false,\r\n  urlHostApi: 'http://localhost:5000',\r\n  urlHostCalendarApi: 'http://localhost:8000',\r\n  pathMonthDays:'month/formatbydays',\r\n  pathIssues:'issue',\r\n  pathWork:'month/work',\r\n  pathWorkTask:'month/work/task',\r\n  pathHollidays:'hollidays',\r\n  pathContents: '/confluence/content/search',\r\n  pathContent: '/confluence/content',\r\n  urlApiLogin: '/login',\r\n}"
             },
             {
                 "name": "errorFeatureKey",
@@ -11823,6 +12959,26 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createAction(\r\n  '[Posts] Filter Posts',\r\n  props<{filter:FilterPost}>()\r\n)"
+            },
+            {
+                "name": "FormFieldsAll",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/library/lib-Form-normal.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "FormFieldsAll",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/library/lib-Form-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "FormFieldsAll",
@@ -12446,21 +13602,31 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/main/app-form-comment.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<FormCommentComponent>",
-                "defaultValue": "(args: FormCommentComponent) => ({\r\n  component:FormCommentComponent,\r\n  props: args,\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/library/lib-Button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<ButtonComponent>",
                 "defaultValue": "(args: ButtonComponent) => ({\r\n  component: ButtonComponent,\r\n  props: {\r\n    label: 'Button Library',   \r\n    ...args\r\n  },\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/library/lib-Form-normal.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<FormFieldsNormalComponent>",
+                "defaultValue": "(args: FormFieldsNormalComponent) => ({\r\n  component: FormFieldsNormalComponent,\r\n  props: args,\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/library/lib-Form-select.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<FormFieldsSelectsComponent>",
+                "defaultValue": "(args: FormFieldsSelectsComponent) => ({\r\n  component: FormFieldsSelectsComponent,\r\n  props: args,\r\n})"
             },
             {
                 "name": "Template",
@@ -12481,6 +13647,16 @@
                 "deprecationMessage": "",
                 "type": "Story<PaginatorComponent>",
                 "defaultValue": "(args: PaginatorComponent) => ({\r\n  component: PaginatorComponent,\r\n  props: args,\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/main/app-form-comment.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<FormCommentComponent>",
+                "defaultValue": "(args: FormCommentComponent) => ({\r\n  component:FormCommentComponent,\r\n  props: args,\r\n})"
             }
         ],
         "functions": [
@@ -12569,6 +13745,28 @@
             {
                 "name": "createData",
                 "file": "src/app/demo-lib/app.component.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [],
+                "returnType": "DataSelect[]"
+            },
+            {
+                "name": "createData",
+                "file": "src/stories/library/formfields.normal.component.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [],
+                "returnType": "DataSelect[]"
+            },
+            {
+                "name": "createData",
+                "file": "src/stories/library/formfields.selects.component.ts",
                 "ctype": "miscellaneous",
                 "subtype": "function",
                 "deprecated": false,
@@ -13717,6 +14915,114 @@
                 ]
             },
             {
+                "name": "sortList",
+                "file": "src/stories/library/formfields.normal.component.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "list",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "key",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "asc",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "list",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "key",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "asc",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "sortList",
+                "file": "src/stories/library/formfields.selects.component.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "list",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "key",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "asc",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "jsdoctags": [
+                    {
+                        "name": "list",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "key",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "asc",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "updateLevelLog",
                 "file": "src/app/services/utils/logger.ts",
                 "ctype": "miscellaneous",
@@ -14023,6 +15329,30 @@
                     "defaultValue": "[\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n]"
                 }
             ],
+            "src/stories/library/formfields.normal.component.ts": [
+                {
+                    "name": "ELEMENT_DATA",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/library/formfields.normal.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "PeriodicElement[]",
+                    "defaultValue": "[\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n]"
+                }
+            ],
+            "src/stories/library/formfields.selects.component.ts": [
+                {
+                    "name": "ELEMENT_DATA",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/library/formfields.selects.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "PeriodicElement[]",
+                    "defaultValue": "[\r\n  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},\r\n  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},\r\n  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},\r\n  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},\r\n  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},\r\n  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},\r\n  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},\r\n  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},\r\n  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},\r\n  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},\r\n]"
+                }
+            ],
             "src/stories/main/app-form-comment.stories.ts": [
                 {
                     "name": "Enabled",
@@ -14045,18 +15375,6 @@
                     "defaultValue": "(args: FormCommentComponent) => ({\r\n  component:FormCommentComponent,\r\n  props: args,\r\n})"
                 }
             ],
-            "src/environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: false,\r\n  urlHostApi: 'http://localhost:5000',\r\n  urlHostCalendarApi: 'http://localhost:8000',\r\n  pathMonthDays:'month/formatbydays',\r\n  pathIssues:'issue',\r\n  pathWork:'month/work',\r\n  pathWorkTask:'month/work/task',\r\n  pathHollidays:'hollidays',\r\n  pathContents: '/confluence/content/search',\r\n  pathContent: '/confluence/content',\r\n  urlApiLogin: '/login',\r\n}"
-                }
-            ],
             "src/environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -14067,6 +15385,18 @@
                     "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\r\n  production: true\r\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: false,\r\n  urlHostApi: 'http://localhost:5000',\r\n  urlHostCalendarApi: 'http://localhost:8000',\r\n  pathMonthDays:'month/formatbydays',\r\n  pathIssues:'issue',\r\n  pathWork:'month/work',\r\n  pathWorkTask:'month/work/task',\r\n  pathHollidays:'hollidays',\r\n  pathContents: '/confluence/content/search',\r\n  pathContent: '/confluence/content',\r\n  urlApiLogin: '/login',\r\n}"
                 }
             ],
             "src/app/store/reducers/error.reducer.ts": [
@@ -14315,6 +15645,50 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "createAction(\r\n  '[Posts] Sort Posts',\r\n  props<{sortInfo: SortInfo}>()\r\n)"
+                }
+            ],
+            "src/stories/library/lib-Form-normal.stories.ts": [
+                {
+                    "name": "FormFieldsAll",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/library/lib-Form-normal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/library/lib-Form-normal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<FormFieldsNormalComponent>",
+                    "defaultValue": "(args: FormFieldsNormalComponent) => ({\r\n  component: FormFieldsNormalComponent,\r\n  props: args,\r\n})"
+                }
+            ],
+            "src/stories/library/lib-Form-select.stories.ts": [
+                {
+                    "name": "FormFieldsAll",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/library/lib-Form-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/library/lib-Form-select.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<FormFieldsSelectsComponent>",
+                    "defaultValue": "(args: FormFieldsSelectsComponent) => ({\r\n  component: FormFieldsSelectsComponent,\r\n  props: args,\r\n})"
                 }
             ],
             "src/stories/library/lib-Form.stories.ts": [
@@ -14900,6 +16274,140 @@
                 {
                     "name": "sortList",
                     "file": "src/app/demo-lib/app.component.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "list",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "asc",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "list",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "asc",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "src/stories/library/formfields.normal.component.ts": [
+                {
+                    "name": "createData",
+                    "file": "src/stories/library/formfields.normal.component.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [],
+                    "returnType": "DataSelect[]"
+                },
+                {
+                    "name": "sortList",
+                    "file": "src/stories/library/formfields.normal.component.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "list",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "asc",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "list",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "asc",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "src/stories/library/formfields.selects.component.ts": [
+                {
+                    "name": "createData",
+                    "file": "src/stories/library/formfields.selects.component.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [],
+                    "returnType": "DataSelect[]"
+                },
+                {
+                    "name": "sortList",
+                    "file": "src/stories/library/formfields.selects.component.ts",
                     "ctype": "miscellaneous",
                     "subtype": "function",
                     "deprecated": false,
@@ -18173,6 +19681,120 @@
                 "status": "medium"
             },
             {
+                "filePath": "src/stories/library/formfields.normal.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FormFieldsNormalComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/19",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.normal.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "DataSelect",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.normal.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "PeriodicElement",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.normal.component.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "createData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.normal.component.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "sortList",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.normal.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ELEMENT_DATA",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.selects.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FormFieldsSelectsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/19",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.selects.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "DataSelect",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.selects.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "PeriodicElement",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.selects.component.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "createData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.selects.component.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "sortList",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/formfields.selects.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ELEMENT_DATA",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/stories/library/lib-Button.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -18194,6 +19816,46 @@
             },
             {
                 "filePath": "src/stories/library/lib-Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/lib-Form-normal.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "FormFieldsAll",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/lib-Form-normal.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/lib-Form-select.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "FormFieldsAll",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/library/lib-Form-select.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
