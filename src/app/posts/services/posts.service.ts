@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 import { AbstractEntityService } from '../../services/base/abstract.entity.service';
 import { IResponseData, PageRequest, SortInfo } from '../../services/models/filter.model';
 import { CommentRespXsd } from '../models/comment';
-import { FilterPost, Post } from '../models/models';
+import { FilterPost, Post, PostRespXsd } from '../models/models';
 
 
 @Injectable()
@@ -29,7 +29,7 @@ export class PostsService extends AbstractEntityService<Post> {
       }
       return params;
     }).pipe(
-    //  mergeMap(resp=> of(resp.body).pipe(rxZod(CommentRespXsd),map(()=> resp))),
+      rxZod(PostRespXsd),
       map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
   }
 }

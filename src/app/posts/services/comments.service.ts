@@ -32,7 +32,7 @@ export class CommentsService extends AbstractEntityService<Comment> {
 
       return params;
     }).pipe(
-      mergeMap(resp=> of(resp.body).pipe(rxZod(CommentRespXsd),map(()=> resp))),
+      rxZod(CommentRespXsd),
       map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
   }
 }

@@ -2,12 +2,18 @@
 import { z } from "zod";
 
 export const CommentXsd= z.object({
-  id: z.number().gt(0),
+  id: (z.number().gt(0)),
   comment: z.string(),
   author: z.string()
 })
 
-export const CommentRespXsd= z.array(CommentXsd).min(1);
+export const CommentRespBodyXsd= z.array(CommentXsd);
+
+export const CommentRespXsd= z.object({
+  body:   CommentRespBodyXsd
+}
+);
+
 
 export type Comment = z.infer<typeof CommentXsd>;
 // export interface Comment {
