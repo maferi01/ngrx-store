@@ -1,32 +1,18 @@
 
-// export enum VISIBILITY_FILTER {
-//   SHOW_COMPLETED = 'SHOW_COMPLETED',
-//   SHOW_ACTIVE = 'SHOW_ACTIVE',
-//   SHOW_ALL = 'SHOW_ALL',
-// }
+import {z} from 'zod';
 
-// export type TodoFilter = {
-//   label: string;
-//   value: VISIBILITY_FILTER;
-// };
 
-// export const initialFilters: TodoFilter[] = [
-//   { label: 'All', value: VISIBILITY_FILTER.SHOW_ALL },
-//   { label: 'Completed', value: VISIBILITY_FILTER.SHOW_COMPLETED },
-//   { label: 'Active', value: VISIBILITY_FILTER.SHOW_ACTIVE },
-// ];
+export const xsdLoadInfoSuccess = z.object({
+  data: z.array(
+    z.any()
+  ),
+  link: z.string(),
+  filter: (z.any()),
+  sortInfo: z.object({ direction: z.string(), active: z.string() }).optional(),
+  pageRequest: z.object({ pageIndex: z.number(), pageSize: z.number() }),
+  type: z.string().optional(),
+});
 
-// export enum ActionList {
-//   LOAD = 'load',
-//   FILTER = 'filter',
-//   PAGE = 'pagination',
-//   ORDER = 'order',
-//   REFRESH = 'REFRESH',
-//   DELETE = 'delete',
-//   DELETE_ROWS = 'delete_rows',
-//   UPDATE = 'update',
-//   ADD = 'add',
-// }
 
 export interface PageInfo {
   /** The current page index. */

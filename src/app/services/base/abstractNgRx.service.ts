@@ -4,7 +4,9 @@ import { Store } from "@ngrx/store";
 import { TypeEventPagination } from "my-lib-display";
 import { catchError, concatMap, map, Observable, of } from "rxjs";
 import { AbstractApp } from "src/app/shared/base/abstract-app";
-import { FilterListInfo, IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, SortInfo } from "../models/filter.model";
+import { FilterListInfo, IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, SortInfo, xsdLoadInfoSuccess } from "../models/filter.model";
+import { rxlog } from '../utils/opersrx';
+import { rxZod } from '../utils/zodrx';
 
 @Injectable()
 export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
@@ -19,7 +21,10 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
         //this.postsService.getPosts(action.filterPost,action.sortInfo,action.pageRequest)
         fn(action)
           .pipe(
-            map((data: IResponseData) => actionLoadSuccess({ data: data.data, link: data.link, filter: action.filter, sortInfo: action.sortInfo, pageRequest: action.pageRequest } as LoadInfoSuccces)),
+            map((data: IResponseData)=>({ data: data.data, link: data.link, filter: action.filter, sortInfo: action.sortInfo, pageRequest: action.pageRequest } as LoadInfoSuccces)),
+            rxlog('loadInfoSucces='),
+            rxZod(xsdLoadInfoSuccess),
+            map((loadInfoSucces:LoadInfoSuccces) => actionLoadSuccess(loadInfoSucces)),
             catchError(error => of(actionLoadFailiure({ error })))
             )
       )
