@@ -1,11 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { NameLog } from 'src/app/services/utils/logger';
 import { NamesLog } from 'src/app/services/utils/names-classes';
+import { rxZod } from 'src/app/services/utils/zodrx';
 import { environment } from 'src/environments/environment';
 import { AbstractEntityService } from '../../services/base/abstract.entity.service';
 import { IResponseData, PageRequest, SortInfo } from '../../services/models/filter.model';
+import { CommentRespXsd } from '../models/comment';
 import { FilterPost, Post } from '../models/models';
 
 
@@ -26,6 +28,8 @@ export class PostsService extends AbstractEntityService<Post> {
         params = params.append('title_like', filterPost.title);
       }
       return params;
-    }).pipe(map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
+    }).pipe(
+    //  mergeMap(resp=> of(resp.body).pipe(rxZod(CommentRespXsd),map(()=> resp))),
+      map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
   }
 }

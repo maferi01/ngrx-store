@@ -27,5 +27,5 @@
 // }
 
  export interface Entity{
-   id:string|number;
+   id?:string|number;
  }

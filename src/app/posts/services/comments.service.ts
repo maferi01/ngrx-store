@@ -1,12 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { NameLog } from 'src/app/services/utils/logger';
 import { NamesLog } from 'src/app/services/utils/names-classes';
+import { rxZod } from 'src/app/services/utils/zodrx';
 import { environment } from 'src/environments/environment';
 import { AbstractEntityService } from '../../services/base/abstract.entity.service';
 import { IResponseData, PageRequest, SortInfo } from '../../services/models/filter.model';
-import { Comment, FilterComment, IResponseComments } from '../models/comment';
+import { Comment, CommentRespXsd, FilterComment, IResponseComments } from '../models/comment';
 
 
 @Injectable()
@@ -30,6 +31,8 @@ export class CommentsService extends AbstractEntityService<Comment> {
       }
 
       return params;
-    }).pipe(map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
+    }).pipe(
+      mergeMap(resp=> of(resp.body).pipe(rxZod(CommentRespXsd),map(()=> resp))),
+      map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
   }
 }

@@ -13,11 +13,6 @@ export interface FilterPost {
 export type IResponsePosts = { link: string; data: Post[] };
 
 
-// export interface StateUiPosts{
-//   filter?: FilterPost;
-//   order?: SortInfo;
-//   expandFilter?: boolean; 
-// }
 
 
 

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { delay, filter, finalize, map, tap } from 'rxjs/operators';
-import { IConsole } from './logger';
+import { consoleApp, IConsole } from './logger';
 
 export function dev(mes: any, ...pars:any[]) {
   // intercept msgs for trace
@@ -8,7 +8,14 @@ export function dev(mes: any, ...pars:any[]) {
 
 // extra operators helper RX
 
-export function rxlog<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
+export function rxlog<T>( str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
+  const console2: IConsole= consoleApp('rxlog')
+  return (obsSrc: Observable<any>) => {
+    return obsSrc.pipe(tap((v) =>  console2.log(str,v, ...vars)));
+  };
+}
+
+export function rxlogx<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
   const console2: IConsole=this?.console||console
   return (obsSrc: Observable<any>) => {
     return obsSrc.pipe(tap((v) =>  console2.log(str, ...vars, v)));

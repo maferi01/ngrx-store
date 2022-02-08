@@ -5,6 +5,39 @@ export let mapNames: Map<string, number> = new Map();
 export let mapNamesLevels: Map<string, Level[]> = new Map();
 
 
+
+
+export function logApp(typeLog:'data'| 'info' | 'warn' | 'error' ,msg: string,params?:any[],source?:any){
+  const l= Log.create(typeof source ==='string'?source : source?.constructor?.name  );
+
+  params?.length>0?((l as any)[typeLog])(msg,...params):((l as any)[typeLog])(msg);
+}
+
+
+export const consoleAppx:IConsole={
+ log:(msg: string,...params:any[])=>  logApp('data',msg,params),
+ debug:(msg: string,...params:any[])=>  logApp('info',msg,params),
+ warn:(msg: string,...params:any[])=>  logApp('warn',msg,params),
+ info:(msg: string,...params:any[])=>  logApp('info',msg,params),
+ error:(msg: string,...params:any[])=>  logApp('error',msg,params)
+}; 
+
+export function consoleApp(source?:any): IConsole{
+ // return console;
+  return {
+    log:(msg: string,...params:any[])=>  logApp('data',msg,params,source),
+    debug:(msg: string,...params:any[])=>  logApp('info',msg,params,source),
+    warn:(msg: string,...params:any[])=>  logApp('warn',msg,params,source),
+    info:(msg: string,...params:any[])=>  logApp('info',msg,params,source),
+    error:(msg: string,...params:any[])=>  {
+      //logApp('error',msg,params,source)
+      console.error(msg, params);
+    }
+   }
+}
+
+
+
 export function NameLog(nameLog:string) {
   return function(constructor: any) {
    // console.log('namelog')
