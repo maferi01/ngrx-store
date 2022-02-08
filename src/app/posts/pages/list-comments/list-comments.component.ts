@@ -11,6 +11,7 @@ import { delay, of, tap } from 'rxjs';
 import { FormField } from 'projects/my-lib-display/src/lib/fields/form-field.directive';
 import { createSelectorLoading, createSelectorLoadingGroup, filterLoadingId } from 'src/app/store/selectors/loading.selectors';
 import { FormCommentComponent } from '../../components/form-comment/form-comment.component';
+import { SortInfo } from 'src/app/services/models/filter.model';
 
 @Component({
   selector: 'app-list-comments',
@@ -19,7 +20,7 @@ import { FormCommentComponent } from '../../components/form-comment/form-comment
 })
 export class ListCommentsComponent implements OnInit,AfterViewInit {
 
-  aux:string;
+  aux!:string;
   comments$ = this.store.select(selectorsList.selectListData);
   loading$ = this.store.select(selectorLoadingComments);
   loadingGroup$ =this.store.select(selectorLoadingQuery);
@@ -28,10 +29,10 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
   sort$ = this.store.select(selectorsList.selectSort);
 
 
-  queryLoadings:{name:string,data:string}[]=[];
+  queryLoadings:{name:string,data:string|null}[]=[];
 
 
-  @ViewChild('formfilter') formComponent:FormComponent;
+  @ViewChild('formfilter') formComponent!:FormComponent;
 
   constructor( private store: Store, private dialogSerice:DialogService) { }
   
@@ -73,7 +74,7 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
   }
 
   sortData(sort:Sort){
-    this.store.dispatch(CommentsActions.sortComments({sortInfo:sort}));    
+    this.store.dispatch(CommentsActions.sortComments({sortInfo:sort as SortInfo}));    
     
   }
 
@@ -88,7 +89,7 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
   onClickRow(row:any){
     console.log('clicked row', row)
     this.queryLoadings.push({name:row.author,data:null})
-    this.callQuery(row.author).subscribe(()=>      this.queryLoadings.find(q=> q.name===row.author).data='Finish query '+row.author)
+    this.callQuery(row.author).subscribe(()=>  (this.queryLoadings?.find(q=> q.name===row.author) as any).data='Finish query '+row.author)
     
   }
   callQuery(author: any) {

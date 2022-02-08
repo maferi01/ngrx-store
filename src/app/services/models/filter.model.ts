@@ -2,14 +2,18 @@
 import {z} from 'zod';
 
 
+const xsdSortInfo = z.object({ direction: z.union([z.literal('asc'),z.literal('desc')])  , active: z.string() });
+
+const xsdPageRequest = z.object({ pageIndex: z.number(), pageSize: z.number() });
+
 export const xsdLoadInfoSuccess = z.object({
   data: z.array(
     z.any()
   ),
   link: z.string(),
   filter: (z.any()),
-  sortInfo: z.object({ direction: z.string(), active: z.string() }).optional(),
-  pageRequest: z.object({ pageIndex: z.number(), pageSize: z.number() }),
+  sortInfo: xsdSortInfo.optional(),
+  pageRequest: xsdPageRequest,
   type: z.string().optional(),
 });
 
@@ -31,19 +35,21 @@ export interface PageInfo {
 export interface PageInfo {
   requestLink?: string;
   linkInfo?: {
-    linkNext: string;
-    linkPrev: string;
-    linkLast: string;
-    linkFisrt: string;
+    linkNext: string|null|undefined;
+    linkPrev: string|null|undefined ;
+    linkLast: string|null|undefined;
+    linkFisrt: string|null|undefined;
   };
 }
 
-export interface SortInfo {
-  /** The id of the column being sorted. */
-  active: string;
-  /** The sort direction. */
-  direction: 'asc' | 'desc' | '';
-}
+// export interface SortInfo {
+//   /** The id of the column being sorted. */
+//   active: string;
+//   /** The sort direction. */
+//   direction: 'asc' | 'desc' | '';
+// }
+
+export type SortInfo= z.infer<typeof xsdSortInfo>;
 
 export interface PageRequest {
   requestLink:string;
@@ -76,7 +82,7 @@ export interface FilterListInfo<F = any> {
 //   extraData: D;
 // }
 
-export type IResponseData<T=any> = { link: string; data: T[] };
+export type IResponseData<T=any> = { link: string | undefined | null; data: T[] };
 
 export interface LoadInfo<T=any>{
   filter:T,

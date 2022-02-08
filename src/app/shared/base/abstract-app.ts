@@ -12,7 +12,7 @@ export abstract class AbstractApp {
     rxwarn:<T>(...vars:any[])=>(obsSrc: Observable<T>) => Observable<T>=rxwarn.bind(this); 
     rxend:<T>(str:string)=>(obsSrc: Observable<T>) => Observable<T>=rxend.bind(this);
 
-    nameLog:NamesLog;
+    nameLog!:NamesLog;
 
     constructor(@Optional()  protected injector?: Injector,@Optional()  protected nameLogNew?: string){
         //console.debug('nameLog',(this as any).nameLog,(this as any)?.prototype?.nameLog);

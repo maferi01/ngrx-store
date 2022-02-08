@@ -7,7 +7,7 @@ export let mapNamesLevels: Map<string, Level[]> = new Map();
 
 
 
-export function logApp(typeLog:'data'| 'info' | 'warn' | 'error' ,msg: string,params?:any[],source?:any){
+export function logApp(typeLog:'data'| 'info' | 'warn' | 'error' ,msg: string,params:any[],source?:any){
   const l= Log.create(typeof source ==='string'?source : source?.constructor?.name  );
 
   params?.length>0?((l as any)[typeLog])(msg,...params):((l as any)[typeLog])(msg);
@@ -88,19 +88,19 @@ export declare type NameLevels={
 export function setNamesLevels(names:NameLevels[]){
    names?.forEach(n=> mapNamesLevels.set(n.name,n.levels));  
 }
-export function getNameLevels(name:string):Level[]{
-  return mapNamesLevels.get(Array.from(mapNamesLevels!.keys()).find(k=> name.startsWith(k)));
+export function getNameLevels(name:string):Level[]|undefined{
+  return mapNamesLevels.get(Array.from(mapNamesLevels!.keys()).find(k=> name.startsWith(k)) as any);
   
 }
 export function refreshNamesLevels(){
   if(localStorage.getItem('namesLevels')){
-    setNamesLevels(JSON.parse(localStorage.getItem('namesLevels')))
+    setNamesLevels(JSON.parse(localStorage.getItem('namesLevels') as any))
   }
 }
 export function getNameLog(name: string): string {
   if (mapNames.get(name) !== undefined) {
-    let id = mapNames.get(name);
-    mapNames.set(name, ++id);
+    let id = mapNames.get(name) as any;
+    mapNames.set(name, ++id );
   } else {
     mapNames.set(name, 0);
   }
@@ -119,7 +119,7 @@ export class ConsoleApp implements IConsole{
     }
 
     if(getNameLevels(nameLog)){
-      this.logN2 = Log.create(nameLog,...getNameLevels(nameLog));  
+      this.logN2 = Log.create(nameLog,...getNameLevels(nameLog) as any);  
     }else{
       this.logN2 = Log.create(nameLog);
     }

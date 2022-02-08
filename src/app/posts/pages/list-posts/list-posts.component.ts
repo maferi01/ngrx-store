@@ -3,6 +3,7 @@ import { Validators } from '@angular/forms';
 import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
+import { SortInfo } from 'src/app/services/models/filter.model';
 import { FilterPost } from '../../models/models';
 import  * as PostsActions from '../../store/actions/posts.actions';
 import { selectorLoadingPosts, selectorsList } from '../../store/selectors/posts.selectors';
@@ -14,7 +15,7 @@ import { selectorLoadingPosts, selectorsList } from '../../store/selectors/posts
 })
 export class ListPostsComponent implements OnInit {
 
-  aux:string;
+  aux!:string;
   posts$ = this.store.select(selectorsList.selectListData);
   loading$ = this.store.select(selectorLoadingPosts);
   filter$ = this.store.select(selectorsList.selectFilter);
@@ -37,7 +38,7 @@ export class ListPostsComponent implements OnInit {
   }
 
   sortData(sort:Sort){
-    this.store.dispatch(PostsActions.sortPosts({sortInfo:sort}));    
+    this.store.dispatch(PostsActions.sortPosts({sortInfo:sort as SortInfo}));    
     
   }
 

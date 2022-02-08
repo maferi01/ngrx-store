@@ -10,8 +10,8 @@ import { rxZod } from '../utils/zodrx';
 
 @Injectable()
 export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
-  protected store: Store;
-  protected actions$: Actions;
+  protected store!: Store;
+  protected actions$!: Actions;
 
   createEffectLoad = (actionLoad: any, actionLoadSuccess: any, actionLoadFailiure: any, fn: (loadInfo: LoadInfo) => Observable<IResponseData>) => createEffect(() => {
     return this.actions$.pipe(
@@ -66,14 +66,14 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
       concatMap((action: {typeEventPagination:TypeEventPagination}) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(
-          concatLatestFrom(action => this.store.select(selectorsList.selectFilterListInfo)),
+          concatLatestFrom(() => this.store.select(selectorsList.selectFilterListInfo )) as any,
           map(([action, filterList]:[action:{typeEventPagination:TypeEventPagination},filterList:FilterListInfo]) => actionLoad({
             filter: filterList.filter,
             sortInfo: filterList.order,
             pageRequest: {
               requestLink: this.getLink(action.typeEventPagination, filterList.page),
-              pageSize: filterList.page.pageSize,
-              pageIndex: filterList.page.pageIndex
+              pageSize: filterList?.page?.pageSize,
+              pageIndex: filterList?.page?.pageIndex
             }
           } as LoadInfo)),
         ))
@@ -98,16 +98,16 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
 
 
 
-  protected getLink(event: TypeEventPagination, pageInfo: PageInfo): string {
+  protected getLink(event: TypeEventPagination, pageInfo?: PageInfo ): string | undefined | null{
     switch (event) {
       case 'first':
-        return pageInfo.linkInfo.linkFisrt;
+        return pageInfo?.linkInfo?.linkFisrt;
       case 'last':
-        return pageInfo.linkInfo.linkLast;
+        return pageInfo?.linkInfo?.linkLast;
       case 'prev':
-        return pageInfo.linkInfo.linkPrev;
+        return pageInfo?.linkInfo?.linkPrev;
       case 'next':
-        return pageInfo.linkInfo.linkNext;
+        return pageInfo?.linkInfo?.linkNext;
       default:
         return null;
     }

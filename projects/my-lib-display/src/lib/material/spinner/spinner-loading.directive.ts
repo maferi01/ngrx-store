@@ -7,7 +7,7 @@ import { SpinnerComponent } from './spinner.module';
 export class SpinnerLoadingDirective implements OnChanges {
 
   @Input()
-  libLoading:boolean;
+  libLoading!:boolean | undefined |null;
 
   constructor(private viewContainer:ViewContainerRef,private templateRef:TemplateRef<any>) {
 
@@ -18,7 +18,7 @@ export class SpinnerLoadingDirective implements OnChanges {
     }
   }
 
-   updateLoading(loading:boolean){
+   updateLoading(loading:boolean|undefined|null){
       this.viewContainer.clear(); 
       if(loading){
          this.viewContainer.createComponent(SpinnerComponent);

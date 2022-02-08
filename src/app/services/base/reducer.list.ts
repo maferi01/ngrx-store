@@ -33,7 +33,7 @@ function getFilterListInfo(action: LoadInfoSuccces): FilterListInfo {
    * @param link Helper to get partial url
    * @param arg1
    */
-   function getUrlLink(link: string, key: string): string {
+   function getUrlLink(link: string |undefined|null, key: string): string |undefined|null{
     let url;
     if (!link) {
       return null;

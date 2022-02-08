@@ -17,8 +17,8 @@
 <app-paginator [enablePrev]="linksStatus.prev" [enableNext]="linksStatus.next" [enableFirst]="linksStatus.first" [enableLast]="linksStatus.last"
   (typeEvent)="paginate($event)" *ngIf="linksStatus$ | async as linksStatus"></app-paginator>
 
-  <ng-container *libLoading="loading$ | async">
-  <app-table [dataSource]="comments$ |async" (onSort)="sortData($event)" [sortCurrent]="sort$ | async" (onClickRow)="onClickRow($event)">
+  <ng-container *libLoading="(loading$ | async)">
+  <app-table [dataSource]="comments$ |async" (onSort)="sortData($event)" [sortCurrent]="$any(sort$ | async)" (onClickRow)="onClickRow($event)">
     <table-info>
       <col-info [name]="'author'" [header]="'Author Tpl'" [typeCell]="'tpl'" [sort]="true">
         <ng-template CellRender let-row>Author:{{ row.author }}</ng-template>

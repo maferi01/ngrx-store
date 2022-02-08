@@ -1,13 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NameLog } from 'src/app/services/utils/logger';
 import { NamesLog } from 'src/app/services/utils/names-classes';
 import { rxZod } from 'src/app/services/utils/zodrx';
 import { environment } from 'src/environments/environment';
 import { AbstractEntityService } from '../../services/base/abstract.entity.service';
 import { IResponseData, PageRequest, SortInfo } from '../../services/models/filter.model';
-import { Comment, CommentRespXsd, FilterComment, IResponseComments } from '../models/comment';
+import { Comment, CommentRespXsd, FilterComment } from '../models/comment';
 
 
 @Injectable()

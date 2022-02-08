@@ -1,5 +1,5 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort  multiTemplateDataRows
-[matSortActive]="nameColFromInfo(sortCurrent?.active)"  [matSortDirection]="sortCurrent?.direction" matSortDisableClear>
+[matSortActive]="nameColFromInfo(sortCurrent?.active)"  [matSortDirection]="$any(sortCurrent?.direction)" matSortDisableClear>
   <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 

@@ -8,12 +8,12 @@ export const loadLoadingsFailure = createAction(
 
 export const showLoading = createAction(
   '[Loading] Show Loading',
-  props<{ actionSource: string, idGroupLoading: string,   idLoading?: string  }>()
+  props<{ actionSource: string, idGroupLoading?: string ,   idLoading?: string  }>()
 );
 
 export const hideLoading = createAction(
   '[Loading] Hide Loading',
-  props<{ actionHide :string, idGroupLoading: string,   idLoading?: string  }>()
+  props<{ actionHide :string, idGroupLoading?: string,   idLoading?: string  }>()
 );
 
 

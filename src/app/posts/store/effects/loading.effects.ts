@@ -23,7 +23,7 @@ function getActions(actionsLoading:ActionsLoading){
 }
 
 function getLoadingInfo(action:Action,actionsLoading:ActionsLoading):ActionLoadingInfo{
-  return actionsLoading.find(ac=> ac.actionType===action.type).fnLoadingInfo(action);
+  return (actionsLoading.find(ac=> ac.actionType===action.type) as any).fnLoadingInfo(action);
 }
 
 @Injectable()

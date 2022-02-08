@@ -8,10 +8,10 @@ export abstract class AbstractDialogComponent<E = object, T = object> implements
  @Output() onAccept= new EventEmitter();
   
   @ViewChild(FormComponent)
-  formComponent: FormComponent;
+  formComponent!: FormComponent;
 
   @ViewChild('buttons')
-  templateButtons: TemplateRef<any>;
+  templateButtons!: TemplateRef<any>;
 
 
   constructor(protected injector: Injector) {

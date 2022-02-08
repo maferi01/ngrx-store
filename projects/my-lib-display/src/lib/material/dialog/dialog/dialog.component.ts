@@ -14,11 +14,11 @@ export class DialogComponent implements OnInit {
   @Input() filters: any;
   submitEmit: EventEmitter<any> = new EventEmitter();
 
-  @Input() title: string;
+  @Input() title!: string;
   @Output() accept: EventEmitter<object>=new EventEmitter();
 
   @ViewChild('dialogInside',{read:ViewContainerRef})
-  viewContainerInside:ViewContainerRef;
+  viewContainerInside!:ViewContainerRef;
 
   
   dialogRef: MatDialogRef<any, any>;
@@ -26,9 +26,9 @@ export class DialogComponent implements OnInit {
     compInsideDialog: ComponentType<any>
   };
   detect: ChangeDetectorRef;
-  compInside: ComponentRef<AbstractDialogComponent>;
-  formInside:FormGroup;
-  templateButtons:TemplateRef<any>;
+  compInside!: ComponentRef<AbstractDialogComponent>;
+  formInside!:FormGroup;
+  templateButtons!:TemplateRef<any>;
 
   //abstract getFormGroup(): FormGroup;
 

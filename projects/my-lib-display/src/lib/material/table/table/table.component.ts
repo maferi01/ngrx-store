@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
   @Output()
   onSort = new EventEmitter<Sort>();
   @Input()
-  sortCurrent:Sort;
+  sortCurrent!:Sort|null|undefined;
   @ViewChild(MatSort)
   set matSort(matSort: MatSort) {
     this.msort = matSort;
@@ -50,11 +50,11 @@ export class TableComponent implements OnInit {
     return this.tableInfo.colsInfo.map((c) => this.nameCol(c));
   }
 
-  nameCol(inf: ColInfoComponent) {
-    return `${inf.name}-${inf.typeCell}`;
+  nameCol(inf: ColInfoComponent|undefined) {
+    return `${inf?.name}-${inf?.typeCell}`;
   }
 
-  nameColFromInfo(name:string):string{
+  nameColFromInfo(name:string|null|undefined):string{
     if(!name) return ''
     return this.nameCol(this.tableInfo.colsInfo.find(c=> c.name===name))
     
