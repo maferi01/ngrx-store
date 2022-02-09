@@ -76,7 +76,7 @@ export default class FormFieldsNormalComponent {
   subjectList= new BehaviorSubject<PeriodicElement[]>(ELEMENT_DATA);
 
 
-  dataSelect$: Observable<Item[]>;
+  dataSelect$!: Observable<Item[]>;
   dataList$= this.subjectList.asObservable();
   val:string='val1';
 

@@ -51,9 +51,24 @@ export const queryEnd = createAction(
 );
 
 
-
-
 export const sortComments = createAction(
   '[Comments] Sort Comments',
   props<{sortInfo: SortInfo}>()
+);
+
+export const addDialogComment = createAction(
+  '[Comments] Add Dialog Comments' 
+);
+
+export const addComment = createAction(
+  '[Comments] Add Comment',
+  props<{data : Comment}>() 
+);
+export const addCommentSuccess = createAction(
+  '[Comments] Add Commentss Success'  
+);
+
+export const addCommentFailure = createAction(
+  '[Comments] Add Comment Failure',
+  props<{ error: any }>()             
 );

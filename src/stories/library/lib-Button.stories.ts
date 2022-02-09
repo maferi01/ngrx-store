@@ -20,7 +20,6 @@ export default {
 const Template: Story<ButtonComponent> = (args: ButtonComponent) => ({
   component: ButtonComponent,
   props: {
-    label: 'Button Library',   
     ...args
   },
 });

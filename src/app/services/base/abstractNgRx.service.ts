@@ -22,7 +22,6 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
         fn(action)
           .pipe(
             map((data: IResponseData)=>({ data: data.data, link: data.link, filter: action.filter, sortInfo: action.sortInfo, pageRequest: action.pageRequest } as LoadInfoSuccces)),
-            rxlog('loadInfoSucces='),
             rxZod(xsdLoadInfoSuccess),
             map((loadInfoSucces:LoadInfoSuccces) => actionLoadSuccess(loadInfoSucces)),
             catchError(error => of(actionLoadFailiure({ error })))
@@ -31,9 +30,9 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
     );
   });
 
-  createEffectLoadInit = (actionLoadInit: any, actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
+  createEffectLoadInit = (actionLoadInit: any[], actionLoad: any, selectorsList :ISelectorsList) => createEffect(() => {
     return this.actions$.pipe(
-      ofType(actionLoadInit),
+      ofType(...actionLoadInit),
       concatMap((action) =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         of(action).pipe(

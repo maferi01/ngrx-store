@@ -4,7 +4,9 @@ import {z} from 'zod';
 
 const xsdSortInfo = z.object({ direction: z.union([z.literal('asc'),z.literal('desc')])  , active: z.string() });
 
-const xsdPageRequest = z.object({ pageIndex: z.number(), pageSize: z.number() });
+const xsdPageRequest = z.object({
+  requestLink: z.string().optional(),
+  pageIndex: z.number().optional(), pageSize: z.number().optional() });
 
 export const xsdLoadInfoSuccess = z.object({
   data: z.array(
@@ -42,23 +44,9 @@ export interface PageInfo {
   };
 }
 
-// export interface SortInfo {
-//   /** The id of the column being sorted. */
-//   active: string;
-//   /** The sort direction. */
-//   direction: 'asc' | 'desc' | '';
-// }
-
 export type SortInfo= z.infer<typeof xsdSortInfo>;
 
-export interface PageRequest {
-  requestLink:string;
-  pageIndex?: number;
-  /** The current page size */
-  pageSize?: number;     
-}
-
-
+export type PageRequest= z.infer<typeof xsdPageRequest>;
 
 // export interface ResultList<E> {
 //   rows: E[];
@@ -71,16 +59,6 @@ export interface FilterListInfo<F = any> {
   page?: PageInfo;
 }
 
-//export const OPTIONS_STATE_LIST = new InjectionToken<StateOptions>('options_state_list');
-
-// export interface StateListFilter<D,E=any> {
-//   ui: {
-//     expandFilter?: boolean;
-//   };
-//   filterList: FilterListInfo;
-//   selectionRows?:E[];
-//   extraData: D;
-// }
 
 export type IResponseData<T=any> = { link: string | undefined | null; data: T[] };
 

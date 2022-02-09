@@ -34,7 +34,7 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
 
   @ViewChild('formfilter') formComponent!:FormComponent;
 
-  constructor( private store: Store, private dialogSerice:DialogService) { }
+  constructor( private store: Store) { }
   
 
   ngOnInit(): void {
@@ -112,7 +112,8 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
   }
 
   openDialog():void{
-    this.dialogSerice.openDialog(FormCommentComponent).subscribe((d)=> console.log('data Dialog ',d));
+    this.store.dispatch(CommentsActions.addDialogComment())
+    
   }
 
 }
