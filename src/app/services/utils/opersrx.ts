@@ -11,19 +11,15 @@ export function dev(mes: any, ...pars:any[]) {
 
 
 export function rxlogth(source:any='rxlog',typeLog:'log'| 'info' | 'warn' | 'error' = 'log'){
-  return  function <T>( str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
-    const console2: IConsole= consoleApp(source)
-    return (obsSrc: Observable<any>) => {
-      return obsSrc.pipe(tap((v) =>  (console2 as any)[typeLog](str,v, ...vars)));
-    };
-  }
+  return rxlog.bind({source,typeLog});
 } 
 
 
-export function rxlog<T>( str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
-  const console2: IConsole= consoleApp('rxlog')
+export function rxlog<T>(this:any|undefined, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
+  const thisRef= this || {source:'rxlog',typeLog:'log'};
+  const console2: IConsole= consoleApp(thisRef.source)
   return (obsSrc: Observable<any>) => {
-    return obsSrc.pipe(tap((v) =>  console2.log(str,v, ...vars)));
+    return obsSrc.pipe(tap((v) =>  (console2 as any)[thisRef.typeLog](str,v, ...vars)));
   };
 }
 
