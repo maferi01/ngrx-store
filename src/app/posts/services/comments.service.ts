@@ -34,7 +34,6 @@ export class CommentsService extends AbstractEntityService<Comment> {
 
       return params;
     }).pipe(
-      rxlogth(this)('Data from get comments'),
       rxlogth(this,'info')('Data from get comments other'),      
       rxZod(CommentRespXsd),
       map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
