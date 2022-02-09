@@ -4,11 +4,41 @@ import { Level,Log } from 'ng2-logger/browser';
 export let mapNames: Map<string, number> = new Map();
 export let mapNamesLevels: Map<string, Level[]> = new Map();
 
+const nameLogPrototype='nameLog';
 
+
+/**
+ * 
+ * Log App and consoleApp  
+ */
+
+ export interface IConsole {
+  log(msg: string, ...params:any[]):void;
+  debug(msg: string, ...params:any[]):void;
+  error(msg: string, ...params:any[]):void;
+  info(msg: string, ...params:any[]):void;
+  warn(msg: string, ...params:any[]):void;
+}
 
 
 export function logApp(typeLog:'data'| 'info' | 'warn' | 'error' ,msg: string,params:any[],source?:any){
-  const l= Log.create(typeof source ==='string'?source : source?.constructor?.name  );
+  
+  let nameLogger;
+
+//console.log('source protype',source?.constructor,source?.constructor.);
+
+  if(typeof source ==='string'){
+    // from string drecttly
+    nameLogger=source;
+  }else if(source?.constructor?.prototype && source?.constructor?.prototype[nameLogPrototype]){
+    // from prototype class and from decorator
+    nameLogger= source?.constructor?.prototype[nameLogPrototype]
+  }else{ 
+    // from name class , but in uglifi not work good
+    nameLogger=source?.constructor?.name;
+  }
+
+  const l= Log.create(nameLogger);
 
   params?.length>0?((l as any)[typeLog])(msg,...params):((l as any)[typeLog])(msg);
 }
@@ -37,14 +67,13 @@ export function consoleApp(source?:any): IConsole{
 }
 
 
-
 export function NameLog(nameLog:string) {
   return function(constructor: any) {
    // console.log('namelog')
       //const orig = constructor.prototype.ngOnDestroy
      // constructor.nameLog=nameLog;
 
-      if(constructor.prototype)constructor.prototype.nameLog=nameLog;
+      if(constructor.prototype)constructor.prototype[nameLogPrototype]=nameLog;
       // constructor.prototype.ngOnDestroy = function() {
       //     for(const prop in this) {
       //         const property = this[prop]
@@ -59,13 +88,11 @@ export function NameLog(nameLog:string) {
   }
 }
 
-export interface IConsole {
-  log(msg: string, ...params:any[]):void;
-  debug(msg: string, ...params:any[]):void;
-  error(msg: string, ...params:any[]):void;
-  info(msg: string, ...params:any[]):void;
-  warn(msg: string, ...params:any[]):void;
-}
+
+/**
+ *   End consoleApp
+ */
+
 
 
 

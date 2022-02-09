@@ -1,16 +1,13 @@
 import { Injector, Optional } from "@angular/core";
-import { Observable } from "rxjs";
 import { getLogger, IConsole } from "src/app/services/utils/logger";
-import { rxlog, rxwarn } from "src/app/services/utils/opersrx";
-import { rxinfo, rxend } from '../../services/utils/opersrx';
-import { NamesLog } from '../../services/utils/names-classes';     
+import { NamesLog } from '../../services/utils/names-classes';
 
 export abstract class AbstractApp {
     console: IConsole;
-    rxlog:<T>(...vars:any[])=>(obsSrc: Observable<T>) => Observable<T>=rxlog.bind(this); 
-    rxinfo:<T>(...vars:any[])=>(obsSrc: Observable<T>) => Observable<T>=rxinfo.bind(this); 
-    rxwarn:<T>(...vars:any[])=>(obsSrc: Observable<T>) => Observable<T>=rxwarn.bind(this); 
-    rxend:<T>(str:string)=>(obsSrc: Observable<T>) => Observable<T>=rxend.bind(this);
+    // rxlog:<T>(...vars:any[])=>(obsSrc: Observable<T>) => Observable<T>=rxlog.bind(this); 
+    // rxinfo:<T>(...vars:any[])=>(obsSrc: Observable<T>) => Observable<T>=rxinfo.bind(this); 
+    // rxwarn:<T>(...vars:any[])=>(obsSrc: Observable<T>) => Observable<T>=rxwarn.bind(this); 
+    // rxend:<T>(str:string)=>(obsSrc: Observable<T>) => Observable<T>=rxend.bind(this);
 
     nameLog!:NamesLog;
 

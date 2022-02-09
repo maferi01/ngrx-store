@@ -6,7 +6,19 @@ export function dev(mes: any, ...pars:any[]) {
   // intercept msgs for trace
 }
 
+
 // extra operators helper RX
+
+
+export function rxlogth(source:any='rxlog',typeLog:'log'| 'info' | 'warn' | 'error' = 'log'){
+  return  function <T>( str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
+    const console2: IConsole= consoleApp(source)
+    return (obsSrc: Observable<any>) => {
+      return obsSrc.pipe(tap((v) =>  (console2 as any)[typeLog](str,v, ...vars)));
+    };
+  }
+} 
+
 
 export function rxlog<T>( str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
   const console2: IConsole= consoleApp('rxlog')
@@ -15,32 +27,32 @@ export function rxlog<T>( str:string, ...vars: any[]): (obsSrc: Observable<T>) =
   };
 }
 
-export function rxlogx<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
-  const console2: IConsole=this?.console||console
-  return (obsSrc: Observable<any>) => {
-    return obsSrc.pipe(tap((v) =>  console2.log(str, ...vars, v)));
-  };
-}
+// export function rxlogx<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T> {
+//   const console2: IConsole=this?.console||console
+//   return (obsSrc: Observable<any>) => {
+//     return obsSrc.pipe(tap((v) =>  console2.log(str, ...vars, v)));
+//   };
+// }
 
-export function rxwarn<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T>  {
-  const console2: IConsole=this?.console||console
-  return (obsSrc: Observable<any>) => {
-    return obsSrc.pipe(tap((v) => console2.warn(str,...vars, v)));
-  };
-}
+// export function rxwarn<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T>  {
+//   const console2: IConsole=this?.console||console
+//   return (obsSrc: Observable<any>) => {
+//     return obsSrc.pipe(tap((v) => console2.warn(str,...vars, v)));
+//   };
+// }
 
-export function rxinfo<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T>  {
-  const console2: IConsole=this?.console||console
-  return (obsSrc: Observable<any>) => {
-    return obsSrc.pipe(tap((v) => console2.info(str, ...vars, v)));
-  };
-}
+// export function rxinfo<T>(this: any, str:string, ...vars: any[]): (obsSrc: Observable<T>) => Observable<T>  {
+//   const console2: IConsole=this?.console||console
+//   return (obsSrc: Observable<any>) => {
+//     return obsSrc.pipe(tap((v) => console2.info(str, ...vars, v)));
+//   };
+// }
 
-export function rxDelay(time: number): (obsSrc: Observable<any>) => Observable<any> {
-  return (obsSrc: Observable<any>) => {
-    return obsSrc.pipe(rxwarn('Delay active',null,time), delay(time));
-  };
-}
+// export function rxDelay(time: number): (obsSrc: Observable<any>) => Observable<any> {
+//   return (obsSrc: Observable<any>) => {
+//     return obsSrc.pipe(rxwarn('Delay active',null,time), delay(time));
+//   };
+// }
 
 
 export function rxend<T>(this: any, str:string, enable = true): (obsSrc: Observable<T>) => Observable<T> {
