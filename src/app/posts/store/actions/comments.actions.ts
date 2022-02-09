@@ -4,7 +4,9 @@ import { LoadInfo, LoadInfoSuccces, SortInfo } from 'src/app/services/models/fil
 import { Comment, FilterComment } from '../../models/comment';
 
 
-
+/**
+ * Actions for list
+ */
 
 export const loadInitComments = createAction(
   '[Comments] Load Init Comments'
@@ -35,28 +37,24 @@ export const paginationComments = createAction(
   props<{typeEventPagination :TypeEventPagination}>()
 );
 
-export const extraComments = createAction(
-  '[Comments] Extra Comments',
-  props<{data : string}>()
-);
-
-export const queryBegin = createAction(
-  '[Comments] Query begin',
-  props<{data : string}>()
-);
-
-export const queryEnd = createAction(
-  '[Comments] Query end',
-  props<{data : string}>()
-);
-
 
 export const sortComments = createAction(
   '[Comments] Sort Comments',
   props<{sortInfo: SortInfo}>()
 );
 
-export const addDialogComment = createAction(
+/**
+ * End Actions for list
+ */
+
+
+/**
+ * Action for add list
+ */
+
+
+
+ export const addDialogComment = createAction(
   '[Comments] Add Dialog Comments' 
 );
 
@@ -72,3 +70,38 @@ export const addCommentFailure = createAction(
   '[Comments] Add Comment Failure',
   props<{ error: any }>()             
 );
+
+
+/**
+ * End 
+ */
+
+/**
+ * Action for cheking loading 
+ */
+
+
+export const queryBegin = createAction(
+  '[Comments] Query begin',
+  props<{data : string}>()
+);
+
+export const queryEnd = createAction(
+  '[Comments] Query end',
+  props<{data : string}>()
+);
+
+/**
+ * End
+ */
+
+/**
+ * Action for check extending ngrx
+ */
+ export const extraComments = createAction(
+  '[Comments] Extra Comments',
+  props<{data : string}>()
+);
+
+
+
