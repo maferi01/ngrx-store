@@ -1,5 +1,4 @@
-import { Logger } from 'ng2-logger/browser';
-import { Level,Log } from 'ng2-logger/browser';
+import { Level, Log, Logger } from 'ng2-logger/browser';
 
 export let mapNames: Map<string, number> = new Map();
 export let mapNamesLevels: Map<string, Level[]> = new Map();
@@ -72,8 +71,10 @@ export function NameLog(nameLog:string) {
    // console.log('namelog')
       //const orig = constructor.prototype.ngOnDestroy
      // constructor.nameLog=nameLog;
-
-      if(constructor.prototype)constructor.prototype[nameLogPrototype]=nameLog;
+       if(constructor.prototype)constructor.prototype[nameLogPrototype]=nameLog;
+      // if(constructor.prototype){
+      //   constructor.prototype.testFn=function(this:any){consoleApp('TESTFN').log('data name log',this[nameLogPrototype],this.httpClient,this.injector)}
+      // }
       // constructor.prototype.ngOnDestroy = function() {
       //     for(const prop in this) {
       //         const property = this[prop]
