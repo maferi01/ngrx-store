@@ -9,13 +9,14 @@ import { MatFieldDirective } from './components/mat-field.directive';
 import { MaterialLayoutFieldComponent } from './components/material-layout-field/material-layout-field.component';
 import { SelectFieldMaterialComponent } from './components/select-field-material/select-field-material.component';
 import { TextMatFieldComponent } from './components/text-mat-field/text-mat-field.component';
+import { NumberMatFieldComponent } from './components/number-mat-field/number-mat-field.component';
 
-export { TextMatFieldComponent, MatFieldDirective, SelectFieldMaterialComponent };
+export { TextMatFieldComponent, MatFieldDirective, SelectFieldMaterialComponent,NumberMatFieldComponent };
 
 
 @NgModule({
-  declarations: [TextMatFieldComponent, MatFieldDirective, SelectFieldMaterialComponent, MatErrorsComponent, MaterialLayoutFieldComponent],
+  declarations: [TextMatFieldComponent, MatFieldDirective, SelectFieldMaterialComponent, MatErrorsComponent, MaterialLayoutFieldComponent, NumberMatFieldComponent],
   imports: [CommonModule,ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
-  exports: [TextMatFieldComponent, MatFieldDirective, SelectFieldMaterialComponent],
+  exports: [TextMatFieldComponent, MatFieldDirective, SelectFieldMaterialComponent,NumberMatFieldComponent],
 })
 export class MaterialFieldsModule {}

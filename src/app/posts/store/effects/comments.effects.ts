@@ -33,7 +33,7 @@ export class CommentsEffects extends AbstractListNgRxService {
         this.dialogService.openDialog(FormCommentComponent).pipe(
           rxlog('Data Dialog closed'),
           filter(data=> !!data),
-          map((data:any) => CommentsActions.addComment({data:{...data,id: Number(data.id) }}))
+          map((data:any) => CommentsActions.addComment({data}))
         )
       ))    
     });
