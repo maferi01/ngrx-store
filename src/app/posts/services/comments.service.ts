@@ -1,8 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NameLog } from 'src/app/services/utils/logger';
+import { consoleApp, NameLog } from 'src/app/services/utils/logger';
 import { NamesLog } from 'src/app/services/utils/names-classes';
+import { rxlog, rxlogth } from 'src/app/services/utils/opersrx';
 import { rxZod } from 'src/app/services/utils/zodrx';
 import { environment } from 'src/environments/environment';
 import { AbstractEntityService } from '../../services/base/abstract.entity.service';
@@ -11,7 +12,7 @@ import { Comment, CommentRespXsd, FilterComment } from '../models/comment';
 
 
 @Injectable()
-@NameLog(NamesLog.CommentsService)
+@NameLog(NamesLog.CommentsService+'-NAME-LOG')
 export class CommentsService extends AbstractEntityService<Comment> {
   constructor(injector: Injector) {
     super(injector, environment.urlHostApi, '/comments');
@@ -19,6 +20,7 @@ export class CommentsService extends AbstractEntityService<Comment> {
 
   getComments(filterComment:FilterComment,sortInfo:SortInfo,pageRequest:PageRequest): Observable<IResponseData<Comment>> {
     
+    consoleApp(this).log('Enter get Comments');
     return this.getEntities(sortInfo,pageRequest, (params) => {
       if (filterComment?.author) {
         params = params.append('author_like', filterComment.author);
@@ -32,6 +34,8 @@ export class CommentsService extends AbstractEntityService<Comment> {
 
       return params;
     }).pipe(
+      rxlogth(this)('Data from get comments'),
+      rxlogth(this,'info')('Data from get comments other'),      
       rxZod(CommentRespXsd),
       map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
   }
