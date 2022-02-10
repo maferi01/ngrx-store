@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { delay, filter, finalize, map, tap } from 'rxjs/operators';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { delay, filter, finalize, map, takeUntil, tap } from 'rxjs/operators';
 import { consoleApp, IConsole } from './logger';
 
 export function dev(mes: any, ...pars:any[]) {
@@ -49,6 +49,17 @@ export function rxlog<T>(this:any|undefined, str:string, ...vars: any[]): (obsSr
 //     return obsSrc.pipe(rxwarn('Delay active',null,time), delay(time));
 //   };
 // }
+
+export function rxDestroy<T>(source:{destroy$?:Subject<any>}): (obsSrc: Observable<T>) => Observable<T> {
+ if(!source.destroy$) {
+   consoleApp('rxDestroy').warn('Destroy subject is undefined from source', source,source.destroy$);
+  }
+ return (obsSrc: Observable<any>) => {
+    return obsSrc.pipe(
+      takeUntil(source.destroy$ || new Subject())
+      );
+  };
+}
 
 
 export function rxend<T>(this: any, str:string, enable = true): (obsSrc: Observable<T>) => Observable<T> {

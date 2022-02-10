@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NameLog } from 'src/app/services/utils/logger';
-import { BaseComponent, InputExtraFields, InputFields } from '../users/users.component';
-import { withUsername } from './feature';
+import { BaseComponent, InputExtraFields, InputFields, withDestroy } from '../users/users.component';
 
 @Component({
   
@@ -12,7 +11,7 @@ import { withUsername } from './feature';
   
 })
 @NameLog('MixComponent')
-export class MixComponent  extends InputExtraFields(InputFields(BaseComponent))  implements OnInit {
+export class MixComponent  extends InputExtraFields(InputFields(withDestroy(BaseComponent)))  implements OnInit {
 
   @Input()  
     override dataExtraInput: string='data Input';
@@ -21,6 +20,7 @@ export class MixComponent  extends InputExtraFields(InputFields(BaseComponent)) 
 
 
   override ngOnInit(): void {
+    super.ngOnInit()
   }
 
 }
