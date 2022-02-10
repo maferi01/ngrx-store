@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { UsersRoutingModule } from './users-routing.module';
+import { NgModule } from '@angular/core';
+import { MixComponent } from './components/mix/mix.component';
 import { UsersComponent } from './components/users/users.component';
+import { UsersRoutingModule } from './users-routing.module';
+
 
 
 @NgModule({
   declarations: [
-    UsersComponent
+    UsersComponent,
+    MixComponent
   ],
   imports: [
     CommonModule,
