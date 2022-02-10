@@ -42,6 +42,10 @@ export interface IBaseMIxings extends AfterViewInit, OnInit, OnDestroy, IInit {
 type Constructor<T = IBaseMIxings> = new (...args: any[]) => T;
 
 
+interface ITest{
+  test:()=>void
+}
+
 
 export function withDestroy<TBase extends Constructor>(Base: TBase) {
   return class extends Base implements OnDestroy, IInit {
@@ -62,7 +66,7 @@ export function withDestroy<TBase extends Constructor>(Base: TBase) {
 }
 
 function UserCompFields<TBase extends Constructor>(Base: TBase) {
-  return class extends Base {
+  return class extends Base implements ITest{
     name: string = 'my name ';
     email: string = 'my email'
     dataServicexx: any;
@@ -72,11 +76,13 @@ function UserCompFields<TBase extends Constructor>(Base: TBase) {
       consoleApp(this).log('inject UserCompFields=', inj, inj?.get(MyService))
       this.dataServicexx = inj?.get(MyService).getData();
     }
+    test!: () => void;
 
   };
 }
 
-function DataCompFields<TBase extends Constructor>(Base: TBase) {
+// join interfaces IBaseMIxings and ITest if we want specific, we must avoid this way. Couple between mixins
+function DataCompFields<TBase extends Constructor<IBaseMIxings & ITest>>(Base: TBase) {
   return class extends Base {
     dataExtra: string = 'my data extra ';
     dataAux: string = 'my data Aux'
@@ -89,6 +95,8 @@ function DataCompFields<TBase extends Constructor>(Base: TBase) {
       const inj: Injector = this.injector;
       consoleApp(this).log('injector DataCompFields=', inj, inj?.get(MyService))
       this.dataService = inj?.get(MyService).dataService;
+      if(this.test) this.test(); // check test, depends on other mixing
+
     }
   };
 }
