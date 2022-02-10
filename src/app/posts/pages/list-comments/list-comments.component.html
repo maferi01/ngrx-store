@@ -2,7 +2,7 @@
 <h1>List comments</h1>
 <lib-button [label]="'Test extra'" (onClick)="testExtra()"></lib-button>
 <lib-button [label]="'Add Comment'" (onClick)="openDialog()"></lib-button>
-<app-form (onAccept)="filterList($event)" #formfilter >
+<app-form (onAccept)="filterList($event)" >
   <ng-container [formGroup]="group" *formg="let group">
     <div class="flex flex-row">
       <app-text-field [name]="'comment'" [label]="'Filter by comment'" [value]="(filter$ | async)?.comment" MatField [validations]="validations">

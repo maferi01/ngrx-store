@@ -8,6 +8,7 @@ import { LayoutFieldComponent } from './components/layout-field/layout-field.com
 import { NumberFieldComponent } from './components/number-field/number-field.component';
 import { Item, SelectFieldComponent } from './components/select-field/select-field.component';
 import { TextFieldComponent } from './components/text-field/text-field.component';
+import { FormField } from './form-field.directive';
 
 
 export {TextFieldComponent,
@@ -15,7 +16,8 @@ export {TextFieldComponent,
   SelectFieldComponent,Item,
   EmailFieldComponent,
   NumberFieldComponent,
-LayoutFieldComponent};
+LayoutFieldComponent,
+FormField};
 
 @NgModule({
   declarations: [ 

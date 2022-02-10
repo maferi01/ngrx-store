@@ -2,13 +2,12 @@ import { AfterViewInit, Component, Injector, OnInit, QueryList, ViewChild } from
 import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { TypeEventPagination } from 'my-lib-display';
-import { FormField } from 'projects/my-lib-display/src/lib/fields/form-field.directive';
-import { FormComponent } from 'projects/my-lib-display/src/public-api';
 import { delay, of, tap } from 'rxjs';
 import { SortInfo } from 'src/app/services/models/filter.model';
-import { rxDestroy } from 'src/app/services/utils/opersrx';
+import { NameLog } from 'src/app/services/utils/logger';
+import { rxDestroy, rxlog, rxlogth } from 'src/app/services/utils/opersrx';
 import { BaseComponent } from 'src/app/shared/base/abstract-app';
-import { withDestroy } from 'src/app/shared/base/mixings-comp';
+import { withDestroy, withForm } from 'src/app/shared/base/mixings-comp';
 import { filterLoadingId } from 'src/app/store/selectors/loading.selectors';
 import { InputFields } from 'src/app/users/components/users/users.component';
 import { FilterComment } from '../../models/comment';
@@ -20,10 +19,12 @@ import { selectorLoadingComments, selectorLoadingQuery, selectorsList } from '..
   templateUrl: './list-comments.component.html',
   styleUrls: ['./list-comments.component.scss']
 })
+@NameLog('ListCommentsComponent')
 export class ListCommentsComponent extends 
 InputFields(
-withDestroy
-(BaseComponent))  implements OnInit,AfterViewInit {
+withForm(
+withDestroy(
+BaseComponent)))  implements OnInit,AfterViewInit {
 
   aux!:string;
   comments$ = this.store.select(selectorsList.selectListData);
@@ -37,39 +38,17 @@ withDestroy
   queryLoadings:{name:string,data:string|null}[]=[];
 
 
-  @ViewChild('formfilter') formComponent!:FormComponent;
 
   constructor( private store: Store,public override injector: Injector) {super(injector) }
   
 
   override ngOnInit(): void {
     this.store.dispatch(CommentsActions.loadInitComments());
-
+    super.ngOnInit();
+    this.subjectFields$.pipe(rxDestroy(this),rxlogth(this)('fields form subject')).subscribe()
   }
 
-  override ngAfterViewInit(): void {
-    console.log('form Comments controls', this.formComponent.fields.length, Object.keys(this.formComponent.group.controls).length) ;
-   //(this.formComponent.group.controls['lastgroup'] as FormGroup)?.controls['text-group-last-2'].setValue('My val from comments')
-   // this.formComponent.detect.detectChanges();
-
-    // this.formComponent.fields.changes.pipe(
-    //   tap((val) => this.updateFields(val))
-    // ) .subscribe();
-    super.ngAfterViewInit();
-
-  }
-
-  updateFields(fields: QueryList<FormField>){
-    fields.forEach(field=>{
-      console.log('field Comment Filter=',field.name,field.control,field);
-      // if(field.name==='text-group-last-cent'){
-      //   field.control.setValue('change from list comments  XXX')
-      // }          
-    })
-  }  
-
-
-
+ 
   filterList(filter:FilterComment){
     console.log('filter enter***********',filter);
     this.store.dispatch(CommentsActions.filterComments({filter}));    
