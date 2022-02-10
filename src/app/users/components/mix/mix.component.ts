@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NameLog } from 'src/app/services/utils/logger';
-import { BaseComponent, InputExtraFields, InputFields, withDestroy } from '../users/users.component';
+import { BaseComponent } from 'src/app/shared/base/abstract-app';
+import { withDestroy } from 'src/app/shared/base/mixings-comp';
+import { InputExtraFields, InputFields } from '../users/users.component';
 
 @Component({
   

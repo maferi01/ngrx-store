@@ -20,7 +20,7 @@ export class CommentsService extends AbstractEntityService<Comment> {
 
   getComments(filterComment:FilterComment,sortInfo:SortInfo,pageRequest:PageRequest): Observable<IResponseData<Comment>> {
     
-    consoleApp(this).log('Enter get Comments');
+    //consoleApp(this).log('Enter get Comments');
     return this.getEntities(sortInfo,pageRequest, (params) => {
       if (filterComment?.author) {
         params = params.append('author_like', filterComment.author);
@@ -34,7 +34,7 @@ export class CommentsService extends AbstractEntityService<Comment> {
 
       return params;
     }).pipe(
-      rxlogth(this,'info')('Data from get comments other'),      
+    //  rxlogth(this,'info')('Data from get comments other'),      
       rxZod(CommentRespXsd),
       map((resp) => ({ link: resp.headers.get('link'), data: resp.body })));
   }

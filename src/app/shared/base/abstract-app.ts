@@ -1,6 +1,34 @@
-import { Injector, Optional } from "@angular/core";
+import { Directive, Injector, Input, Optional } from "@angular/core";
 import { getLogger, IConsole } from "src/app/services/utils/logger";
 import { NamesLog } from '../../services/utils/names-classes';
+import { IBaseMIxings } from "./mixings-comp";
+
+
+@Directive()
+export  class BaseComponent implements IBaseMIxings {
+
+  @Input()
+  dataBase = 'Hola'
+
+  constructor(public injector: Injector) {
+    this.init(injector)
+  }
+  ngOnDestroy(): void {
+
+  }
+  init(...args: any[]): void {
+
+  }
+  ngAfterViewInit(): void {
+
+  }
+  ngOnInit(): void {
+
+  }
+}
+
+
+
 
 export abstract class AbstractApp {
     console: IConsole;

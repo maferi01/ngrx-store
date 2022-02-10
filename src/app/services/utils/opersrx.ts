@@ -50,22 +50,25 @@ export function rxlog<T>(this:any|undefined, str:string, ...vars: any[]): (obsSr
 //   };
 // }
 
-export function rxDestroy<T>(source:{destroy$?:Subject<any>}): (obsSrc: Observable<T>) => Observable<T> {
+
+
+export function rxDestroy<T>(source:{destroy$?:Subject<any>}, log=false ): (obsSrc: Observable<T>) => Observable<T> {
  if(!source.destroy$) {
    consoleApp('rxDestroy').warn('Destroy subject is undefined from source', source,source.destroy$);
   }
  return (obsSrc: Observable<any>) => {
     return obsSrc.pipe(
-      takeUntil(source.destroy$ || new Subject())
+      takeUntil(source.destroy$ || new Subject()),
+      finalize(() => log && consoleApp(source).log('Finalize Obs.') )
       );
   };
 }
 
 
-export function rxend<T>(this: any, str:string, enable = true): (obsSrc: Observable<T>) => Observable<T> {
+export function rxend<T>(this: any, str:string): (obsSrc: Observable<T>) => Observable<T> {
   const console2: IConsole=(this as any)?.console||console
   return (obsSrc: Observable<any>) => {
-    return obsSrc.pipe(finalize(() => (enable ? console2.info(str) : 0)));
+    return obsSrc.pipe(finalize(() =>  console2.info(str) ));
   };
 }
 

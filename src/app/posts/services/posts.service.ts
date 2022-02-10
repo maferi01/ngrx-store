@@ -18,7 +18,7 @@ export class PostsService extends AbstractEntityService<Post> {
   }
 
   getPosts(filterPost:FilterPost,sortInfo:SortInfo,pageRequest:PageRequest): Observable<IResponseData<Post>> {
-    consoleApp(this).log('Enter get Posts');
+   // consoleApp(this).log('Enter get Posts');
     return this.getEntities(sortInfo,pageRequest, (params) => {
       if (filterPost?.author) {
         params = params.append('author_like', filterPost.author);

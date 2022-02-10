@@ -1,24 +1,29 @@
-import { AfterViewInit, Component, ContentChild, OnInit, QueryList, ViewChild } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, Injector, OnInit, QueryList, ViewChild } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
-import { DialogService, TypeEventPagination } from 'my-lib-display';
-import { FilterComment } from '../../models/comment';
-import { selectorsList,selectorLoadingComments, selectorLoadingQuery } from '../../store/selectors/comments.selectors';
-import * as CommentsActions from '../../store/actions/comments.actions';
+import { TypeEventPagination } from 'my-lib-display';
+import { FormField } from 'projects/my-lib-display/src/lib/fields/form-field.directive';
 import { FormComponent } from 'projects/my-lib-display/src/public-api';
 import { delay, of, tap } from 'rxjs';
-import { FormField } from 'projects/my-lib-display/src/lib/fields/form-field.directive';
-import { createSelectorLoading, createSelectorLoadingGroup, filterLoadingId } from 'src/app/store/selectors/loading.selectors';
-import { FormCommentComponent } from '../../components/form-comment/form-comment.component';
 import { SortInfo } from 'src/app/services/models/filter.model';
+import { rxDestroy } from 'src/app/services/utils/opersrx';
+import { BaseComponent } from 'src/app/shared/base/abstract-app';
+import { withDestroy } from 'src/app/shared/base/mixings-comp';
+import { filterLoadingId } from 'src/app/store/selectors/loading.selectors';
+import { InputFields } from 'src/app/users/components/users/users.component';
+import { FilterComment } from '../../models/comment';
+import * as CommentsActions from '../../store/actions/comments.actions';
+import { selectorLoadingComments, selectorLoadingQuery, selectorsList } from '../../store/selectors/comments.selectors';
 
 @Component({
   selector: 'app-list-comments',
   templateUrl: './list-comments.component.html',
   styleUrls: ['./list-comments.component.scss']
 })
-export class ListCommentsComponent implements OnInit,AfterViewInit {
+export class ListCommentsComponent extends 
+InputFields(
+withDestroy
+(BaseComponent))  implements OnInit,AfterViewInit {
 
   aux!:string;
   comments$ = this.store.select(selectorsList.selectListData);
@@ -34,15 +39,15 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
 
   @ViewChild('formfilter') formComponent!:FormComponent;
 
-  constructor( private store: Store) { }
+  constructor( private store: Store,public override injector: Injector) {super(injector) }
   
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.store.dispatch(CommentsActions.loadInitComments());
 
   }
 
-  ngAfterViewInit(): void {
+  override ngAfterViewInit(): void {
     console.log('form Comments controls', this.formComponent.fields.length, Object.keys(this.formComponent.group.controls).length) ;
    //(this.formComponent.group.controls['lastgroup'] as FormGroup)?.controls['text-group-last-2'].setValue('My val from comments')
    // this.formComponent.detect.detectChanges();
@@ -50,6 +55,7 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
     // this.formComponent.fields.changes.pipe(
     //   tap((val) => this.updateFields(val))
     // ) .subscribe();
+    super.ngAfterViewInit();
 
   }
 
@@ -89,7 +95,9 @@ export class ListCommentsComponent implements OnInit,AfterViewInit {
   onClickRow(row:any){
     console.log('clicked row', row)
     this.queryLoadings.push({name:row.author,data:null})
-    this.callQuery(row.author).subscribe(()=>  (this.queryLoadings?.find(q=> q.name===row.author) as any).data='Finish query '+row.author)
+    this.callQuery(row.author).pipe(
+      rxDestroy(this)
+    ).subscribe(()=>  (this.queryLoadings?.find(q=> q.name===row.author) as any).data='Finish query '+row.author)
     
   }
   callQuery(author: any) {
