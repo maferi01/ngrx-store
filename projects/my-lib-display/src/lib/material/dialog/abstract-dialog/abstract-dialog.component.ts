@@ -3,7 +3,7 @@ import { FormComponent } from '../../form/form.module';
 
 @Directive()
 //@NameLog(NamesLog.AbstractDialogComponent)
-export abstract class AbstractDialogComponent<E = object, T = object> implements OnInit, AfterViewInit {
+export abstract class AbstractDialogComponent implements OnInit, AfterViewInit {
   @Input() data: any;
  @Output() onAccept= new EventEmitter();
   

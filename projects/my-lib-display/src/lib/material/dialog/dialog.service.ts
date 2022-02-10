@@ -14,15 +14,14 @@ export class DialogService {
     compDialog: ComponentType<any>= DialogComponent,
     data?: object,
     viewContainerRef?: ViewContainerRef,
-    componentFactoryResolver?: ComponentFactoryResolver
+    //componentFactoryResolver?: ComponentFactoryResolver
   ): Observable<S> {
     
     const dialogRef = this.dialog.open(compDialog, {
       data:{
         compInsideDialog
       },
-      viewContainerRef,
-      componentFactoryResolver,
+      viewContainerRef      
     });
     return dialogRef.afterClosed();
     //dialogRef.componentInstance.data
@@ -32,21 +31,21 @@ export class DialogService {
   }
 
 
-  openDialogRef<T extends AbstractDialogComponent, S>(
-    compDialog: ComponentType<T>,
-    data?: object,
-    viewContainerRef?: ViewContainerRef,
-    componentFactoryResolver?: ComponentFactoryResolver
-  ): MatDialogRef<T>{
-    const dialogRef = this.dialog.open(compDialog, {
-      data,
-      viewContainerRef,
-      componentFactoryResolver,
-    });
-    return dialogRef;
-    //dialogRef.componentInstance.data
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   console.log(`Dialog result: ${result}`);
-    // });
-  }
+  // openDialogRef<T extends AbstractDialogComponent, S>(
+  //   compDialog: ComponentType<T>,
+  //   data?: object,
+  //   viewContainerRef?: ViewContainerRef,
+  //   componentFactoryResolver?: ComponentFactoryResolver
+  // ): MatDialogRef<T>{
+  //   const dialogRef = this.dialog.open(compDialog, {
+  //     data,
+  //     viewContainerRef,
+  //     componentFactoryResolver,
+  //   });
+  //   return dialogRef;
+  //   //dialogRef.componentInstance.data
+  //   // dialogRef.afterClosed().subscribe((result) => {
+  //   //   console.log(`Dialog result: ${result}`);
+  //   // });
+  // }
 }

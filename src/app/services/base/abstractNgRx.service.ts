@@ -5,8 +5,8 @@ import { TypeEventPagination } from "my-lib-display";
 import { catchError, concatMap, map, Observable, of } from "rxjs";
 import { AbstractApp } from "src/app/shared/base/abstract-app";
 import { FilterListInfo, IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, SortInfo, xsdLoadInfoSuccess } from "../models/filter.model";
-import { rxlog } from '../utils/opersrx';
 import { rxZod } from '../utils/zodrx';
+
 
 @Injectable()
 export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {

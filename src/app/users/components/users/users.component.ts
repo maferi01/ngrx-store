@@ -82,7 +82,7 @@ function UserCompFields<TBase extends Constructor>(Base: TBase) {
 }
 
 // join interfaces IBaseMIxings and ITest if we want specific, we must avoid this way. Couple between mixins
-function DataCompFields<TBase extends Constructor<IBaseMIxings & ITest>>(Base: TBase) {
+function DataCompFields<TBase extends Constructor<IBaseMIxings>>(Base: TBase) {
   return class extends Base {
     dataExtra: string = 'my data extra ';
     dataAux: string = 'my data Aux'
@@ -95,7 +95,8 @@ function DataCompFields<TBase extends Constructor<IBaseMIxings & ITest>>(Base: T
       const inj: Injector = this.injector;
       consoleApp(this).log('injector DataCompFields=', inj, inj?.get(MyService))
       this.dataService = inj?.get(MyService).dataService;
-      if(this.test) this.test(); // check test, depends on other mixing
+      // check if test exits. then we call it 
+      if((this as any).test) (<any>this).test(); // check test, depends on other mixing
 
     }
   };
@@ -190,7 +191,7 @@ export function MixView<TBase extends Constructor>(Base: TBase) {
   styleUrls: ['./users.component.scss']
 })
 @NameLog('UsersComponent')
-export class UsersComponent extends MixView(DataCompFields(UserCompFields(withDestroy(BaseComponent)))) implements OnInit {
+export class UsersComponent extends UserCompFields(MixView(DataCompFields(withDestroy(BaseComponent)))) implements OnInit {
 
   // constructor(){
 
