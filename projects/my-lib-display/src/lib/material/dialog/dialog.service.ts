@@ -12,7 +12,7 @@ export class DialogService {
   openDialog<T extends AbstractDialogComponent, S>(
     compInsideDialog : ComponentType<T>,
     data?: object,
-    fnComp?:(compInside: ComponentRef<any>)=>void,
+    fnComp?:(compInside: ComponentRef<any>,dialogRef:MatDialogRef<any,any>)=>void,
     compDialog: ComponentType<any>= DialogComponent,
     viewContainerRef?: ViewContainerRef,
     //componentFactoryResolver?: ComponentFactoryResolver
@@ -30,7 +30,7 @@ export class DialogService {
     const dialogComp:DialogComponent= dialogRef.componentInstance as DialogComponent;
     
     dialogRef.afterOpened().pipe(last()).
-    subscribe(()=> fnComp && fnComp(dialogComp.compInside as ComponentRef<T>)
+    subscribe(()=> fnComp && fnComp(dialogComp.compInside as ComponentRef<T>,dialogRef)
     )
 
     return dialogRef.afterClosed();

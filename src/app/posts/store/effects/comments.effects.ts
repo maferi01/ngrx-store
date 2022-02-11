@@ -2,7 +2,7 @@ import { ComponentRef, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DialogService } from 'my-lib-display';
-import { catchError, concatMap, filter, interval, map, of } from 'rxjs';
+import { catchError, concatMap, filter, finalize, interval, map, of, takeUntil } from 'rxjs';
 import { AbstractListNgRxService } from 'src/app/services/base/abstractNgRx.service';
 import { LoadInfo } from 'src/app/services/models/filter.model';
 import { consoleApp } from 'src/app/services/utils/logger';
@@ -56,9 +56,9 @@ export class CommentsEffects extends AbstractListNgRxService {
       return this.actions$.pipe(
         ofType(CommentsActions.editDialogComment),
         concatMap((action) =>
-          this.dialogService.openDialog(FormCommentComponent,action.data,((comp:ComponentRef<FormCommentComponent>)=> {
+          this.dialogService.openDialog(FormCommentComponent,action.data,((comp:ComponentRef<FormCommentComponent>,refDialog)=> {
             consoleApp(this).log('comp Inside dialog ***',comp)
-           comp.instance.onChange.subscribe((val)=> comp.instance.dataFormInput= {...comp.instance.dataFormInput,comment: val+'-------'  } )              
+           comp.instance.onChange.pipe(finalize(()=>consoleApp(this).log('obs in CLOSED******') ),takeUntil(refDialog.afterClosed())).subscribe((val)=> comp.instance.dataFormInput= {...comp.instance.dataFormInput,comment: val+'-------'  } )              
           })).pipe(
             rxlog('Data Dialog closed'),
             filter<any>(data=> !!data),
