@@ -1,9 +1,9 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Directive, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { interval, Subject } from 'rxjs';
-import { consoleApp, NameLog } from 'src/app/services/utils/logger';
+import { AfterViewInit, ChangeDetectorRef, Component, Directive, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { BaseComponent, Constructor, IBaseMIxings } from 'my-lib-display';
+import { interval } from 'rxjs';
+import { NameLog } from 'src/app/services/utils/logger';
 import { rxDestroy, rxlogth } from 'src/app/services/utils/opersrx';
-import { BaseComponent } from 'src/app/shared/base/abstract-app';
-import { Constructor, IBaseMIxings, ITest, withDestroy } from 'src/app/shared/base/mixings-comp';
+import { ITest, withDestroy } from 'src/app/shared/base/mixings-comp';
 import { MyService } from '../../my.service';
 import { MixComponent } from '../mix/mix.component';
 
@@ -68,7 +68,7 @@ export function InputFields<TBase extends Constructor>(Base: TBase) {
     }
 
     override ngOnInit(): void {
-      this.testObs().subscribe();
+      //this.testObs().subscribe();
       super.ngOnInit()
     }
 

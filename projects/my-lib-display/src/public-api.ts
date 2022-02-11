@@ -2,6 +2,10 @@
  * Public API Surface of my-lib-display
  */
 
+export * from './lib/shared/abstract-app';
+export * from './lib/shared/modelMixing';
+
+
 export * from './lib/my-lib-display.service';
 export * from './lib/my-lib-display.component';
 export * from './lib/my-lib-display.module';

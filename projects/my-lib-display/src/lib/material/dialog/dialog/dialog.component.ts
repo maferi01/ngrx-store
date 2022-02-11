@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, ComponentRef, EventEmitter, Injector, Inp
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AbstractDialogComponent } from '../dialog.module';
+import { IDialog } from './modelDialog';
 
 @Component({
   selector: 'lib-dialog',
@@ -27,8 +28,9 @@ export class DialogComponent implements OnInit {
   };
   detect: ChangeDetectorRef;
   compInside!: ComponentRef<AbstractDialogComponent>;
-  formInside!:FormGroup;
-  templateButtons!:TemplateRef<any>;
+  dialogInstance!:IDialog;  
+  formInside?:FormGroup;
+  templateButtons?:TemplateRef<any>;
 
   //abstract getFormGroup(): FormGroup;
 
@@ -59,14 +61,14 @@ export class DialogComponent implements OnInit {
 
   createInside(){
     this.compInside=this.viewContainerInside.createComponent(this.dataDialog.compInsideDialog);
+    this.dialogInstance= (this.compInside.instance as any) as IDialog;
     // detect changes  to refresh the component inside
     this.detect.detectChanges();
 
-    this.compInside.instance.onAccept.subscribe(data=> this.dialogRef.close(data));
-    console.log('Form comp inside---------',this.compInside.instance.formComponent);
-    this.formInside=this.compInside.instance?.formComponent?.group;
-    this.templateButtons=this.compInside.instance?.templateButtons;
-    // detect to refresh these proterties   
+    this.dialogInstance.onAccept?.subscribe(data=> this.dialogRef.close(data));
+    this.formInside=this.dialogInstance.formGroup;
+    this.templateButtons=this.dialogInstance.templateButtons;  
+      // detect to refresh these proterties   
     this.detect.detectChanges();
 
   }

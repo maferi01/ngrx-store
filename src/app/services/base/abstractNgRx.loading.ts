@@ -1,10 +1,9 @@
-import { AbstractApp } from "src/app/shared/base/abstract-app";
-import { Injectable, OnDestroy } from '@angular/core';
-import { createEffect, ofType, concatLatestFrom, Actions } from "@ngrx/effects";
-import { concatMap, of, map, catchError, Observable, filter } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Action } from '@ngrx/store';
+import { catchError, concatMap, filter, map, of } from "rxjs";
+import * as LoadingActions from '../../store/actions/loading.actions';
 
-import * as LoadingActions from '../../store/actions/loading.actions'; 
 
 export type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
 

@@ -9,7 +9,7 @@ import { AbstractService } from './abstract.service';
 
 export abstract class AbstractEntityService<E extends Entity> extends AbstractService {
   protected httpClient: HttpClient;
-  constructor(protected override injector: Injector, protected urlHost: string, protected pathEntity: string) {
+  constructor(protected  injector: Injector, protected urlHost: string, protected pathEntity: string) {
     super();
     this.httpClient = this.injector.get(HttpClient);
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AbstractDialogComponent } from 'my-lib-display';
+import { withDestroy, withForm, withFormButtons } from 'src/app/shared/base/mixings-comp';
 
 @Component({
   selector: 'app-form-comment',
@@ -8,7 +9,11 @@ import { AbstractDialogComponent } from 'my-lib-display';
   styleUrls: ['./form-comment.component.scss']
 })
 export class FormCommentComponent  
-extends AbstractDialogComponent 
+extends
+withFormButtons(
+withForm( 
+withDestroy(  
+AbstractDialogComponent))) 
 //implements OnInit
  {
   get validations():any[]{

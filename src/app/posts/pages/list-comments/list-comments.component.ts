@@ -1,12 +1,11 @@
 import { AfterViewInit, Component, Injector, OnInit, QueryList, ViewChild } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
-import { TypeEventPagination } from 'my-lib-display';
+import { BaseComponent, TypeEventPagination } from 'my-lib-display';
 import { delay, of, tap } from 'rxjs';
 import { SortInfo } from 'src/app/services/models/filter.model';
 import { NameLog } from 'src/app/services/utils/logger';
 import { rxDestroy, rxlog, rxlogth } from 'src/app/services/utils/opersrx';
-import { BaseComponent } from 'src/app/shared/base/abstract-app';
 import { withDestroy, withForm } from 'src/app/shared/base/mixings-comp';
 import { filterLoadingId } from 'src/app/store/selectors/loading.selectors';
 import { InputFields } from 'src/app/users/components/users/users.component';

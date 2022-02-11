@@ -8,6 +8,7 @@ import { FormgDirective } from './components/formg.directive';
 
 export { FormComponent };
 export { FormgDirective };
+export * from './mixinsForm';
 @NgModule({
   declarations: [
     FormComponent, FormgDirective,

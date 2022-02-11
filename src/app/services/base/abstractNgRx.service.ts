@@ -3,13 +3,12 @@ import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { TypeEventPagination } from "my-lib-display";
 import { catchError, concatMap, map, Observable, of } from "rxjs";
-import { AbstractApp } from "src/app/shared/base/abstract-app";
 import { FilterListInfo, IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, SortInfo, xsdLoadInfoSuccess } from "../models/filter.model";
 import { rxZod } from '../utils/zodrx';
 
 
 @Injectable()
-export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
+export  class AbstractListNgRxService  implements OnDestroy {
   protected store!: Store;
   protected actions$!: Actions;
 
@@ -119,7 +118,7 @@ export  class AbstractListNgRxService extends AbstractApp implements OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.console.debug('Destroy service')
+   // this.console.debug('Destroy service')
   }
 
 }
