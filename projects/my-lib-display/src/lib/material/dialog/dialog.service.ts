@@ -1,8 +1,8 @@
-import { Injectable, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Injectable, ViewContainerRef, ComponentFactoryResolver, ComponentRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { AbstractDialogComponent } from './abstract-dialog/abstract-dialog.component';
-import { Observable } from 'rxjs';
+import { last, Observable } from 'rxjs';
 import { DialogComponent } from './dialog/dialog.component';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class DialogService {
   openDialog<T extends AbstractDialogComponent, S>(
     compInsideDialog : ComponentType<T>,
     data?: object,
+    fnComp?:(compInside: ComponentRef<any>)=>void,
     compDialog: ComponentType<any>= DialogComponent,
     viewContainerRef?: ViewContainerRef,
     //componentFactoryResolver?: ComponentFactoryResolver
@@ -24,6 +25,14 @@ export class DialogService {
       },
       viewContainerRef      
     });
+    //fnComp((dialogRef.componentInstance) as DialogComponent).compInside) as  ComponentRef<any>);
+
+    const dialogComp:DialogComponent= dialogRef.componentInstance as DialogComponent;
+    
+    dialogRef.afterOpened().pipe(last()).
+    subscribe(()=> fnComp && fnComp(dialogComp.compInside as ComponentRef<T>)
+    )
+
     return dialogRef.afterClosed();
     //dialogRef.componentInstance.data
     // dialogRef.afterClosed().subscribe((result) => {

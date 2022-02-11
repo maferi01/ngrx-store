@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, EventEmitter, Input, Optional, Output } from '@angular/core';
+import { ChangeDetectorRef, Directive, EventEmitter, Input, OnChanges, Optional, Output, SimpleChanges } from '@angular/core';
 import { AbstractControlOptions, ControlContainer, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { distinctUntilChanged, skip, tap } from 'rxjs/operators';
 import { setDelay } from './utils';
@@ -6,7 +6,7 @@ import { setDelay } from './utils';
 @Directive({
   selector: '[appFormField]',
 })
-export abstract class FormField {
+export abstract class FormField implements OnChanges{
   @Input()
   name!: string;
   @Input()
@@ -30,11 +30,14 @@ export abstract class FormField {
   constructor(@Optional() private parentControl: ControlContainer, protected changeDet: ChangeDetectorRef) {
     this.control = new FormControl();
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['value']) this.control.setValue(this.value);
+  }
 
   ngOnInit() {
    // console.log('parentcontrol', this.parentControl);
     this.parentFormGroup = this.parentControl?.control as FormGroup;
-    if (this.value) this.control.setValue(this.value);
+    
     setDelay(() => {
       if (this.validations) this.control.addValidators(this.validations);
       this.control.updateValueAndValidity();

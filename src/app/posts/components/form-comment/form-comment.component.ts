@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AbstractDialogComponent } from 'my-lib-display';
 import { consoleApp } from 'src/app/services/utils/logger';
@@ -17,6 +17,14 @@ withDestroy(
 AbstractDialogComponent))) 
 //implements OnInit
  {
+
+  @Input()
+  values:any;
+
+  @Output()
+  onChange= new EventEmitter()
+
+
   get validations():any[]{
     return [Validators.required]
   }

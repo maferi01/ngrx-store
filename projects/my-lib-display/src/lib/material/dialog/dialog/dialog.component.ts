@@ -28,7 +28,7 @@ export class DialogComponent implements OnInit {
     data:object
   };
   detect: ChangeDetectorRef;
-  compInside!: ComponentRef<AbstractDialogComponent>;
+  compInside?: ComponentRef<AbstractDialogComponent>;
   dialogInstance!:IDialog;  
   formInside?:FormGroup;
   templateButtons?:TemplateRef<any>;

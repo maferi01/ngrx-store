@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { ComponentRef, Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DialogService } from 'my-lib-display';
-import { concatMap, of, map, filter, catchError } from 'rxjs';
+import { catchError, concatMap, filter, interval, map, of } from 'rxjs';
 import { AbstractListNgRxService } from 'src/app/services/base/abstractNgRx.service';
-import { LoadInfo, SortInfo } from 'src/app/services/models/filter.model';
+import { LoadInfo } from 'src/app/services/models/filter.model';
+import { consoleApp } from 'src/app/services/utils/logger';
 import { rxlog } from 'src/app/services/utils/opersrx';
 import { FormCommentComponent } from '../../components/form-comment/form-comment.component';
-import { FilterComment } from '../../models/comment';
+import { Comment, FilterComment } from '../../models/comment';
 import { CommentsService } from '../../services/comments.service';
 import * as CommentsActions from '../actions/comments.actions';
 import { selectorsList } from '../selectors/comments.selectors';
-
 
 @Injectable()
 export class CommentsEffects extends AbstractListNgRxService {
@@ -32,8 +32,8 @@ export class CommentsEffects extends AbstractListNgRxService {
       concatMap((action) =>
         this.dialogService.openDialog(FormCommentComponent).pipe(
           rxlog('Data Dialog closed'),
-          filter(data=> !!data),
-          map((data:any) => CommentsActions.addComment({data}))
+          filter<any>(data=> !!data),
+          map(({id,comment,author}:Comment) => CommentsActions.addComment({data:{id,comment,author}}))
         )
       ))    
     });
@@ -56,10 +56,13 @@ export class CommentsEffects extends AbstractListNgRxService {
       return this.actions$.pipe(
         ofType(CommentsActions.editDialogComment),
         concatMap((action) =>
-          this.dialogService.openDialog(FormCommentComponent,action.data).pipe(
+          this.dialogService.openDialog(FormCommentComponent,action.data,((comp:ComponentRef<FormCommentComponent>)=> {
+            consoleApp(this).log('comp Inside dialog ***',comp)
+           comp.instance.onChange.subscribe((val)=> comp.instance.dataFormInput= {...comp.instance.dataFormInput,comment: val+'-------'  } )              
+          })).pipe(
             rxlog('Data Dialog closed'),
-            filter(data=> !!data),
-            map((data:any) => CommentsActions.updateComment({data}))
+            filter<any>(data=> !!data),
+            map(({id,comment,author}:Comment) => CommentsActions.updateComment({data:{id,comment,author}}))
           )
         ))    
       });
