@@ -77,6 +77,35 @@ export const addCommentFailure = createAction(
  */
 
 /**
+ * Action for add list
+ */
+
+ export const editDialogComment = createAction(
+  '[Comments] Edit Dialog Comment' ,
+  props<{data : Comment}>()
+);
+
+// export const updateComment = createAction(
+//   '[Comments] Add Comment',
+//   props<{data : Comment}>() 
+// );
+// export const addCommentSuccess = createAction(
+//   '[Comments] Add Commentss Success'  
+// );
+
+// export const addCommentFailure = createAction(
+//   '[Comments] Add Comment Failure',
+//   props<{ error: any }>()             
+// );
+
+
+/**
+ * End 
+ */
+
+
+
+/**
  * Action for cheking loading 
  */
 

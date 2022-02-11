@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Injector, OnDestroy, OnInit, Output, QueryList, TemplateRef, ViewChild } from "@angular/core";
+import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Injector, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Constructor, FormComponent, FormField, IInit, IWithForm, IWithFormButtons } from "my-lib-display";
 import { map, Subject, tap } from "rxjs";
@@ -38,6 +38,8 @@ export  interface ITest{
 export function withForm<TBase extends Constructor>(Base: TBase) {
     @Directive()
     class Temporary extends Base implements AfterViewInit,IWithForm {
+      @Input() 
+      dataFormInput: any;
        
        formGroup!: FormGroup;
   

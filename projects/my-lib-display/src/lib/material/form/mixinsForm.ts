@@ -8,6 +8,7 @@ import { FormComponent } from "./form.module";
   export interface IWithForm{
     subjectFields$:Subject<FormField[]>;
     formGroup:FormGroup;
+    dataFormInput: any;
   } 
 
 

@@ -50,7 +50,20 @@ export class CommentsEffects extends AbstractListNgRxService {
               )
         )
       );
-    }); 
+    });
+    
+    editDialogComment$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(CommentsActions.editDialogComment),
+        concatMap((action) =>
+          this.dialogService.openDialog(FormCommentComponent,action.data).pipe(
+            rxlog('Data Dialog closed'),
+            filter(data=> !!data),
+            map((data:any) => CommentsActions.addComment({data}))
+          )
+        ))    
+      });
+  
 
 
 

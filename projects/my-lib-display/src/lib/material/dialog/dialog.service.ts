@@ -11,15 +11,16 @@ export class DialogService {
 
   openDialog<T extends AbstractDialogComponent, S>(
     compInsideDialog : ComponentType<T>,
-    compDialog: ComponentType<any>= DialogComponent,
     data?: object,
+    compDialog: ComponentType<any>= DialogComponent,
     viewContainerRef?: ViewContainerRef,
     //componentFactoryResolver?: ComponentFactoryResolver
   ): Observable<S> {
     
     const dialogRef = this.dialog.open(compDialog, {
       data:{
-        compInsideDialog
+        compInsideDialog,
+        data
       },
       viewContainerRef      
     });

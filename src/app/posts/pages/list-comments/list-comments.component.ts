@@ -9,7 +9,7 @@ import { rxDestroy, rxlog, rxlogth } from 'src/app/services/utils/opersrx';
 import { withDestroy, withForm } from 'src/app/shared/base/mixings-comp';
 import { filterLoadingId } from 'src/app/store/selectors/loading.selectors';
 import { InputFields } from 'src/app/users/components/users/users.component';
-import { FilterComment } from '../../models/comment';
+import { Comment, FilterComment } from '../../models/comment';
 import * as CommentsActions from '../../store/actions/comments.actions';
 import { selectorLoadingComments, selectorLoadingQuery, selectorsList } from '../../store/selectors/comments.selectors';
 
@@ -70,8 +70,10 @@ BaseComponent)))  implements OnInit,AfterViewInit {
     return []
   }
 
-  onClickRow(row:any){
-    console.log('clicked row', row)
+  onClickRow(row:Comment){
+    
+    this.store.dispatch(CommentsActions.editDialogComment({data:row}))
+
     this.queryLoadings.push({name:row.author,data:null})
     this.callQuery(row.author).pipe(
       rxDestroy(this)

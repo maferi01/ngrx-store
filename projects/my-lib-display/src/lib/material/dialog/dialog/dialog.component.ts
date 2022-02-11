@@ -24,7 +24,8 @@ export class DialogComponent implements OnInit {
   
   dialogRef: MatDialogRef<any, any>;
   dataDialog: {
-    compInsideDialog: ComponentType<any>
+    compInsideDialog: ComponentType<any>,
+    data:object
   };
   detect: ChangeDetectorRef;
   compInside!: ComponentRef<AbstractDialogComponent>;
@@ -62,11 +63,13 @@ export class DialogComponent implements OnInit {
   createInside(){
     this.compInside=this.viewContainerInside.createComponent(this.dataDialog.compInsideDialog);
     this.dialogInstance= (this.compInside.instance as any) as IDialog;
+    this.dialogInstance.dataFormInput=this.dataDialog.data;
     // detect changes  to refresh the component inside
     this.detect.detectChanges();
 
     this.dialogInstance.onAccept?.subscribe(data=> this.dialogRef.close(data));
     this.formInside=this.dialogInstance.formGroup;
+    
     this.templateButtons=this.dialogInstance.templateButtons;  
       // detect to refresh these proterties   
     this.detect.detectChanges();
