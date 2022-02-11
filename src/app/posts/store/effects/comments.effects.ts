@@ -21,7 +21,7 @@ export class CommentsEffects extends AbstractListNgRxService {
   loadComments$ = this.createEffectLoad(CommentsActions.loadComments, CommentsActions.loadCommentssSuccess, CommentsActions.loadCommentssFailure,
     ({ filter, sortInfo, pageRequest }: LoadInfo<FilterComment>) => this.commentsService.getComments(filter, sortInfo, pageRequest));
 
-  loadInitComments$ = this.createEffectLoadInit([CommentsActions.loadInitComments,CommentsActions.addCommentSuccess], CommentsActions.loadComments, selectorsList);
+  loadInitComments$ = this.createEffectLoadInit([CommentsActions.loadInitComments,CommentsActions.addCommentSuccess,CommentsActions.updateCommentSuccess], CommentsActions.loadComments, selectorsList);
   filterComments$ = this.createEffectFilter(CommentsActions.filterComments, CommentsActions.loadComments, selectorsList);
   paginationComments$ = this.createEffectPagination(CommentsActions.paginationComments, CommentsActions.loadComments, selectorsList);
   sortComments$ = this.createEffectSort(CommentsActions.sortComments, CommentsActions.loadComments, selectorsList);
@@ -59,12 +59,26 @@ export class CommentsEffects extends AbstractListNgRxService {
           this.dialogService.openDialog(FormCommentComponent,action.data).pipe(
             rxlog('Data Dialog closed'),
             filter(data=> !!data),
-            map((data:any) => CommentsActions.addComment({data}))
+            map((data:any) => CommentsActions.updateComment({data}))
           )
         ))    
       });
   
-
+      updateComment$ = createEffect(() => {
+        return this.actions$.pipe(
+          ofType(CommentsActions.updateComment),
+          concatMap((action) =>
+            this.commentsService.updateEntity(action.data)
+              .pipe(
+                //rxZod(xsdLoadInfoSuccess),
+                map(() => CommentsActions.updateCommentSuccess()),
+                catchError(error => of(CommentsActions.updateCommentFailure({ error })))
+                )
+          )
+        );
+      });
+      
+   
 
 
   constructor(protected override actions$: Actions, protected override store: Store, private commentsService: CommentsService, private dialogService: DialogService) {

@@ -85,18 +85,18 @@ export const addCommentFailure = createAction(
   props<{data : Comment}>()
 );
 
-// export const updateComment = createAction(
-//   '[Comments] Add Comment',
-//   props<{data : Comment}>() 
-// );
-// export const addCommentSuccess = createAction(
-//   '[Comments] Add Commentss Success'  
-// );
+export const updateComment = createAction(
+  '[Comments] Update Comment',
+  props<{data : Comment}>() 
+);
+export const updateCommentSuccess = createAction(
+  '[Comments] Update Commentss Success'  
+);
 
-// export const addCommentFailure = createAction(
-//   '[Comments] Add Comment Failure',
-//   props<{ error: any }>()             
-// );
+export const updateCommentFailure = createAction(
+  '[Comments] Update Comment Failure',
+  props<{ error: any }>()             
+);
 
 
 /**
