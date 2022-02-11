@@ -2,11 +2,11 @@
 <app-form  #formfilter [showButtons]="false">
     <ng-container [formGroup]="group" *formg="let group" >
       <div class="flex flex-row">
-        <app-text-field [value]="dataFormInput!.comment" [name]="'comment'" [label]="'Filter by comment'" [validations]="validations"  MatField>
+        <app-text-field [value]="dataFormInput?.comment" [name]="'comment'" [label]="'Filter by comment'" [validations]="validations"  MatField>
         </app-text-field>
-        <app-text-field [value]="dataFormInput!.author" [name]="'author'" [label]="'Filter by author'"  MatField>
+        <app-text-field [value]="dataFormInput?.author" [name]="'author'" [label]="'Filter by author'"  MatField>
         </app-text-field>        
-        <lib-number-mat-field [value]="dataFormInput!.id"  [name]="'id'" [label]="'Filter by Id'" MatField></lib-number-mat-field>
+        <lib-number-mat-field [value]="dataFormInput?.id"  [name]="'id'" [label]="'Filter by Id'" MatField></lib-number-mat-field>
       </div>
     </ng-container>
   </app-form>

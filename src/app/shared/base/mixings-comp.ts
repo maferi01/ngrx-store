@@ -38,9 +38,17 @@ export  interface ITest{
 export function withForm<TBase extends Constructor>(Base: TBase) {
     @Directive()
     class Temporary extends Base implements AfterViewInit,IWithForm {
+      _dataFormInput!: any;
+      
       @Input() 
-      dataFormInput: any;
-       
+      set dataFormInput(data:any){
+        this._dataFormInput=data;
+      }
+    
+      get dataFormInput(){
+        return this._dataFormInput;
+      }
+
        formGroup!: FormGroup;
   
        @ViewChild(FormComponent) private  formComponent!:FormComponent;
