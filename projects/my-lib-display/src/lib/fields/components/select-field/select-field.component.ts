@@ -16,12 +16,15 @@ export class SelectFieldComponent extends FormField  implements OnInit {
   @Input()  
   public set listItems(value: Item[] | null) {
     this._listItems = value;
-    setDelay(()=>value && value?.length>1?this.control?.setValue(''):this.control?.setValue(value ?value[0]?.value:''))
+    setDelay(()=>value && value?.length>1?this.control?.setValue(this.defaultValue):this.control?.setValue(value ?value[0]?.value:''))
     
    
   } 
   public get listItems(): Item[] | null {
     return this._listItems;
   }
+
+  @Input()
+  defaultValue:string='';
  
 }
