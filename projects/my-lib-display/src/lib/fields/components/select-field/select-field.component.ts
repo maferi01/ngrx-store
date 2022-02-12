@@ -15,9 +15,10 @@ export class SelectFieldComponent extends FormField  implements OnInit {
   private _listItems: Item[] | null = [];
   @Input()  
   public set listItems(value: Item[] | null) {
-    setDelay(()=>this.control?.setValue(''))
-    
     this._listItems = value;
+    setDelay(()=>value && value?.length>1?this.control?.setValue(''):this.control?.setValue(value ?value[0]?.value:''))
+    
+   
   } 
   public get listItems(): Item[] | null {
     return this._listItems;
