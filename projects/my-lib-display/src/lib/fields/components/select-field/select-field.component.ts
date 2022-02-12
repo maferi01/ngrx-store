@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormField } from '../../form-field.directive';
+import { setDelay } from '../../utils';
 
 export type Item= {value: string, desc:string};
 
@@ -11,6 +12,15 @@ export type Item= {value: string, desc:string};
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectFieldComponent extends FormField  implements OnInit {
-   @Input()
-   listItems: Item[]|null=[]; 
+  private _listItems: Item[] | null = [];
+  @Input()  
+  public set listItems(value: Item[] | null) {
+    setDelay(()=>this.control?.setValue(''))
+    
+    this._listItems = value;
+  } 
+  public get listItems(): Item[] | null {
+    return this._listItems;
+  }
+ 
 }
