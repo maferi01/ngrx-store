@@ -3,8 +3,8 @@ import { FormGroup } from "@angular/forms";
 import { Constructor, FormComponent, FormField, IInit, IWithForm, IWithFormButtons } from "my-lib-display";
 import { map, Subject, tap } from "rxjs";
 import { MyService } from "src/app/users/my.service";
-import { consoleApp } from "../services/utils/logger";
-import { rxDestroy } from "../services/utils/opersrx";
+import { consoleApp } from "../utils/logger";
+import { rxDestroy } from "../utils/opersrx";
 
 
   

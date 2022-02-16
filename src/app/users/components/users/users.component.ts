@@ -2,8 +2,8 @@ import { AfterViewInit, ChangeDetectorRef, Component, Directive, Injector, Input
 import { BaseComponent, Constructor, IBaseMIxings } from 'my-lib-display';
 import { interval } from 'rxjs';
 import { ITest, withDestroy } from 'src/app/shared/base/mixings-comp';
-import { NameLog } from 'src/app/shared/services/utils/logger';
-import { rxlogth, rxDestroy } from 'src/app/shared/services/utils/opersrx';
+import { NameLog } from 'src/app/shared/utils/logger';
+import { rxlogth, rxDestroy } from 'src/app/shared/utils/opersrx';
 import { MyService } from '../../my.service';
 import { MixComponent } from '../mix/mix.component';
 

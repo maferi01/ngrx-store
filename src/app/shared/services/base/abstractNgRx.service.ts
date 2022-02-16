@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import { TypeEventPagination } from "my-lib-display";
 import { catchError, concatMap, map, Observable, of } from "rxjs";
 import { FilterListInfo, IResponseData, ISelectorsList, LoadInfo, LoadInfoSuccces, PageInfo, SortInfo, xsdLoadInfoSuccess } from "../models/filter.model";
-import { rxZod } from '../utils/zodrx';
+import { rxZod } from '../../utils/zodrx';
 
 
 @Injectable()

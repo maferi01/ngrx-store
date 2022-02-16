@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AbstractEntityService } from 'src/app/shared/services/base/abstract.entity.service';
 import { SortInfo, PageRequest, IResponseData } from 'src/app/shared/services/models/filter.model';
-import { NameLog } from 'src/app/shared/services/utils/logger';
-import { NamesLog } from 'src/app/shared/services/utils/names-classes';
-import { rxZod } from 'src/app/shared/services/utils/zodrx';
+import { NameLog } from 'src/app/shared/utils/logger';
+import { NamesLog } from 'src/app/shared/utils/names-classes';
+import { rxZod } from 'src/app/shared/utils/zodrx';
 import { environment } from 'src/environments/environment';
 import { Comment, CommentRespXsd, FilterComment } from '../models/comment';
 
