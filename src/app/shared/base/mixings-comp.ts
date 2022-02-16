@@ -1,8 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Injector, Input, OnDestroy, OnInit, Output, QueryList, TemplateRef, ViewChild } from "@angular/core";
+import { AfterViewInit, Directive, EventEmitter, Injector, Input, OnDestroy, Output, QueryList, TemplateRef, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Constructor, FormComponent, FormField, IInit, IWithForm, IWithFormButtons } from "my-lib-display";
 import { map, Subject, tap } from "rxjs";
-import { MyService } from "src/app/users/my.service";
 import { consoleApp } from "../utils/logger";
 import { rxDestroy } from "../utils/opersrx";
 
@@ -18,8 +17,8 @@ export  interface ITest{
       destroy$ = new Subject();
       override init(...args: any[]): void {
         super.init(...args);
-        const inj: Injector = this.injector;
-        consoleApp(this).log('inject withDestoy=', inj, inj?.get(MyService))
+        //const inj: Injector = this.injector;
+       // consoleApp(this).log('inject withDestoy=', inj, inj?.get(MyService))
       }
   
   
