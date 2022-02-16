@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AbstractEntityService } from 'src/app/shared/services/base/abstract.entity.service';
-import { SortInfo, PageRequest, IResponseData } from 'src/app/shared/store/filter.list.model';
+import { IResponseData, PageRequest, SortInfo } from 'src/app/shared/store/list/filter.list.model';
 import { NameLog } from 'src/app/shared/utils/logger';
 import { NamesLog } from 'src/app/shared/utils/names-classes';
 import { rxZod } from 'src/app/shared/utils/zodrx';

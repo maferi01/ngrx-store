@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injector } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SortInfo, PageRequest } from '../../store/filter.list.model';
+import { PageRequest, SortInfo } from '../../store/list/filter.list.model';
 import { Entity } from '../models/models';
 import { AbstractService } from './abstract.service';
 

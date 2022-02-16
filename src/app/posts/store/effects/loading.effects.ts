@@ -4,7 +4,7 @@ import * as PostsActions from '../actions/posts.actions';
 import * as CommentsActions from '../actions/comments.actions';
 import { Action } from '@ngrx/store';
 import { AbstractLoadingEffects } from 'src/app/shared/store/loading/abstractNgRx.loading';
-import { LoadInfo, LoadInfoSuccces } from 'src/app/shared/store/filter.list.model';
+import { LoadInfo, LoadInfoSuccces } from 'src/app/shared/store/list/filter.list.model';
 
 type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
 

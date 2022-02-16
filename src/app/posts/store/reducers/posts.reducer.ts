@@ -1,5 +1,5 @@
 
-import { createReducerList, StateList } from 'src/app/shared/store/reducer.list';
+import { createReducerList, StateList } from 'src/app/shared/store/list/reducer.list';
 import * as PostsActions from '../actions/posts.actions';
 
 export const postsFeatureKey = 'posts';

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createSelectorsList } from 'src/app/shared/store/list/selectors.list';
 import { createSelectorLoading, createSelectorLoadingGroup } from 'src/app/shared/store/loading/loading.selectors';
-import { createSelectorsList } from 'src/app/shared/store/selectors.list';
 import * as fromIndex from '../reducers';
 
 

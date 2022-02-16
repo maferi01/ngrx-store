@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { BaseComponent, TypeEventPagination } from 'my-lib-display';
 import { delay, of, tap } from 'rxjs';
 import { withDestroy, withForm } from 'src/app/shared/base/mixings-comp';
-import { SortInfo } from 'src/app/shared/store/filter.list.model';
+import { SortInfo } from 'src/app/shared/store/list/filter.list.model';
 import { filterLoadingId } from 'src/app/shared/store/loading/loading.selectors';
 import { NameLog } from 'src/app/shared/utils/logger';
 import { rxDestroy, rxlogth } from 'src/app/shared/utils/opersrx';
