@@ -15,12 +15,12 @@ export abstract class AbstractEntityService<E extends Entity> extends AbstractSe
   }
 
   getEntities<F>(sortInfo:SortInfo,pageRequest:PageRequest, fnParams: (params: HttpParams) => HttpParams): Observable<HttpResponse<any>> {
-    let urlPosts = this.urlEntity;
+    let urlEntity = this.urlEntity;
 
     let params = new HttpParams();
       if (pageRequest?.requestLink) {
-       // urlPosts = this.getLink(filterList.page);
-       urlPosts=pageRequest.requestLink;
+       // urlEntity = this.getLink(filterList.page);
+       urlEntity=pageRequest.requestLink;
       } else {
         params = fnParams(params);
         if (pageRequest?.pageIndex) {
@@ -36,7 +36,7 @@ export abstract class AbstractEntityService<E extends Entity> extends AbstractSe
         }
       }
    
-    return this.httpClient.get(urlPosts, { params, observe: 'response' });
+    return this.httpClient.get(urlEntity, { params, observe: 'response' });
   
   }
 

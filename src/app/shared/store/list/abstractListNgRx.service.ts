@@ -16,8 +16,6 @@ export  class AbstractListNgRxService  implements OnDestroy {
     return this.actions$.pipe(
       ofType(actionLoad),
       concatMap((action: LoadInfo) =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        //this.postsService.getPosts(action.filterPost,action.sortInfo,action.pageRequest)
         fn(action)
           .pipe(
             map((data: IResponseData)=>({ data: data.data, link: data.link, filter: action.filter, sortInfo: action.sortInfo, pageRequest: action.pageRequest } as LoadInfoSuccces)),
