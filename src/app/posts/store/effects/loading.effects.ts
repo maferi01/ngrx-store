@@ -1,26 +1,13 @@
 import { Injectable } from '@angular/core';
-
-import * as PostsActions from '../actions/posts.actions';
-import * as CommentsActions from '../actions/comments.actions';
-import { Action } from '@ngrx/store';
-import { AbstractLoadingEffects } from 'src/app/shared/store/loading/abstractNgRx.loading';
 import { LoadInfo, LoadInfoSuccces } from 'src/app/shared/store/list/filter.list.model';
+import { AbstractLoadingEffects, ActionsLoading } from 'src/app/shared/store/loading/abstractNgRx.loading';
+import * as CommentsActions from '../actions/comments.actions';
+import * as PostsActions from '../actions/posts.actions';
 
-type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
 
-type ActionLoadingInfo={
-  type: 'show' | 'hide';
-  idGroupLoading?: string;
-  idLoading?: string; 
-} 
+ 
 
-function getActions(actionsLoading:ActionsLoading){
-   return actionsLoading.map(ac=> ac.actionType);
-}
 
-function getLoadingInfo(action:Action,actionsLoading:ActionsLoading):ActionLoadingInfo{
-  return (actionsLoading.find(ac=> ac.actionType===action.type) as any).fnLoadingInfo(action);
-}
 
 @Injectable()
 export class LoadingEffects extends AbstractLoadingEffects{
