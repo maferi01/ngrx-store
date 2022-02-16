@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DialogService } from 'my-lib-display';
 import { catchError, concatMap, filter, finalize, interval, map, of, takeUntil } from 'rxjs';
-import { AbstractListNgRxService } from 'src/app/shared/store/abstractNgRx.service';
+import { AbstractListNgRxService } from 'src/app/shared/store/abstractListNgRx.service';
 import { LoadInfo } from 'src/app/shared/store/filter.list.model';
 import { consoleApp } from 'src/app/shared/utils/logger';
 import { rxlog } from 'src/app/shared/utils/opersrx';

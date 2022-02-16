@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DialogService } from 'my-lib-display';
-import { AbstractListNgRxService } from 'src/app/shared/store/abstractNgRx.service';
+import { AbstractListNgRxService } from 'src/app/shared/store/abstractListNgRx.service';
 import { LoadInfo } from 'src/app/shared/store/filter.list.model';
 import { FilterPost } from '../../models/models';
 import { PostsService } from '../../services/posts.service';
