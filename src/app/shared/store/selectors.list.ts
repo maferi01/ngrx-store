@@ -1,5 +1,5 @@
 import { createSelector } from "@ngrx/store";
-import { FilterListInfo } from "../models/filter.model";
+import { FilterListInfo } from "./filter.list.model";
 import { StateList } from "./reducer.list";
 
 

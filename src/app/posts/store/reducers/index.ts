@@ -1,7 +1,7 @@
 import { ActionReducerMap } from "@ngrx/store";
 import * as fromPosts from './posts.reducer'; 
 import * as fromComments from './comments.reducer'; 
-import { StateList } from "src/app/shared/services/base/reducer.list";
+import { StateList } from "src/app/shared/store/reducer.list";
 
 export const postsStateFeatureKey = 'postsState';
 

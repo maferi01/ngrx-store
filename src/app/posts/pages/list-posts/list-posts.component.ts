@@ -4,7 +4,7 @@ import { Sort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { BaseComponent, TypeEventPagination } from 'my-lib-display';
 import { withDestroy, withForm } from 'src/app/shared/base/mixings-comp';
-import { SortInfo } from 'src/app/shared/services/models/filter.model';
+import { SortInfo } from 'src/app/shared/store/filter.list.model';
 import { NameLog } from 'src/app/shared/utils/logger';
 import { rxDestroy, rxlogth } from 'src/app/shared/utils/opersrx';
 import { FilterPost } from '../../models/models';

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import * as PostsActions from '../actions/posts.actions';
 import * as CommentsActions from '../actions/comments.actions';
 import { Action } from '@ngrx/store';
-import { AbstractLoadingEffects } from 'src/app/shared/services/base/abstractNgRx.loading';
-import { LoadInfo, LoadInfoSuccces } from 'src/app/shared/services/models/filter.model';
+import { AbstractLoadingEffects } from 'src/app/shared/store/abstractNgRx.loading';
+import { LoadInfo, LoadInfoSuccces } from 'src/app/shared/store/filter.list.model';
 
 type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
 

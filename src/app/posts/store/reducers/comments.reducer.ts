@@ -1,5 +1,5 @@
 import { on } from '@ngrx/store';
-import { createReducerList, StateList } from 'src/app/shared/services/base/reducer.list';
+import { createReducerList, StateList } from 'src/app/shared/store/reducer.list';
 import { Comment } from '../../models/comment';
 import * as CommentsActions from '../actions/comments.actions';
 

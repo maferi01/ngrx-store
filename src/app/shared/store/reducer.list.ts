@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { FilterListInfo, LoadInfoSuccces } from "../models/filter.model";
+import { FilterListInfo, LoadInfoSuccces } from "./filter.list.model";
 
 
 
