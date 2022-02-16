@@ -1,7 +1,7 @@
 import { ActionCreator, createAction, props } from '@ngrx/store';
 import { FunctionWithParametersType, TypedAction } from '@ngrx/store/src/models';
 import { TypeEventPagination } from 'my-lib-display';
-import { LoadInfo, LoadInfoSuccces, SortInfo } from 'src/app/services/models/filter.model';
+import { LoadInfo, LoadInfoSuccces, SortInfo } from 'src/app/shared/services/models/filter.model';
 import { FilterPost, Post } from '../../models/models';
 
 

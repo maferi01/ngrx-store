@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AbstractDialogComponent } from 'my-lib-display';
-import { consoleApp } from 'src/app/services/utils/logger';
 import { withDestroy, withForm, withFormButtons } from 'src/app/shared/base/mixings-comp';
 
 @Component({

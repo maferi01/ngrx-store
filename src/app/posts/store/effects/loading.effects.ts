@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, filter } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
 
-import * as LoadingActions from '../../../store/actions/loading.actions';
 import * as PostsActions from '../actions/posts.actions';
 import * as CommentsActions from '../actions/comments.actions';
 import { Action } from '@ngrx/store';
-import { LoadInfo, LoadInfoSuccces } from 'src/app/services/models/filter.model';
-import { AbstractLoadingEffects } from 'src/app/services/base/abstractNgRx.loading';
+import { AbstractLoadingEffects } from 'src/app/shared/services/base/abstractNgRx.loading';
+import { LoadInfo, LoadInfoSuccces } from 'src/app/shared/services/models/filter.model';
 
 type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
 

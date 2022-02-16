@@ -12,8 +12,8 @@ import { AppEffects } from './store/effects/app.effects';
 import { HttpClientModule } from '@angular/common/http';
 import * as fromError from './store/reducers/error.reducer';
 import { ErrorEffects } from './store/effects/error.effects';
-import { GlobalErrorHandler } from './services/errorHandler';
 import { PageErrorComponent } from './page-error/page-error.component';
+import { GlobalErrorHandler } from './shared/services/errorHandler';
 
 
 @NgModule({

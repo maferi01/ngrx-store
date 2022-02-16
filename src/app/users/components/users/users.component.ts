@@ -1,9 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Directive, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent, Constructor, IBaseMIxings } from 'my-lib-display';
 import { interval } from 'rxjs';
-import { NameLog } from 'src/app/services/utils/logger';
-import { rxDestroy, rxlogth } from 'src/app/services/utils/opersrx';
 import { ITest, withDestroy } from 'src/app/shared/base/mixings-comp';
+import { NameLog } from 'src/app/shared/services/utils/logger';
+import { rxlogth, rxDestroy } from 'src/app/shared/services/utils/opersrx';
 import { MyService } from '../../my.service';
 import { MixComponent } from '../mix/mix.component';
 

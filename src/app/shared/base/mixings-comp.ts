@@ -2,9 +2,9 @@ import { AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Injector, In
 import { FormGroup } from "@angular/forms";
 import { Constructor, FormComponent, FormField, IInit, IWithForm, IWithFormButtons } from "my-lib-display";
 import { map, Subject, tap } from "rxjs";
-import { consoleApp } from "src/app/services/utils/logger";
-import { rxDestroy } from "src/app/services/utils/opersrx";
 import { MyService } from "src/app/users/my.service";
+import { consoleApp } from "../services/utils/logger";
+import { rxDestroy } from "../services/utils/opersrx";
 
 
   

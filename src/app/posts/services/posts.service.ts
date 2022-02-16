@@ -1,12 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { consoleApp, NameLog } from 'src/app/services/utils/logger';
-import { NamesLog } from 'src/app/services/utils/names-classes';
-import { rxZod } from 'src/app/services/utils/zodrx';
+import { AbstractEntityService } from 'src/app/shared/services/base/abstract.entity.service';
+import { SortInfo, PageRequest, IResponseData } from 'src/app/shared/services/models/filter.model';
+import { NameLog } from 'src/app/shared/services/utils/logger';
+import { NamesLog } from 'src/app/shared/services/utils/names-classes';
+import { rxZod } from 'src/app/shared/services/utils/zodrx';
 import { environment } from 'src/environments/environment';
-import { AbstractEntityService } from '../../services/base/abstract.entity.service';
-import { IResponseData, PageRequest, SortInfo } from '../../services/models/filter.model';
 import { FilterPost, Post, PostRespXsd } from '../models/models';
 
 
