@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {   filter, map, Observable } from 'rxjs';
-import * as fromLoading from '../reducers/loading.reducer';
-import { LoadingInfo } from '../reducers/loading.reducer';
+import { map, Observable } from 'rxjs';
+import * as fromLoading from './model';
 
 export const selectLoadingState = createFeatureSelector<fromLoading.State>(
   fromLoading.loadingFeatureKey
@@ -21,7 +20,7 @@ export function createSelectorLoadingGroup(idGroupLoading?: string){
 }
 
 
-export function filterLoadingId(obsLoading:Observable<LoadingInfo[]>,idLoading: string ):Observable<boolean>{
+export function filterLoadingId(obsLoading:Observable<fromLoading.LoadingInfo[]>,idLoading: string ):Observable<boolean>{
   return obsLoading.pipe(
     map(l=> l.filter(s=> s.idLoading===idLoading).length>0)
   )

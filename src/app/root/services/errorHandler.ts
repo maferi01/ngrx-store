@@ -1,7 +1,7 @@
 import { ErrorHandler, Inject, Injectable, Injector } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { errorHandlerAngular } from "src/app/store/actions/error.actions";
+import { errorHandlerAngular } from "../store/actions/error.actions";
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {

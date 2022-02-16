@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Action } from '@ngrx/store';
 import { catchError, concatMap, filter, map, of } from "rxjs";
 
-import * as LoadingActions from '../../store/actions/loading.actions';
+import * as LoadingActions from './loading.actions';
 
 export type ActionsLoading=  {actionType:string,fnLoadingInfo:(action:any)=> ActionLoadingInfo}[]
 

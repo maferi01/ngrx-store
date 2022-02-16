@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectError, selectErrorState } from '../store/selectors/error.selectors';
+import { selectError } from '../../store/selectors/error.selectors';
 
 @Component({
   selector: 'app-page-error',

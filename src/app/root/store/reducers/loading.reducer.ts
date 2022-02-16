@@ -1,15 +1,6 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import * as LoadingActions from '../actions/loading.actions';
-
-export const loadingFeatureKey = 'loading';
-
-export type LoadingInfo={
-  actionSource: string, idGroupLoading: string,   idLoading?: string
-} ;
-
-export interface State {
-  stack: LoadingInfo[]
-}
+import { createReducer, on } from '@ngrx/store';
+import { State } from 'src/app/shared/store/loading/model';
+import * as LoadingActions from '../../../shared/store/loading/loading.actions';
 
 export const initialState: State = {
   stack:[]

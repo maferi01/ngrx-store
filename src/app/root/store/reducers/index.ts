@@ -1,9 +1,10 @@
 import {
   ActionReducerMap, MetaReducer
 } from '@ngrx/store';
-import { environment } from '../../../environments/environment';
-import * as fromLoading from './loading.reducer';
+import * as fromLoading from '../../../shared/store/loading/model';
+import * as fromLoadingReducer from '../reducers/loading.reducer';
 import * as fromError from './error.reducer';
+import { environment } from 'src/environments/environment';
 
 export interface State {
   loading:fromLoading.State,
@@ -11,7 +12,7 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
-  loading: fromLoading.reducer,
+  loading: fromLoadingReducer.reducer,
   error: fromError.reducer
 };
 
