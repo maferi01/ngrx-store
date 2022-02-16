@@ -27,8 +27,7 @@ import { MyLibDisplayModule } from 'my-lib-display';
     RootRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects,ErrorEffects]),
-    StoreModule.forFeature(fromError.errorFeatureKey, fromError.reducer),    
+    EffectsModule.forRoot([AppEffects,ErrorEffects]),    
   ],
   providers: [{provide:ErrorHandler, useClass:GlobalErrorHandler}],
   exports:[LayoutComponent]
