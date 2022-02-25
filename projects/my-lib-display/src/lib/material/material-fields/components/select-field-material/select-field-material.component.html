@@ -1,7 +1,0 @@
-<app-material-layout-field >
-  <label>{{label}}</label>
-  <mat-select  [formControl]="control" >
-    <mat-option value="" disabled>Choose item...</mat-option>
-    <mat-option *ngFor="let item of listItems" [value]="item.value">{{ item.desc }}</mat-option>
-  </mat-select>  
-</app-material-layout-field>
