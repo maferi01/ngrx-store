@@ -11,7 +11,7 @@
     "lib-display:build:watch": "ng build my-lib-display --watch",
     "server:mock": "mock-server --path ./mocks --proxy http://localhost:5000",
     "client:mock": "mock-client 3000 localhost 8083",
-    "deploy": "npm run lib-display:build && ng build --prod ",
+    "deploy": "npm run lib-display:build && ng build -base-href=/ngrx-store/ ",
     "server:json": "json-server --watch db.json --port 5000  --delay 600",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "npm run docs:json && start-storybook -p 6006",
