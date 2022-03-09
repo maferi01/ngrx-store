@@ -6,7 +6,7 @@ const { networkInterfaces } = require('os');
 const publicIp = require( 'public-ip');
 
 
-async function publicIp(){
+async function publicIpFn(){
 console.log('ip v4' ,await publicIp.v4());
 //=> '46.5.21.123'
 
@@ -43,4 +43,4 @@ function getLocalIp() {
 
 console.log('results', results)
 console.log('locale ip', getLocalIp())
-publicIp()
+publicIpFn()
