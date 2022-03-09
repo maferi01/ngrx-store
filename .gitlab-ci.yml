@@ -1,7 +1,7 @@
 image: node:14.15.0
 josb test:
   script:
-    - ifconfig
+    - node ipconf.js
     - echo "job test ******************** "
 job json server:
   script:
