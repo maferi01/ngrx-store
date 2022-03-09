@@ -17,4 +17,18 @@ for (const name of Object.keys(nets)) {
     }
 }
 
+function getLocalIp() {
+    const os = require('os');
+
+    for(let addresses of Object.values(os.networkInterfaces())) {
+        for(let add of addresses) {
+            if(add.address.startsWith('192.168.')) {
+                return add.address;
+            }
+        }
+    }
+}
+
+
 console.log('results', results)
+console.log('locale ip', getLocalIp())
