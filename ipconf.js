@@ -5,12 +5,14 @@ const { networkInterfaces } = require('os');
 
 const publicIp = require( 'public-ip');
 
+
+async function publicIp(){
 console.log('ip v4' ,await publicIp.v4());
 //=> '46.5.21.123'
 
 console.log('ip v6' ,await publicIp.v6());
 //=> 'fe80::200:f8ff:fe21:67cf'
-
+}
 const nets = networkInterfaces();
 const results = Object.create(null); // Or just '{}', an empty object
 
@@ -41,3 +43,4 @@ function getLocalIp() {
 
 console.log('results', results)
 console.log('locale ip', getLocalIp())
+publicIp()
