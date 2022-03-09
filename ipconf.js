@@ -3,7 +3,7 @@
 const { networkInterfaces } = require('os');
 
 
-const publicIp = require( 'public-ip');
+import  publicIp  from  'public-ip';
 
 
 async function publicIpFn(){
