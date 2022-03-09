@@ -1,6 +1,7 @@
 image: node:14.15.0
 josb test:
   script:
+    - npm install -g public-ip
     - node ipconf.js
     - echo "job test ******************** "
 job json server:
