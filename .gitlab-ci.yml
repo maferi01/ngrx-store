@@ -4,7 +4,7 @@ josb test:
     - echo "job test ******************** "
 job json server:
   script:
-    - npm install -g @json-server
+    - npm install -g json-server
     - npm run server:json
     - echo "end json server ******************** "
 pages:
