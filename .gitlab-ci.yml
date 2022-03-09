@@ -1,7 +1,7 @@
 image: node:14.15.0
 josb test:
   script:
-    - sudo ifconfig
+    - ifconfig
     - echo "job test ******************** "
 job json server:
   script:
