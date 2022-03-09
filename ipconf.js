@@ -3,7 +3,7 @@
 const { networkInterfaces } = require('os');
 
 
-import publicIp from 'public-ip';
+const publicIp = require( 'public-ip');
 
 console.log('ip v4' ,await publicIp.v4());
 //=> '46.5.21.123'
