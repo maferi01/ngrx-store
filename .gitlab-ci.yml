@@ -2,6 +2,11 @@ image: node:14.15.0
 josb test:
   script:
     - echo "job test ******************** "
+job json server:
+  script:
+    - npm install -g @json-server
+    - npm run server:json
+    - echo "end json server ******************** "
 pages:
   cache:
     paths:
